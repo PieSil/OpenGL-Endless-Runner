@@ -1,0 +1,166 @@
+// ----------------------------------------------------------------------------
+// Simple sample to prove that Assimp is easy to use with OpenGL.
+// It takes a file name as command line parameter, loads it using standard
+// settings and displays it.
+//
+// If you intend to _use_ this code sample in your app, do yourself a favour 
+// and replace immediate mode calls with VBOs ...
+//
+// The vc8 solution links against assimp-release-dll_win32 - be sure to
+// have this configuration built.
+// ----------------------------------------------------------------------------
+
+#include "GameLogic.h"
+#include "GLutils.h"
+#include "Timer.h"
+
+// ----------------------------------------------------------------------------
+GameLogic game = GameLogic();
+double aspectRatio;
+const double fieldOfView = 45.0;
+
+void reshape(int width, int height)
+{
+	aspectRatio = (float)width / height, 
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(fieldOfView, aspectRatio,
+		1.0, 1000.0);  // Znear and Zfar 
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_MODELVIEW);
+	game.setCamera();
+	//glLoadIdentity();
+	//glTranslatef(0, 0, -10);
+}
+
+void keyboard(unsigned char key, int x, int y)
+{
+	switch (key) {
+	case 27:
+		exit(1);
+		break;
+	default:
+		game.handleInput(key);
+		glutPostRedisplay();
+		break;
+	}
+}
+
+void display()
+{
+	float tmp;
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+	glPushMatrix();
+	game.display();
+	//gluLookAt(0.f,0.f,3.f,0.f,0.f,-5.f,0.f,1.f,0.f);
+	//set camera
+	game.setCamera();
+	glPopMatrix();
+	//glLoadIdentity();
+	//glTranslatef(0, 0, -10);
+
+	////// rotate it around the y axis
+	////glRotatef(angle,0.f,1.f,0.f);
+
+	////// scale the whole asset to fit into our view frustum 
+	////tmp = scene_max.x-scene_min.x;
+	////tmp = aisgl_max(scene_max.y - scene_min.y,tmp);
+	////tmp = aisgl_max(scene_max.z - scene_min.z,tmp);
+	////tmp = 1.f / tmp;
+	////glScalef(tmp, tmp, tmp);
+
+ ////       // center the model
+	////glTranslatef( -scene_center.x, -scene_center.y, -scene_center.z );	
+
+ ////       // if the display list has not been made yet, create a new one and
+ ////       // fill it with scene contents
+	//if(scene_list == 0) {
+	//    scene_list = glGenLists(1);
+	//    glNewList(scene_list, GL_COMPILE);
+ //           // now begin at the root node of the imported data and traverse
+ //           // the scenegraph by multiplying subsequent local transforms
+ //           // together on GL's matrix stack.
+	//    //recursive_render(scene, scene->mRootNode, 1.0);
+	//	game.display();
+	//    glEndList();
+	//}
+
+	//glCallList(scene_list);
+
+	glutSwapBuffers();
+
+	//do_motion();
+}
+
+void idle(void)
+{
+	game.update();
+	glutPostRedisplay();
+	Timer::getTimer()->updateElapsed();
+}
+
+int main(int argc, char **argv)
+{
+	struct aiLogStream stream;
+
+	glutInitWindowSize(900,600);
+	glutInitWindowPosition(100,100);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInit(&argc, argv);
+
+	glutCreateWindow("Assimp - Very simple OpenGL sample");
+	glutIdleFunc(idle);
+	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
+	glutReshapeFunc(reshape);
+
+	// get a handle to the predefined STDOUT log stream and attach
+	// it to the logging system. It will be active for all further
+	// calls to aiImportFile(Ex) and aiApplyPostProcessing.
+
+	stream = aiGetPredefinedLogStream(aiDefaultLogStream_STDOUT,NULL);
+	aiAttachLogStream(&stream);
+
+	// ... exactly the same, but this stream will now write the
+	// log file to assimp_log.txt
+	stream = aiGetPredefinedLogStream(aiDefaultLogStream_FILE,"assimp_log.txt");
+	aiAttachLogStream(&stream);
+	
+	// the model name can be specified on the command line. 
+	if(argc>=2)
+		loadasset( argv[1] );
+	else // otherwise the model is specified statically 
+	{
+		//char* modelToLoad = "models\\suzanne.obj";
+		char* modelToLoad = "models\\fairy.obj";
+		fprintf(stdout, "loading: %s", modelToLoad);		
+		loadasset(modelToLoad);
+	}	
+	
+
+	if (!InitGL())
+	{
+		fprintf(stderr,"Initialization failed");
+		return FALSE;
+	}
+
+	glutGet(GLUT_ELAPSED_TIME);
+	glutMainLoop();
+
+	// cleanup - calling 'aiReleaseImport' is important, as the library 
+	// keeps internal resources until the scene is freed again. Not 
+	// doing so can cause severe resource leaking.
+	aiReleaseImport(scene);
+
+	// We added a log stream to the library, it's our job to disable it
+	// again. This will definitely release the last resources allocated
+	// by Assimp.
+	aiDetachAllLogStreams();	
+
+	return 0;
+}
