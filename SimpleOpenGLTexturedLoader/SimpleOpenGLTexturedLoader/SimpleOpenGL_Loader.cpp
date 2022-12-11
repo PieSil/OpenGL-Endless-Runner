@@ -16,8 +16,10 @@
 
 // ----------------------------------------------------------------------------
 GameLogic game = GameLogic();
+
 double aspectRatio;
 const double fieldOfView = 45.0;
+
 
 void reshape(int width, int height)
 {
@@ -26,12 +28,8 @@ void reshape(int width, int height)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(fieldOfView, aspectRatio,
-		1.0, 1000.0);  // Znear and Zfar 
+		1, 1000.0);  // Znear and Zfar 
 	glViewport(0, 0, width, height);
-	glMatrixMode(GL_MODELVIEW);
-	game.setCamera();
-	//glLoadIdentity();
-	//glTranslatef(0, 0, -10);
 }
 
 void keyboard(unsigned char key, int x, int y)
@@ -54,47 +52,21 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
-	glPushMatrix();
-	game.display();
-	//gluLookAt(0.f,0.f,3.f,0.f,0.f,-5.f,0.f,1.f,0.f);
-	//set camera
 	game.setCamera();
-	glPopMatrix();
-	//glLoadIdentity();
-	//glTranslatef(0, 0, -10);
 
-	////// rotate it around the y axis
-	////glRotatef(angle,0.f,1.f,0.f);
+	//without this code nothing works
+	tmp = scene_max.x - scene_min.x;
+	tmp = aisgl_max(scene_max.y - scene_min.y, tmp);
+	tmp = aisgl_max(scene_max.z - scene_min.z, tmp);
+	tmp = 1.f / tmp;
+	glScalef(tmp, tmp, tmp);
 
-	////// scale the whole asset to fit into our view frustum 
-	////tmp = scene_max.x-scene_min.x;
-	////tmp = aisgl_max(scene_max.y - scene_min.y,tmp);
-	////tmp = aisgl_max(scene_max.z - scene_min.z,tmp);
-	////tmp = 1.f / tmp;
-	////glScalef(tmp, tmp, tmp);
+	glTranslatef(-scene_center.x, -scene_center.y, -scene_center.z);
 
- ////       // center the model
-	////glTranslatef( -scene_center.x, -scene_center.y, -scene_center.z );	
-
- ////       // if the display list has not been made yet, create a new one and
- ////       // fill it with scene contents
-	//if(scene_list == 0) {
-	//    scene_list = glGenLists(1);
-	//    glNewList(scene_list, GL_COMPILE);
- //           // now begin at the root node of the imported data and traverse
- //           // the scenegraph by multiplying subsequent local transforms
- //           // together on GL's matrix stack.
-	//    //recursive_render(scene, scene->mRootNode, 1.0);
-	//	game.display();
-	//    glEndList();
-	//}
-
-	//glCallList(scene_list);
+	//draw the scene
+	game.display();
 
 	glutSwapBuffers();
-
-	//do_motion();
 }
 
 void idle(void)

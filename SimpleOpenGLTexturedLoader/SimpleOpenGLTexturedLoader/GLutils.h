@@ -10,11 +10,12 @@
 #include "aiPostProcess.h"
 #include "aiScene.h"
 
+#include <map>
+#include <string.h>
+
 #include "GL/glut.h"
 #include <IL/il.h>
 
-#include <map>
-#include <string.h>
 //#include "GameLogic.h"
 
 	// currently this is hardcoded
@@ -37,6 +38,8 @@ extern GLuint* textureIds;							// pointer to texture Array
 extern GLfloat LightAmbient[];
 extern GLfloat LightDiffuse[];
 extern GLfloat LightPosition[];
+//double aspectRatio;
+//extern const double fieldOfView;
 
 	// ----------------------------------------------------------------------------
 void get_bounding_box_for_node(const aiNode* nd, aiVector3D *min, aiVector3D *max, aiMatrix4x4 *trafo);

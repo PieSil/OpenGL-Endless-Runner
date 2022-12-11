@@ -1,5 +1,8 @@
 #pragma once
 #include "GameState.h"
+
+//A GameState derived class, used to test the correct behaviour of state stack in GameLogic class
+
 class TestState :
     public GameState {
 public:

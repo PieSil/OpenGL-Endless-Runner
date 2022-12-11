@@ -13,9 +13,7 @@ void GameObject::move(float x, float y, float z) {
 	//recover elapsed time since last iteration
 	double elapsedTime = Timer::getTimer()->getElapsed(); 
 	//move based on how much time has passed since last iteration, makes movement independent from FPS
-	if (elapsedTime != 0) {
-		std::cout << "moving";
-	}
+
 	pos_x += elapsedTime * speed * x;
 	pos_y += elapsedTime * speed * y;
 	pos_z += elapsedTime * speed * z;

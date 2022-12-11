@@ -22,6 +22,18 @@ void PlayingState::handleInput(unsigned char key) {
 	case 's': case 'S':
 		player->move(0, 0, -1.0);
 		break;
+	case 'a': case 'A':
+		player->move(1, 0, 0);
+		break;
+	case 'd': case 'D':
+		player->move(-1, 0, 0);
+		break;
+	/*case 'r': case 'R':
+		player->move(0, 1, 0);
+		break;
+	case 'f': case 'F':
+		player->move(0, -1, 0);
+		break;*/
 	case 'c': case 'C':
 		game->setState(State::TEST);
 		break;

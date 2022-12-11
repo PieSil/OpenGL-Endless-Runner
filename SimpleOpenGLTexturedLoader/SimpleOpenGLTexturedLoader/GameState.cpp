@@ -22,10 +22,11 @@ void GameState::update() {
 }
 
 void GameState::setCamera() {
-	glLoadIdentity();
 	//glTranslatef(0, 0, -20);
 	//glRotatef(30, 1., 0., 0.);
-	gluLookAt(0, 5.7735, -10, 0, 0, 0, 0, 1, 0);
+	glLoadIdentity();
+	gluLookAt(0, 2.67949, -10, 0, 0, 0, 0, 1, 0);
+	//glLoadIdentity();
 	//gluLookAt()
 }
 

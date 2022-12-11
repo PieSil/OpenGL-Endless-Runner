@@ -1,6 +1,8 @@
 #pragma once
 #include "Model.h"
 
+//An implementation of Model abstract class, display function renders a fairy
+
 class FairyModel :
     public Model
 {

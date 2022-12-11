@@ -3,7 +3,8 @@
 #include <list>
 #include <stack>
 #include "GameState.h"
-//#include "GameLevel.h"
+
+//The game state which should correspond to the actual game 
 
 class PlayingState : public  GameState {
 

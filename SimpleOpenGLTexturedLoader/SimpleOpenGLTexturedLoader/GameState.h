@@ -1,9 +1,12 @@
 #pragma once
 #include <memory>
 #include "GameLogic.h"
+
+//abstract class, represents a state of the game, like menu, playing state, pause, etc. 
+//multiple states can be active at once thanks to a stack structure (see GameLogic class)
+
 class GameState {
-    //abstract class, represents a state of the game, like menu, playing state, paue, etc. 
-    //multiple states can be active at once thanks to a stack structure (see GameLogic class)
+   
 public:
     explicit GameState(GameLogic* game);
 

@@ -7,41 +7,26 @@ FairyModel::FairyModel(float wingsAngle) : wingsAngle(wingsAngle) {
 	wingsDown = true;
 }
 
-void FairyModel::display(float x, float y, float z)
-{
-	//if(scene_list == 0) {
-            // now begin at the root node of the imported data and traverse
-            // the scenegraph by multiplying subsequent local transforms
-            // together on GL's matrix stack.
-		//animate();
+void FairyModel::display(float x, float y, float z) {
 
-	//x *= -1;
-	//y *= -1;
-	//z *= -1;
-		
-		//glLoadIdentity();
 		glPushMatrix();
 		//glLoadIdentity();
-		//glRotatef(180, 0, 1, 0);
-		glPushMatrix();
 		glTranslatef(x, y, z);
-		recursive_render(scene, scene->mRootNode->mChildren[0], 1.0);
+		recursive_render(scene, scene->mRootNode->mChildren[0], 1.0);  //!!IMPORTANT: rendered object depends on the order of the objects inside the imported scene
+																	   //this specific call should render a fairy
 		glPopMatrix();
 		glPushMatrix();
 		//glLoadIdentity();
-		glRotatef(wingsAngle, 0., 0., 1.);
 		glTranslatef(x, y, z);
+		glRotatef(wingsAngle, 0., 0., 1.);
 		recursive_render(scene, scene->mRootNode->mChildren[1], 1.0);
 		glPopMatrix();
 		glPushMatrix();
 		//glLoadIdentity();
-		glRotatef(-1 * wingsAngle, 0., 0., 1.);
 		glTranslatef(x, y, z);
+		glRotatef(-1 * wingsAngle, 0., 0., 1.);
 		recursive_render(scene, scene->mRootNode->mChildren[2], 1.0);
 		glPopMatrix();
-		glPopMatrix();
-		
-	//}
 }
 
 void FairyModel::animate()

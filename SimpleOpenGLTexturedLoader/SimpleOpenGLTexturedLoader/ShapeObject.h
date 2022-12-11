@@ -3,6 +3,10 @@
 #include "Model.h"
 #include <memory>
 #include<GL/glut.h>
+
+//A GameObkect which is also associated to a model (be it an OpenGL model, like a solid cube, or a model imported through assimp)
+//this class and its parent class (GameObject) may be fused into a single class
+
 class ShapeObject :
     public GameObject {
 public:

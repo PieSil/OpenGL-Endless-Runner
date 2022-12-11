@@ -1,10 +1,10 @@
-Info,  T9260: Load models\fairy.obj
-Info,  T9260: Found a matching importer for this file format
-Info,  T9260: Import root directory is 'models\'
-Error, T9260: OBJ/MTL: Unexpected illumination model (0-2 recognized)
-Info,  T9260: Entering post processing pipeline
-Info,  T9260: TriangulateProcess finished. All polygons have been triangulated.
-Info,  T9260: Points: 0, Lines: 0, Triangles: 3, Polygons: 0 (Meshes, X = removed)
-Info,  T9260: JoinVerticesProcess finished | Verts in: 7712 out: 6793 | ~11.9%
-Info,  T9260: Cache relevant are 3 meshes (3840 faces). Average output ACMR is 1.795313
-Info,  T9260: Leaving post processing pipeline
+Info,  T15420: Load models\fairy.obj
+Info,  T15420: Found a matching importer for this file format
+Info,  T15420: Import root directory is 'models\'
+Error, T15420: OBJ/MTL: Unexpected illumination model (0-2 recognized)
+Info,  T15420: Entering post processing pipeline
+Info,  T15420: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T15420: Points: 0, Lines: 0, Triangles: 3, Polygons: 0 (Meshes, X = removed)
+Info,  T15420: JoinVerticesProcess finished | Verts in: 7712 out: 6793 | ~11.9%
+Info,  T15420: Cache relevant are 3 meshes (3840 faces). Average output ACMR is 1.795313
+Info,  T15420: Leaving post processing pipeline

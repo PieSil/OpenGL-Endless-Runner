@@ -1,5 +1,7 @@
 #include "Glutils.h"
 
+//A series of useful functions (previously in SimpleOpenGL_Loader)
+
 // currently this is hardcoded
 //static const std::string basepath = "./models/textures/"; //obj..
  const std::string basepath = "./models/"; //per i file blend
@@ -267,7 +269,8 @@ void recursive_render(const struct aiScene* sc, const struct aiNode* nd, float s
 // ----------------------------------------------------------------------------
 void do_motion(void)
 {
-	/*static GLint prev_time = 0;
+	/*
+	static GLint prev_time = 0;
 
 	int time = glutGet(GLUT_ELAPSED_TIME);
 	angle += (time - prev_time) * 0.01;

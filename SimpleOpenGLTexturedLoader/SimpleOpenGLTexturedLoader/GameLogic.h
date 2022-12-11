@@ -6,13 +6,15 @@
 #include"ShapeObject.h"
 #include"Model.h"
 
-class GameState;
+class GameState; //definition needed to avoid circular inclusion
 
-enum class State {
+enum class State {	
 	//possible states
 	PLAYING, TEST
 };
 
+
+//GameLogic class manages current game state and forwards functions calls (e.g. setCamera(), display(), to that specifica state)
 
 class GameLogic {
 public:
