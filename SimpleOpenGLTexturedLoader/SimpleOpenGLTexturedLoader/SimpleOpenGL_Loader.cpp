@@ -58,7 +58,7 @@ void display()
 	tmp = scene_max.x - scene_min.x;
 	tmp = aisgl_max(scene_max.y - scene_min.y, tmp);
 	tmp = aisgl_max(scene_max.z - scene_min.z, tmp);
-	tmp = 1.f / tmp;
+    tmp = 10.f / tmp; //<--the bigger it is the closer the camera (increase float value to zoom in)
 	glScalef(tmp, tmp, tmp);
 
 	glTranslatef(-scene_center.x, -scene_center.y, -scene_center.z);
@@ -86,9 +86,9 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 
 	glutCreateWindow("Assimp - Very simple OpenGL sample");
+	glutKeyboardFunc(keyboard);
 	glutIdleFunc(idle);
 	glutDisplayFunc(display);
-	glutKeyboardFunc(keyboard);
 	glutReshapeFunc(reshape);
 
 	// get a handle to the predefined STDOUT log stream and attach
@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 	else // otherwise the model is specified statically 
 	{
 		//char* modelToLoad = "models\\suzanne.obj";
-		char* modelToLoad = "models\\fairy.obj";
+		char* modelToLoad = "models\\blender_imports.obj";
 		fprintf(stdout, "loading: %s", modelToLoad);		
 		loadasset(modelToLoad);
 	}	

@@ -2,7 +2,7 @@
 #include <GL/glut.h>
 #include "Timer.h"
 #include <iostream>
-GameObject::GameObject(float x, float y, float z, float _speed) : pos_x(x), pos_y(y), pos_z(z), speed(_speed) {}
+GameObject::GameObject(float x, float y, float z, float _speed) : pos_x(x), pos_y(y), pos_z(z), prev_x(x), prev_y(y), prev_z(z), speed(_speed) {}
 
 void GameObject::update() {
 	//do nothing by default
@@ -12,9 +12,19 @@ void GameObject::update() {
 void GameObject::move(float x, float y, float z) {
 	//recover elapsed time since last iteration
 	double elapsedTime = Timer::getTimer()->getElapsed(); 
-	//move based on how much time has passed since last iteration, makes movement independent from FPS
+	//move based on how much time has passed since last iteration, makes movement independent from FPS  <--- VERY IMPORTANT
+
+	prev_x = pos_x;
+	prev_y = pos_y;
+	prev_z = pos_z;
 
 	pos_x += elapsedTime * speed * x;
 	pos_y += elapsedTime * speed * y;
 	pos_z += elapsedTime * speed * z;
+}
+
+void GameObject::revertMovement() {
+	pos_x = prev_x;
+	pos_y = prev_y;
+	pos_z = prev_z;
 }

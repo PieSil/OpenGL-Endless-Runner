@@ -3,6 +3,7 @@
 #include <list>
 #include <stack>
 #include "GameState.h"
+#include "PhysicalObject.h"
 
 //The game state which should correspond to the actual game 
 
@@ -14,10 +15,14 @@ public:
 
     ~PlayingState() {};
 
+    void update() override;
     void handleInput(unsigned char key) override;
+    void checkCollisions();
 
 private:
-    std::shared_ptr<GameObject> player;
+    std::shared_ptr<PhysicalObject> player;
+    std::list<std::shared_ptr<ShapeObject>> collidables; //objects to test for collisions
+    std::shared_ptr<ShapeObject> ground;
     //GameLevel level;
 };
 

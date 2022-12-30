@@ -11,6 +11,7 @@ public:
     explicit CubeModel(float _size);
 
     void display(float x, float y, float z) override;
+    void getHitbox(struct aiVector3D* min, struct aiVector3D* max) override;
 
 protected:
     float size;

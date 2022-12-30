@@ -53,5 +53,7 @@ void do_motion(void);
 int LoadGLTextures(const aiScene* scene);
 int InitGL();
 int loadasset(const char* path);
+//void mul4x4ByPoint(GLfloat matrix[16], float* x, float* y, float* z, float* w);
+//float* mul4x4By4x4(GLfloat matrix[16], float target[16]);
 	// ----------------------------------------------------------------------------
 	

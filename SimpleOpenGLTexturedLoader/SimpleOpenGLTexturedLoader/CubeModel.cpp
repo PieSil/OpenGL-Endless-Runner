@@ -9,3 +9,7 @@ void CubeModel::display(float x, float y, float z) {
 	glutSolidCube(size);
 	glPopMatrix();
 }
+
+void CubeModel::getHitbox(struct aiVector3D* min, struct aiVector3D* max)
+{
+}

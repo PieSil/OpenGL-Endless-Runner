@@ -15,3 +15,14 @@ void ShapeObject::display() {
 void ShapeObject::update() {
 	shape->animate();
 }
+
+void ShapeObject::getHitbox(struct aiVector3D* min, struct aiVector3D* max) {
+	shape->getHitbox(min, max);
+	min->x += pos_x;
+	min->y += pos_y;
+	min->z += pos_z;
+
+	max->x += pos_x;
+	max->y += pos_y;
+	max->z += pos_z;
+}

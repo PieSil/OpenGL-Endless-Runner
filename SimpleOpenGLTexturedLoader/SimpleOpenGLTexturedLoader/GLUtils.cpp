@@ -26,8 +26,7 @@ GLfloat LightPosition[] = { 0.0f, 0.0f, 15.0f, 1.0f };
 void get_bounding_box_for_node(const struct aiNode* nd,
 	struct aiVector3D* min,
 	struct aiVector3D* max,
-	struct aiMatrix4x4* trafo
-) {
+	struct aiMatrix4x4* trafo) {
 	struct aiMatrix4x4 prev;
 	unsigned int n = 0, t;
 
@@ -176,7 +175,7 @@ void recursive_render(const struct aiScene* sc, const struct aiNode* nd, float s
 	unsigned int n = 0, t;
 	struct aiMatrix4x4 m = nd->mTransformation;
 
-	printf("Node name: %s\n", nd->mName.data);
+	//printf("Node name: %s\n", nd->mName.data);
 
 	//m.Scaling(aiVector3D(scale, scale, scale), m);
 
@@ -191,7 +190,7 @@ void recursive_render(const struct aiScene* sc, const struct aiNode* nd, float s
 		const struct aiMesh* mesh = scene->mMeshes[nd->mMeshes[n]];
 
 		///
-		printf("Drawing MESH with this name: %s\n", mesh->mName.data);
+		//printf("Drawing MESH with this name: %s\n", mesh->mName.data);
 
 		apply_material(sc->mMaterials[mesh->mMaterialIndex]);
 
@@ -436,3 +435,70 @@ int InitGL()					 // All Setup For OpenGL goes here
 
 	return TRUE;					// Initialization Went OK
 }
+
+/*
+void mul4x4ByPoint(GLfloat matrix[16], float *x, float *y, float *z, float *w) {
+	float x_val = *x;
+	float y_val = *y;
+	float z_val = *z;
+	float w_val = *w;
+	*x = x_val * matrix[0] + y_val * matrix[1] + z_val * matrix[2] + 1 * matrix[3];
+	*y = x_val * matrix[4] + y_val * matrix[5] + z_val * matrix[6] + 1 * matrix[7];
+	*y = x_val * matrix[8] + y_val * matrix[9] + z_val * matrix[10] + 1 * matrix[11];
+	*w = w_val * matrix[12] + y_val * matrix[13] + z_val * matrix[14] + 1 * matrix[15];
+}
+*/
+
+/*
+float* mul4x4By4x4(float* matrix, float* target) {
+	float a[4][4] = { matrix[0], matrix[1], matrix[2], matrix[3],
+					  matrix[4], matrix[5], matrix[6], matrix[7],
+					  matrix[8], matrix[9], matrix[10], matrix[11],
+					  matrix[12], matrix[13], matrix[14], matrix[15]
+					};
+	float b[4][4] = { target[0], target[1], target[2], target[3],
+					  target[4], target[5], target[6], target[7],
+					  target[8], target[9], target[10], target[11],
+					  target[12], target[13], target[14], target[15]
+					};
+	float mul[4][4] = { 0 };
+
+	for (int i = 0; i< 16; i++)
+	{
+		for (int j = 0; j<16 ;j++)
+		{
+			mul[i][j] = 0;
+			for (int k = 0;k <16;k++)
+			{
+				mul[i][j] += a[i][k] * b[k][j];
+			}
+		}
+	}
+
+	float* result;
+	result = new float [16];
+
+	result[0] = mul[0][0];
+	result[1] = mul[0][1];
+	result[2] = mul[0][2];
+	result[3] = mul[0][3];
+
+	result[0] = mul[1][0];
+	result[0] = mul[1][1];
+	result[0] = mul[1][2];
+	result[0] = mul[1][3];
+
+	result[0] = mul[2][0];
+	result[0] = mul[2][1];
+	result[0] = mul[2][2];
+	result[0] = mul[2][3];
+
+	result[0] = mul[3][0];
+	result[0] = mul[3][1];
+	result[0] = mul[3][2];
+	result[0] = mul[3][3];
+
+	return result;
+
+}
+*/

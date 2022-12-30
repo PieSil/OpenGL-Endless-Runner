@@ -12,7 +12,7 @@ public:
 
     virtual ~GameState() {};
 
-    void update();
+    virtual void update();
     virtual void handleInput(unsigned char key) = 0;
     void display();
     void setCamera();

@@ -91,12 +91,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssimpModel.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FairyModel.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GLUtils.cpp" />
+    <ClCompile Include="PhysicalObject.cpp" />
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ShapeObject.cpp" />
@@ -106,18 +108,24 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssimpModel.h" />
+    <ClInclude Include="Const.h" />
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="FairyModel.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GLutils.h" />
+    <ClInclude Include="PhysicalObject.h" />
     <ClInclude Include="PlayingState.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ShapeObject.h" />
     <ClInclude Include="SphereModel.h" />
     <ClInclude Include="TestState.h" />
     <ClInclude Include="Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SimpleOpenGLTexturedLoader.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

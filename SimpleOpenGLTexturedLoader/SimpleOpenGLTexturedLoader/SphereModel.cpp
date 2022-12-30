@@ -11,3 +11,7 @@ void SphereModel::display(float x, float y, float z) {
 	glutSolidSphere(radius, slices, stack);
 	glPopMatrix();
 }
+
+void SphereModel::getHitbox(struct aiVector3D* min, struct aiVector3D* max)
+{
+}
