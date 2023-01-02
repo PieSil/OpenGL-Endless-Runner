@@ -59,7 +59,7 @@ void PlayingState::update() {
 
 void PlayingState::handleInput(unsigned char key) {
 	//manages inputs, should depend on active state
-	//TODO transform cases in ifs
+	
 	switch (key) {
 	case 'w': case 'W':
 		player->move(0, 0, 1.0);
@@ -96,8 +96,11 @@ void PlayingState::handleInput(unsigned char key) {
 }
 
 void PlayingState::checkCollisions() {
+	//check all relevant collisions between objects in current level e. g. player and ground, player and collectible items
+
 
 	struct HitboxVertex {
+		//defines a vertex
 		HitboxVertex(int x, int y, int z) : x(x), y(y), z(z) {};
 		HitboxVertex() : x(0), y(0), z(0) {};
 
@@ -107,6 +110,7 @@ void PlayingState::checkCollisions() {
 	};
 
 	struct HitboxFace {
+		//defines a hitbox face (separating a bounding box into its 6 faces may be useful to solve collisions with respecto to the direction of the collision)
 		HitboxFace(HitboxVertex p1, HitboxVertex p2, HitboxVertex p3, HitboxVertex p4) : p1(p1), p2(p2), p3(p3), p4(p4), vertices() {
 			vertices[0] = p1;
 			vertices[1] = p2;
@@ -124,6 +128,7 @@ void PlayingState::checkCollisions() {
 	};
 
 	struct Hitbox {
+		//defines a hitbox
 		Hitbox(aiVector3D min, aiVector3D max, HitboxFace left, HitboxFace right, HitboxFace top, HitboxFace bottom, HitboxFace front, HitboxFace back) :
 			min(min), max(max), left(left), right(right), top(top), bottom(bottom), front(front), back(back) {};
 		Hitbox(aiVector3D min, aiVector3D max) : min(min), max(max) {
@@ -170,20 +175,8 @@ void PlayingState::checkCollisions() {
 		HitboxFace back;
 	}; 
 
-	/*
-	function intersect(a, b) {
-		return (
-			a.minX <= b.maxX &&
-			a.maxX >= b.minX &&
-			a.minY <= b.maxY &&
-			a.maxY >= b.minY &&
-			a.minZ <= b.maxZ &&
-			a.maxZ >= b.minZ
-			);
-	}
-	*/
-
 	auto bboxIntersection = [](Hitbox a, Hitbox b) {
+		//return true if a and b intersect
 		bool result = (
 			a.min.x < b.max.x &&
 			a.max.x > b.min.x &&
@@ -203,15 +196,16 @@ void PlayingState::checkCollisions() {
 	int playerY = (int)player->getPosy();
 	int playerZ = (int)player->getPosz();
 
-	Hitbox playerHitbox = Hitbox(*playerMin, *playerMax);
+	Hitbox playerHitbox = Hitbox(*playerMin, *playerMax); //get player hitbox
 
-	for (auto current : collidables) {
+	for (auto current : collidables) { //iterate over all collidable elements
 
 		int currentX = (int)current->getPosx();
 		int currentY = (int)current->getPosy();
 		int currentZ = (int)current->getPosz();
 
-		//only check hitboxes if objects are close enough THIS IS JUST A TEST DO NOT USE THIS IF CLAUSE TO TEST FOR MAP COLLISIONS (can maybe be used for collectibles/hazards)
+		//only check hitboxes if objects are close enough DO NOT USE THIS IF CLAUSE TO TEST FOR MAP COLLISIONS (can maybe be used for collectibles/hazards)
+		// //currently this if clause is not enbaled
 		//if ((currentX >= playerX - 1 && currentX <= playerX + 1) && (currentY >= playerY - 1 && currentY <= playerY + 1) && (currentZ >= playerZ - 1 && currentZ <= playerZ + 1)) {
 
 		aiVector3D* currentMin = new aiVector3D(0, 0, 0);
@@ -234,13 +228,14 @@ void PlayingState::checkCollisions() {
 		//}
 	}
 
-	if (!player->isOnGround()) {
+	if (!player->isOnGround()) {  //if player is not onGround also check collision with ground
 		aiVector3D* groundMin = new aiVector3D(0, 0, 0);
 		aiVector3D* groundMax = new aiVector3D(0, 0, 0);
 		ground->getHitbox(groundMin, groundMax);
 		Hitbox groundHitbox = Hitbox(*groundMin, *groundMax);
+
 		if (bboxIntersection(playerHitbox, groundHitbox)) {
-			player->revertMovement();
+			player->revertMovement(false, true, false); //revert movement only on y axis
 			player->setOnGround(true);
 			player->setVertSpeed(0);
 		}

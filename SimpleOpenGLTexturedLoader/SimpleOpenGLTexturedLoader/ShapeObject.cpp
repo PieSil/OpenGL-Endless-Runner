@@ -17,7 +17,9 @@ void ShapeObject::update() {
 }
 
 void ShapeObject::getHitbox(struct aiVector3D* min, struct aiVector3D* max) {
-	shape->getHitbox(min, max);
+	//get bounding box size, then move bbox coordinates to current position
+
+	shape->getHitbox(min, max); 
 	min->x += pos_x;
 	min->y += pos_y;
 	min->z += pos_z;

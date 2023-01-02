@@ -10,7 +10,6 @@ GameLogic::GameLogic() {
     setState(State::PLAYING);
 }
 void GameLogic::display() {
-	//move this method in another class
     getCurrentState()->display();
 }
 

@@ -12,7 +12,7 @@ public:
 	virtual void update();
 
 	void move(float x, float y, float z);
-	void revertMovement();
+	void revertMovement(bool x = true, bool y = true, bool z = true);
 
 	float getPosx() {
 		return pos_x;

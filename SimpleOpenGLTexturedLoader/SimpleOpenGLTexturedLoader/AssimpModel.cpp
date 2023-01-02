@@ -78,6 +78,8 @@ void AssimpModel::display(float x, float y, float z) {
 }
 
 void AssimpModel::getHitbox(aiVector3D* min, aiVector3D* max) {
+	//copied from GLUtils.h
+
 	struct aiMatrix4x4 trafo;
 	aiIdentityMatrix4(&trafo);
 	float w = 1;

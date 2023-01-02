@@ -9,6 +9,8 @@ void PhysicalObject::update() {
 }
 
 void PhysicalObject::fall() {
+	//applies "gravity" to object not on the ground
+
 	if (!onGround) {
 		double elapsedTime = Timer::getTimer()->getElapsed();
 		prev_y = pos_y;

@@ -16,7 +16,7 @@ void FairyModel::display(float x, float y, float z) {
 		//glLoadIdentity();
 		glTranslatef(x, y, z);
 		recursive_render(scene, scene->mRootNode->mChildren[FAIRY_ID], 1.0);  //!!IMPORTANT: rendered object depends on the order of the objects inside the imported scene
-																	   //this specific call should render a fairy
+																			  //this specific call should render a fairy
 		glPopMatrix();
 
 		glPushMatrix();
@@ -116,6 +116,8 @@ void FairyModel::animate()
 }
 
 void FairyModel::getHitbox(struct aiVector3D* min, struct aiVector3D* max){
+	//copied from GLUtils.h
+
 	struct aiMatrix4x4 trafo;
 	aiIdentityMatrix4(&trafo);
 	float w = 1;
