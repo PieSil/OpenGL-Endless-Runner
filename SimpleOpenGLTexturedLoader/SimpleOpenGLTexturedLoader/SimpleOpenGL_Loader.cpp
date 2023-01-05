@@ -50,7 +50,7 @@ void keyboard(unsigned char key, int x, int y)
 void display()
 {
 	float tmp;
-
+	Timer::getTimer()->updateElapsed();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);

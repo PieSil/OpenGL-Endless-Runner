@@ -14,7 +14,7 @@
 
 PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 	//player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeModel>(CubeModel(1)), 0.25));
-	player = std::make_shared<PhysicalObject>(PhysicalObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), .025));
+	player = std::make_shared<PhysicalObject>(PhysicalObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), 200));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 	//collidables.push_back(std::shared_ptr<ShapeObject>(player));
 
@@ -75,7 +75,7 @@ void PlayingState::handleInput(unsigned char key) {
 		break;
 	case ' ': case 'r':
 		if (player->isOnGround()) {
-			player->setVertSpeed(0.015);
+			player->setVertSpeed(50);
 			player->setOnGround(false);
 		}
 		break;

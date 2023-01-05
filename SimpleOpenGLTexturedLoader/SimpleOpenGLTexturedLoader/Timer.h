@@ -1,9 +1,8 @@
 #pragma once
 #include <memory>
-#include <windows.h>
 #include <iostream>
 #include <chrono>
-#include "sysinfoapi.h"
+#include "GLutils.h"
 
 //Timer class, needed to update game independently from framerate (FPS)
 
@@ -14,13 +13,14 @@ public:
 
 	static Timer* getTimer();
 
-	float getElapsed() {
-		//return elapsedTime.count() * 1000;
-		double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsedTime).count();
-		std::cout << "Elapsed time: " << elapsed << " nanos\n";
-		double intElapsed = double(elapsed / 1000000);
-		std::cout << "Output elapsed: " << intElapsed << "\n";
-		return intElapsed;
+	double getElapsed() {
+		////return elapsedTime.count() * 1000;
+		//double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsedTime).count();
+		//std::cout << "Elapsed time: " << elapsed << " nanos\n";
+		//double intElapsed = double(elapsed / 1000000);
+		//std::cout << "Output elapsed: " << intElapsed << "\n";
+		//return intElapsed;
+		return elapsedTime / 1000;
 
 	};
 
@@ -35,13 +35,14 @@ private:
 	//double elapsedTime;
 	//double totalTime;
 	static std::shared_ptr<Timer> timerInstance;
-	double PCFrequency = 0.0;
-	__int64 CounterStart = 0;
 	//std::chrono::system_clock clock;
 	//std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
-	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> currentTime;
-	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
+	/*std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> currentTime;
+	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;*/
 	//std::chrono::steady_clock totalTime;
-	std::chrono::duration<double, std::nano> elapsedTime;
+	/*std::chrono::duration<double, std::nano> elapsedTime;*/
+	double elapsedTime;
+	double totalTime;
+
 };
 
