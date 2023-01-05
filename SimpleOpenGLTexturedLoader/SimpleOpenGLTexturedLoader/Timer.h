@@ -14,11 +14,14 @@ public:
 
 	static Timer* getTimer();
 
-	int getElapsed() {
+	float getElapsed() {
 		//return elapsedTime.count() * 1000;
-		double elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTime).count();
+		double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsedTime).count();
 		std::cout << "Elapsed time: " << elapsed << "millis\n";
-		return (int)(elapsed * 1000);
+		float intElapsed = float(elapsed / 1000000);
+		std::cout << "Output elapsed: " << intElapsed << "\n";
+		return intElapsed;
+
 	};
 
 
@@ -36,6 +39,6 @@ private:
 	//std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
 	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
 	//std::chrono::steady_clock totalTime;
-	std::chrono::duration<double, std::milli> elapsedTime;
+	std::chrono::duration<double, std::nano> elapsedTime;
 };
 
