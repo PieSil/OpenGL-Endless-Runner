@@ -2,23 +2,25 @@
 #include "CubeModel.h"
 #include "PlayingState.h"
 #include "TestState.h"
+#include "Timer.h"
 
 GameLogic::GameLogic() {
 	//ShapeObject playerObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)));
 	/*player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)), 0.25));
 	objects.push_back(std::shared_ptr<GameObject>(player));*/
     setState(State::PLAYING);
+    keyBuffer = '_';
 }
 void GameLogic::display() {
     getCurrentState()->display();
 }
 
 void GameLogic::update() {
+    handleInput(keyBuffer);
     getCurrentState()->update();
 }
 
-void GameLogic::setCamera()
-{
+void GameLogic::setCamera() {
     getCurrentState()->setCamera();
 }
 
@@ -28,6 +30,7 @@ void GameLogic::setCamera()
 
 void GameLogic::handleInput(unsigned char key){
     getCurrentState()->handleInput(key);
+    keyBuffer = '_';
 }
 
 void GameLogic::pushState(State state) {

@@ -34,6 +34,10 @@ public:
 
 	void setState(State state);
 
+	void pressKey(char key) {
+		keyBuffer = key;
+	}
+
 	GameState* getCurrentState() const;
 
 private:
@@ -44,4 +48,5 @@ private:
 								   //(and the underlying PLAYING state instance remains active)
 								   //the user does something then closes the pause menu, the PAUSE state gets popped from the stack, and the user goes back to 
 								   //the PLAYING state which has not "lost" any progress -> the user keeps playing
+	char keyBuffer;
 };

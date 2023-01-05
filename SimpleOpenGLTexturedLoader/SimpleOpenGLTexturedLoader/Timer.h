@@ -20,9 +20,9 @@ public:
 		//double intElapsed = double(elapsed / 1000000);
 		//std::cout << "Output elapsed: " << intElapsed << "\n";
 		//return intElapsed;
-		return elapsedTime / 1000;
+		return elapsedTime/10000;
 
-	};
+	}
 
 
 	void updateElapsed();
