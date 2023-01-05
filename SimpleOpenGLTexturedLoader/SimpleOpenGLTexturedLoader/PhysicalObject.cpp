@@ -12,9 +12,9 @@ void PhysicalObject::fall() {
 	//applies "gravity" to object not on the ground
 
 	if (!onGround) {
-		double elapsedTime = Timer::getTimer()->getElapsed();
+ 		double elapsedTime = Timer::getTimer()->getElapsed();
 		prev_y = pos_y;
 		pos_y += vertSpeed * elapsedTime;
-		vertSpeed -= 0.00005;
+		vertSpeed -= 0.00000005;
 	}
 }

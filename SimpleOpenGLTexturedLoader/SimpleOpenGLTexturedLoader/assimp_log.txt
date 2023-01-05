@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Info,  T4528: Load models\blender_imports.obj
 Info,  T4528: Found a matching importer for this file format
 Info,  T4528: Import root directory is 'models\'
@@ -8,3 +9,15 @@ Info,  T4528: Points: 0, Lines: 0, Triangles: 9, Polygons: 0 (Meshes, X = remove
 Info,  T4528: JoinVerticesProcess finished | Verts in: 9816 out: 8897 | ~9.4%
 Info,  T4528: Cache relevant are 9 meshes (4860 faces). Average output ACMR is 1.851440
 Info,  T4528: Leaving post processing pipeline
+=======
+Info,  T37124: Load models\blender_imports.obj
+Info,  T37124: Found a matching importer for this file format
+Info,  T37124: Import root directory is 'models\'
+Error, T37124: OBJ/MTL: Unexpected illumination model (0-2 recognized)
+Info,  T37124: Entering post processing pipeline
+Info,  T37124: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T37124: Points: 0, Lines: 0, Triangles: 9, Polygons: 0 (Meshes, X = removed)
+Info,  T37124: JoinVerticesProcess finished | Verts in: 9816 out: 8897 | ~9.4%
+Info,  T37124: Cache relevant are 9 meshes (4860 faces). Average output ACMR is 1.851440
+Info,  T37124: Leaving post processing pipeline
+>>>>>>> c82cf9293deb3d85fb1807ea7abaf6bbb3985967

@@ -14,9 +14,9 @@ public:
 
 	static Timer* getTimer();
 
-	double getElapsed() {
+	int getElapsed() {
 		//return elapsedTime.count() * 1000;
-		return elapsedTime.count();
+		return (int)std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTime).count() * 1000;
 	};
 
 
@@ -31,8 +31,9 @@ private:
 	double PCFrequency = 0.0;
 	__int64 CounterStart = 0;
 	//std::chrono::system_clock clock;
+	//std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
 	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
 	//std::chrono::steady_clock totalTime;
-	std::chrono::duration<double, std::milli> elapsedTime;
+	std::chrono::duration<double, std::nano> elapsedTime;
 };
 
