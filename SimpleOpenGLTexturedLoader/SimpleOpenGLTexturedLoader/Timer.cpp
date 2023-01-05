@@ -18,7 +18,8 @@ Timer* Timer::getTimer() {
 
 void Timer::updateElapsed() {
     //updates elapsed time since last call, stores currentTime into totalTime for future computations
-    std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> currentTime = std::chrono::steady_clock::now();
+    //std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> currentTime = std::chrono::steady_clock::now();
+    auto currentTime = std::chrono::steady_clock::now();
     elapsedTime = currentTime - totalTime;
     totalTime = currentTime;
 }
