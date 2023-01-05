@@ -67,16 +67,13 @@ void display()
 	game.display();
 
 	glutSwapBuffers();
+	Timer::getTimer()->updateElapsed();
 }
 
 void idle(void)
 {
 	game.update();
 	glutPostRedisplay();
-}
-
-void timerFunc(int value) {
-	Timer::getTimer()->updateElapsed();
 }
 
 int main(int argc, char **argv)
@@ -89,7 +86,6 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 
 	glutCreateWindow("Assimp - Very simple OpenGL sample");
-	glutTimerFunc(1000, timerFunc, 0);
 	glutKeyboardFunc(keyboard);
 	glutIdleFunc(idle);
 	glutDisplayFunc(display);

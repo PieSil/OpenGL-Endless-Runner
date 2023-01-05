@@ -3,6 +3,7 @@
 std::shared_ptr<Timer> Timer::timerInstance(nullptr);
 
 Timer::Timer() {
+    currentTime = std::chrono::steady_clock::now();
     totalTime = std::chrono::steady_clock::now();
     elapsedTime = totalTime - totalTime; //init elapsedTime to 0
 }
@@ -22,4 +23,13 @@ void Timer::updateElapsed() {
     auto currentTime = std::chrono::steady_clock::now();
     elapsedTime = currentTime - totalTime;
     totalTime = currentTime;
+}
+
+void Timer::start() {
+    totalTime = std::chrono::steady_clock::now();
+}
+
+void Timer::end() {
+    auto currentTime = std::chrono::steady_clock::now();
+    elapsedTime = currentTime - totalTime;
 }
