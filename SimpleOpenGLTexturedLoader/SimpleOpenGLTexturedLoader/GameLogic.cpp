@@ -2,6 +2,7 @@
 #include "CubeModel.h"
 #include "PlayingState.h"
 #include "TestState.h"
+#include "Timer.h"
 
 GameLogic::GameLogic() {
 	//ShapeObject playerObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)));
@@ -14,6 +15,7 @@ void GameLogic::display() {
 }
 
 void GameLogic::update() {
+    Timer::getTimer()->updateElapsed();
     getCurrentState()->update();
 }
 

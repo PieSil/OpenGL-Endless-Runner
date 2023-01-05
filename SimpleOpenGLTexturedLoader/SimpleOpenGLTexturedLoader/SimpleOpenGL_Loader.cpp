@@ -40,7 +40,7 @@ void keyboard(unsigned char key, int x, int y)
 		break;
 	default:
 		game.handleInput(key);
-		glutPostRedisplay();
+		//glutPostRedisplay();
 		break;
 	}
 }
@@ -48,7 +48,6 @@ void keyboard(unsigned char key, int x, int y)
 void display()
 {
 	float tmp;
-	Timer::getTimer()->updateElapsed();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -67,13 +66,13 @@ void display()
 	game.display();
 
 	glutSwapBuffers();
-	Timer::getTimer()->updateElapsed();
 }
 
 void idle(void)
 {
 	game.update();
-	glutPostRedisplay();
+	//glutPostRedisplay();
+	display();
 }
 
 int main(int argc, char **argv)
