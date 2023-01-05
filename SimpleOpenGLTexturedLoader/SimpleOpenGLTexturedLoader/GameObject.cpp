@@ -12,6 +12,8 @@ void GameObject::update() {
 void GameObject::move(float x, float y, float z) {
 	//recover elapsed time since last iteration
 	double elapsedTime = Timer::getTimer()->getElapsed(); 
+	std::cout << "Elapsed true output " << elapsedTime << "\n";
+
 
 	//save previous position, used for collision resolution
 	prev_x = pos_x;
