@@ -1,5 +1,5 @@
 ﻿  cl : warning della riga di comando D9035 : l'opzione 'Gm' è deprecata e verrà rimossa in una futura versione
-  FairyModel.cpp
+  PhysicalObject.cpp
 D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLTexturedLoader\AssImp\include\aiVector2D.h(75,16): warning C4244: 'return': conversione da 'double' a 'float'. Possibile perdita di dati.
 D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLTexturedLoader\AssImp\include\aiQuaternion.h(122,11): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
 D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLTexturedLoader\AssImp\include\aiQuaternion.h(131,11): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
@@ -45,20 +45,4 @@ D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLT
 D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLTexturedLoader\AssImp\include\aiMatrix4x4.inl(357,25): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
 D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLTexturedLoader\AssImp\include\aiMatrix4x4.inl(365,11): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
 D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLTexturedLoader\AssImp\include\aiMatrix4x4.inl(365,24): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
-  Generazione del codice in corso...
-  Omissione in corso... (nessuna modifica importante rilevata)
-  TestState.cpp
-  SphereModel.cpp
-  ShapeObject.cpp
-  PlayingState.cpp
-  Model.cpp
-  GameState.cpp
-  GameLogic.cpp
-  GLUtils.cpp
-  CubeModel.cpp
-  AssimpModel.cpp
-  Timer.cpp
-  SimpleOpenGL_Loader.cpp
-  PhysicalObject.cpp
-  GameObject.cpp
   SimpleOpenGLTexturedLoader.vcxproj -> D:\Pietro\Blender\Projects\Uni\Informatica Grafica\Progetto\OpenGL\SimpleOpenGLTexturedLoader\SimpleOpenGLTexturedLoader\Debug\SimpleOpenGLTexturedLoader.exe
