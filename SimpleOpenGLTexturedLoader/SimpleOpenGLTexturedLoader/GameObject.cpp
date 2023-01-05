@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include <GL/glut.h>
 #include "Timer.h"
+#include "Context.h"
 #include <iostream>
 GameObject::GameObject(float x, float y, float z, float _speed) : pos_x(x), pos_y(y), pos_z(z), prev_x(x), prev_y(y), prev_z(z), speed(_speed) {}
 
@@ -12,6 +13,7 @@ void GameObject::update() {
 void GameObject::move(float x, float y, float z) {
 	//recover elapsed time since last iteration
 	double elapsedTime = Timer::getTimer()->getElapsed(); 
+	double scaleFactor = Context::getContext()->getScaleFactor();
 	std::cout << "Elapsed true output " << elapsedTime << "\n";
 
 
