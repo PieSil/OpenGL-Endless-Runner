@@ -16,7 +16,9 @@ public:
 
 	int getElapsed() {
 		//return elapsedTime.count() * 1000;
-		return (int)std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTime).count() * 1000;
+		double elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(elapsedTime).count();
+		std::cout << "Elapsed time: " << elapsed << "millis\n";
+		return (int)(elapsed * 1000);
 	};
 
 
@@ -34,6 +36,6 @@ private:
 	//std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
 	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
 	//std::chrono::steady_clock totalTime;
-	std::chrono::duration<double, std::nano> elapsedTime;
+	std::chrono::duration<double, std::milli> elapsedTime;
 };
 
