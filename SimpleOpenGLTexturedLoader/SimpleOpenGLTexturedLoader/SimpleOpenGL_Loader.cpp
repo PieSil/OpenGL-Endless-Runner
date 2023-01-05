@@ -13,6 +13,7 @@
 #include "GameLogic.h"
 #include "GLutils.h"
 #include "Timer.h"
+#include "Context.h"
 
 // ----------------------------------------------------------------------------
 GameLogic game = GameLogic();
@@ -23,7 +24,8 @@ const double fieldOfView = 45.0;
 
 void reshape(int width, int height)
 {
-	aspectRatio = (float)width / height, 
+	aspectRatio = (float)width / height,
+	Context::getContext()->setWidthHeight((float)width, (float)height);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -59,6 +61,8 @@ void display()
 	tmp = aisgl_max(scene_max.y - scene_min.y, tmp);
 	tmp = aisgl_max(scene_max.z - scene_min.z, tmp);
     tmp = 10.f / tmp; //<--the bigger it is the closer the camera (increase float value to zoom in)
+	Context::getContext()->setScaleFactor(tmp);
+	tmp = Context::getContext()->getScaleFactor();
 	glScalef(tmp, tmp, tmp);
 
 	glTranslatef(-scene_center.x, -scene_center.y, -scene_center.z);
