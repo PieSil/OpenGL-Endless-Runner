@@ -14,7 +14,7 @@
 
 PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 	//player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeModel>(CubeModel(1)), 0.25));
-	player = std::make_shared<PhysicalObject>(PhysicalObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), .000025));
+	player = std::make_shared<PhysicalObject>(PhysicalObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), .025));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 	//collidables.push_back(std::shared_ptr<ShapeObject>(player));
 

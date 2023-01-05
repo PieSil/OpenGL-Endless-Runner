@@ -18,7 +18,7 @@ public:
 		//return elapsedTime.count() * 1000;
 		double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsedTime).count();
 		std::cout << "Elapsed time: " << elapsed << "millis\n";
-		float intElapsed = float(elapsed / 1000000);
+		double intElapsed = double(elapsed / 1000000);
 		std::cout << "Output elapsed: " << intElapsed << "\n";
 		return intElapsed;
 

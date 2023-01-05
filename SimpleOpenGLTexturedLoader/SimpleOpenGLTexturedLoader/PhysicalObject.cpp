@@ -15,6 +15,6 @@ void PhysicalObject::fall() {
  		double elapsedTime = Timer::getTimer()->getElapsed();
 		prev_y = pos_y;
 		pos_y += vertSpeed * elapsedTime;
-		vertSpeed -= 0.00000005;
+		vertSpeed -= 0.0005;
 	}
 }
