@@ -1,7 +1,7 @@
 #include "PhysicalObject.h"
 #include "Timer.h"
 
-PhysicalObject::PhysicalObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed) : ShapeObject(x, y, z, _shape, speed), onGround(false), vertSpeed(0) {}
+PhysicalObject::PhysicalObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed) : ShapeObject(x, y, z, _shape, speed), onGround(false), jumpSpeed(0) {}
 
 void PhysicalObject::update() {
 	ShapeObject::update();
@@ -14,7 +14,7 @@ void PhysicalObject::fall() {
 	if (!onGround) {
  		double elapsedTime = Timer::getTimer()->getElapsed();
 		prev_y = pos_y;
-		pos_y += vertSpeed * elapsedTime;
-		vertSpeed -= 200 * elapsedTime;
+		pos_y += jumpSpeed * elapsedTime;
+		jumpSpeed -= 50 * elapsedTime;
 	}
 }

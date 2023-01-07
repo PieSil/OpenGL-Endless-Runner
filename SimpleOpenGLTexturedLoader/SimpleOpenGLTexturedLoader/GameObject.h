@@ -26,16 +26,49 @@ public:
 		return pos_z;
 	}
 
-	void setXSpeed(int speed) {
-		xSpeed = speed;
+	void incrXSpeed(int incr) {
+		xSpeed += incr;
+		if (xSpeed > 1.) {
+			xSpeed = 1.;
+		} else if (xSpeed < -1.) {
+			xSpeed = -1.;
+		}
 	}
 
-	void setYSpeed(int speed) {
-		ySpeed = speed;
+	void incrYSpeed(int incr) {
+		ySpeed += incr;
+		if (ySpeed > 1.) {
+			ySpeed = 1.;
+		}
+		else if (ySpeed < -1.) {
+			ySpeed = -1.;
+		}
 	}
 
-	void setZSpeed(int speed) {
-		zSpeed = speed;
+	void incrZSpeed(int incr) {
+		zSpeed += incr;
+		if (zSpeed > 1.) {
+			zSpeed = 1.;
+		}
+		else if (zSpeed < -1.) {
+			zSpeed = -1.;
+		}
+	}
+
+	void resetXSpeed() {
+		xSpeed = 0.;
+	}
+
+	void resetYSpeed() {
+		ySpeed = 0.;
+	}
+
+	void resetZSpeed() {
+		zSpeed = 0.;
+	}
+
+	float getSpeed() {
+		return speed;
 	}
 
 protected:
@@ -45,9 +78,9 @@ protected:
 	float prev_x;
 	float prev_y;
 	float prev_z;
+	float speed;
 	float xSpeed;
 	float ySpeed;
 	float zSpeed;
-	float speed;
 };
 

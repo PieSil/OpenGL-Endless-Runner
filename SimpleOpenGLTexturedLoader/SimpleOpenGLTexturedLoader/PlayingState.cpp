@@ -14,7 +14,7 @@
 
 PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 	//player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeModel>(CubeModel(1)), 0.25));
-	player = std::make_shared<PhysicalObject>(PhysicalObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), 200));
+	player = std::make_shared<PhysicalObject>(PhysicalObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 	//collidables.push_back(std::shared_ptr<ShapeObject>(player));
 
@@ -52,6 +52,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 }
 
 void PlayingState::update() {
+	std::cout << "Speed: " << player->getSpeed() << "\n";
 	player->move();
 	GameState::update();
 	//check collisions
@@ -61,70 +62,78 @@ void PlayingState::update() {
 void PlayingState::handleInput(unsigned char key) {
 	//manages inputs, should depend on active state
 
-	//control Z speed (forward and backward movement)
-	if (key == 'w' || key == 'W') {
-		player->setZSpeed(1.0);
-	} else if (key == 's' || key == 'S') {
-		player->setZSpeed(-1.0);
-	}
+	////control Z speed (forward and backward movement)
+	//if (key == 'w' || key == 'W') {
+	//	player->incrZSpeed(1.0);
+	//} else if (key == 's' || key == 'S') {
+	//	player->incrZSpeed(-1.0);
+	//}
 
-	//control X speed (left and right movement)
-	if (key == 'a' || key == 'A') {
-		player->setXSpeed(1.0);
-	} else if (key == 'd' || key == 'A') {
-		player->setXSpeed(-1.0);
-	}
+	////control X speed (left and right movement)
+	//if (key == 'a' || key == 'A') {
+	//	player->setXSpeed(1.0);
+	//} else if (key == 'd' || key == 'A') {
+	//	player->setXSpeed(-1.0);
+	//}
 
-	//control jump
-	if (key == ' ') {
-		if (player->isOnGround()) {
-			player->setVertSpeed(50);
-			player->setOnGround(false);
-		}
-	}
-
-	//switch (key) {
-	//case 'w': case 'W':
-	//	player->setZSpeed(1.0);
-	//	break;
-	//case 's': case 'S':
-	//	player->setZSpeed(-1.0);
-	//	break;
-	//case 'a': case 'A':
-	//	player->setXSpeed(1);
-	//	break;
-	//case 'd': case 'D':
-	//	player->setXSpeed(-1);
-	//	break;
-	//case ' ': case 'r':
+	////control jump
+	//if (key == ' ') {
 	//	if (player->isOnGround()) {
 	//		player->setVertSpeed(50);
 	//		player->setOnGround(false);
 	//	}
-	//	break;
-	///*
-	//case 'r': case 'R':
-	//	player->move(0, 1, 0);
-	//	break;
-	//case 'f': case 'F':
-	//	player->move(0, -1, 0);
-	//	break;
-	//*/
-	//case 'c': case 'C':
-	//	game->setState(State::TEST);
-	//	break;
-	//default:
-	//	break;
 	//}
+	switch (key) {
+	case 'w': case 'W':
+		player->incrZSpeed(1.);
+		break;
+	case 's': case 'S':
+		player->incrZSpeed(-1.);
+		break;
+	case 'a': case 'A':
+		player->incrXSpeed(1.);
+		break;
+	case 'd': case 'D':
+		player->incrXSpeed(-1.);
+		break;
+	case ' ': case 'r':
+		if (player->isOnGround()) {
+			player->setJumpSpeed(25);
+			player->setOnGround(false);
+		}
+		break;
+	/*
+	case 'r': case 'R':
+		player->move(0, 1, 0);
+		break;
+	case 'f': case 'F':
+		player->move(0, -1, 0);
+		break;
+	*/
+	case 'c': case 'C':
+		game->setState(State::TEST);
+		break;
+	default:
+		break;
+	}
 }
 
 void PlayingState::handleInputUp(unsigned char key) {
-	if (key == 'w' || key == 'W' || key == 's' || key == 'S') {
-		player->setZSpeed(0);
-	}
-
-	if (key == 'a' || key == 'A' || key == 'd' || key == 'D') {
-		player->setXSpeed(0);
+	switch (key) {
+	case 'w': case 'W':
+		player->incrZSpeed(-1.);
+		break;
+	case 's': case 'S':
+		player->incrZSpeed(1.);
+		break;
+	case 'a': case 'A':
+		player->incrXSpeed(-1.);
+		break;
+	case 'd': case 'D':
+		player->incrXSpeed(1.);
+		break;
+	default:
+		break;
 	}
 }
 
@@ -270,7 +279,7 @@ void PlayingState::checkCollisions() {
 		if (bboxIntersection(playerHitbox, groundHitbox)) {
 			player->revertMovement(false, true, false); //revert movement only on y axis
 			player->setOnGround(true);
-			player->setVertSpeed(0);
+			player->setJumpSpeed(0);
 		}
 		delete groundMin;
 		delete groundMax;
