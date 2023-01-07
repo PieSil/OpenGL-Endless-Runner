@@ -16,7 +16,6 @@ void GameLogic::display() {
 }
 
 void GameLogic::update() {
-    handleInput(keyBuffer);
     getCurrentState()->update();
 }
 
@@ -30,7 +29,10 @@ void GameLogic::setCamera() {
 
 void GameLogic::handleInput(unsigned char key){
     getCurrentState()->handleInput(key);
-    keyBuffer = '_';
+}
+
+void GameLogic::handleInputUp(unsigned char key) {
+    getCurrentState()->handleInputUp(key);
 }
 
 void GameLogic::pushState(State state) {

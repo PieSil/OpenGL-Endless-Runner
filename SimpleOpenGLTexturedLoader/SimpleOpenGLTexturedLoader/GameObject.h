@@ -11,7 +11,7 @@ public:
 	virtual void display() = 0;
 	virtual void update();
 
-	void move(float x, float y, float z);
+	void move();
 	void revertMovement(bool x = true, bool y = true, bool z = true);
 
 	float getPosx() {
@@ -26,6 +26,18 @@ public:
 		return pos_z;
 	}
 
+	void setXSpeed(int speed) {
+		xSpeed = speed;
+	}
+
+	void setYSpeed(int speed) {
+		ySpeed = speed;
+	}
+
+	void setZSpeed(int speed) {
+		zSpeed = speed;
+	}
+
 protected:
 	float pos_x;
 	float pos_y;
@@ -33,6 +45,9 @@ protected:
 	float prev_x;
 	float prev_y;
 	float prev_z;
+	float xSpeed;
+	float ySpeed;
+	float zSpeed;
 	float speed;
 };
 

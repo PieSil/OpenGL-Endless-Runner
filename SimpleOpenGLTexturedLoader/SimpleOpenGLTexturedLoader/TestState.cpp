@@ -11,10 +11,10 @@ void TestState::handleInput(unsigned char key) {
 
 	switch (key) {
 	case 'w': case 'W':
-		player->move(0, 0, 1.0);
+		//player->move(0, 0, 1.0);
 		break;
 	case 's': case 'S':
-		player->move(0, 0, -1.0);
+		//player->move(0, 0, -1.0);
 		break;
 	case 'c': case 'C':
 		game->setState(State::PLAYING);
