@@ -14,8 +14,8 @@ public:
         return onGround;
     }
 
-    void setVertSpeed(double speed) {
-        vertSpeed = speed;
+    void setJumpSpeed(float value) {
+        jumpSpeed = value;
     }
 
     void setOnGround(bool value) {
@@ -24,6 +24,6 @@ public:
 
 protected:
     bool onGround;
-    double vertSpeed;
+    float jumpSpeed;
 };
 
