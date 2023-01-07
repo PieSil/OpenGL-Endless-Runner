@@ -52,6 +52,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 }
 
 void PlayingState::update() {
+	player->move();
 	GameState::update();
 	//check collisions
 	checkCollisions();
@@ -59,39 +60,71 @@ void PlayingState::update() {
 
 void PlayingState::handleInput(unsigned char key) {
 	//manages inputs, should depend on active state
-	
-	switch (key) {
-	case 'w': case 'W':
-		player->move(0, 0, 1.0);
-		break;
-	case 's': case 'S':
-		player->move(0, 0, -1.0);
-		break;
-	case 'a': case 'A':
-		player->move(1, 0, 0);
-		break;
-	case 'd': case 'D':
-		player->move(-1, 0, 0);
-		break;
-	case ' ': case 'r':
+
+	//control Z speed (forward and backward movement)
+	if (key == 'w' || key == 'W') {
+		player->setZSpeed(1.0);
+	} else if (key == 's' || key == 'S') {
+		player->setZSpeed(-1.0);
+	}
+
+	//control X speed (left and right movement)
+	if (key == 'a' || key == 'A') {
+		player->setXSpeed(1.0);
+	} else if (key == 'd' || key == 'A') {
+		player->setXSpeed(-1.0);
+	}
+
+	//control jump
+	if (key == ' ') {
 		if (player->isOnGround()) {
 			player->setVertSpeed(50);
 			player->setOnGround(false);
 		}
-		break;
-	/*
-	case 'r': case 'R':
-		player->move(0, 1, 0);
-		break;
-	case 'f': case 'F':
-		player->move(0, -1, 0);
-		break;
-	*/
-	case 'c': case 'C':
-		game->setState(State::TEST);
-		break;
-	default:
-		break;
+	}
+
+	//switch (key) {
+	//case 'w': case 'W':
+	//	player->setZSpeed(1.0);
+	//	break;
+	//case 's': case 'S':
+	//	player->setZSpeed(-1.0);
+	//	break;
+	//case 'a': case 'A':
+	//	player->setXSpeed(1);
+	//	break;
+	//case 'd': case 'D':
+	//	player->setXSpeed(-1);
+	//	break;
+	//case ' ': case 'r':
+	//	if (player->isOnGround()) {
+	//		player->setVertSpeed(50);
+	//		player->setOnGround(false);
+	//	}
+	//	break;
+	///*
+	//case 'r': case 'R':
+	//	player->move(0, 1, 0);
+	//	break;
+	//case 'f': case 'F':
+	//	player->move(0, -1, 0);
+	//	break;
+	//*/
+	//case 'c': case 'C':
+	//	game->setState(State::TEST);
+	//	break;
+	//default:
+	//	break;
+	//}
+}
+
+void PlayingState::handleInputUp(unsigned char key) {
+	if (key == 'w' || key == 'W' || key == 's' || key == 'S') {
+		player->setZSpeed(0);
+	}
+
+	if (key == 'a' || key == 'A' || key == 'd' || key == 'D') {
+		player->setXSpeed(0);
 	}
 }
 

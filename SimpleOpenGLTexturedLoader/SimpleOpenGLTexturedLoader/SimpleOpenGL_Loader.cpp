@@ -42,8 +42,16 @@ void keyboard(unsigned char key, int x, int y)
 		break;
 	default:
 		//game.handleInput(key);
-		game.pressKey(key);
+		game.handleInput(key);
 		//glutPostRedisplay();
+		break;
+	}
+}
+
+void keyboardUp(unsigned char key, int x, int y) {
+	switch (key) {
+	default:
+		game.handleInputUp(key);
 		break;
 	}
 }
@@ -75,16 +83,16 @@ void display()
 
 void idle(void)
 {
-	/*game.update();
+	Timer::getTimer()->updateElapsed();
+	game.update();
 	glutPostRedisplay();
-	Timer::getTimer()->updateElapsed();*/
 }
 
 void timerFunc(int value) {
-	game.update();
+	/*game.update();
 	glutPostRedisplay();
 	Timer::getTimer()->updateElapsed();
-	glutTimerFunc(1000 / 120, timerFunc, 0);
+	glutTimerFunc(1000 / 120, timerFunc, 0);*/
 }
 
 int main(int argc, char **argv)
@@ -97,8 +105,9 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 
 	glutCreateWindow("Assimp - Very simple OpenGL sample");
-	glutTimerFunc(1000 / 120, timerFunc, 0);
+	//glutTimerFunc(1000 / 120, timerFunc, 0);
 	glutKeyboardFunc(keyboard);
+	glutKeyboardUpFunc(keyboardUp);
 	glutIdleFunc(idle);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

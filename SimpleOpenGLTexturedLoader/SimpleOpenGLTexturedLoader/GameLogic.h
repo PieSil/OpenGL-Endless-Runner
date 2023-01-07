@@ -28,6 +28,8 @@ public:
 
 	void handleInput(unsigned char key);
 
+	void handleInputUp(unsigned char key);
+
 	void pushState(State state);
 
 	void popState();

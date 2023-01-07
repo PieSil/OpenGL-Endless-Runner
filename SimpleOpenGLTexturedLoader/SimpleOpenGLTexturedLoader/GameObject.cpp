@@ -3,14 +3,14 @@
 #include "Timer.h"
 #include "Context.h"
 #include <iostream>
-GameObject::GameObject(float x, float y, float z, float _speed) : pos_x(x), pos_y(y), pos_z(z), prev_x(x), prev_y(y), prev_z(z), speed(_speed) {}
+GameObject::GameObject(float x, float y, float z, float _speed) : pos_x(x), pos_y(y), pos_z(z), prev_x(x), prev_y(y), prev_z(z), speed(_speed), xSpeed(0), ySpeed(0), zSpeed(0) {}
 
 void GameObject::update() {
 	//do nothing by default
 	//override if a certain behaviour needs to be applied
 }
 
-void GameObject::move(float x, float y, float z) {
+void GameObject::move() {
 	//recover elapsed time since last iteration
 	double elapsedTime = Timer::getTimer()->getElapsed(); 
 	double scaleFactor = Context::getContext()->getScaleFactor();
@@ -23,9 +23,9 @@ void GameObject::move(float x, float y, float z) {
 	prev_z = pos_z;
 
 	//move based on how much time has passed since last iteration, makes movement independent from FPS  <--- VERY IMPORTANT
-	pos_x += elapsedTime * speed * x;
-	pos_y += elapsedTime * speed * y;
-	pos_z += elapsedTime * speed * z;
+	pos_x += elapsedTime * speed * xSpeed;
+	pos_y += elapsedTime * speed * ySpeed;
+	pos_z += elapsedTime * speed * zSpeed;
 }
 
 void GameObject::revertMovement(bool x, bool y, bool z ) {
