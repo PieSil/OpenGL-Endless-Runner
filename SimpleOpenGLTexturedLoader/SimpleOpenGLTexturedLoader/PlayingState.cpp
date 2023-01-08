@@ -262,7 +262,7 @@ void PlayingState::checkCollisions() {
 			//Collision detected, manage collision
 
 			//leave like this for now, elaborate collision resolution only if needed
-			player->revertMovement();
+			player->revertMovement(true, false, true);
 		}
 
 		delete currentMin;
