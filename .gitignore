@@ -361,3 +361,28 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/SimpleOpenGLTexturedLoader/debug/SimpleOpenGLTexturedLoader.exe
+/SimpleOpenGLTexturedLoader/debug/SimpleOpenGLTexturedLoader.pdb
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOp.D64E9D0F.tlog/CL.read.1.tlog
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOp.D64E9D0F.tlog/CL.write.1.tlog
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOp.D64E9D0F.tlog/link.read.1.tlog
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOp.D64E9D0F.tlog/link.write.1.tlog
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/AssimpModel.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/CubeModel.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/FairyModel.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/GameLogic.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/GameObject.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/GameState.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/GLUtils.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/Model.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/PhysicalObject.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/PlayingState.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/ShapeObject.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOpenGLTexturedLoader.Build.CppClean.log
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOpenGLTexturedLoader.ilk
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOpenGLTexturedLoader.log
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SimpleOpenGL_Loader.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/SphereModel.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/TestState.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/Debug/Timer.obj
+/SimpleOpenGLTexturedLoader/SimpleOpenGLTexturedLoader/assimp_log.txt

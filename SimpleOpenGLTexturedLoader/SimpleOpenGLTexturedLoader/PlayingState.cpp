@@ -59,7 +59,7 @@ void PlayingState::update() {
 	checkCollisions();
 }
 
-void PlayingState::handleInput(unsigned char key) {
+void PlayingState::handleInput(unsigned char key, int x, int y) {
 	//manages inputs, should depend on active state
 
 	////control Z speed (forward and backward movement)
@@ -118,7 +118,7 @@ void PlayingState::handleInput(unsigned char key) {
 	}
 }
 
-void PlayingState::handleInputUp(unsigned char key) {
+void PlayingState::handleInputUp(unsigned char key, int x, int y) {
 	switch (key) {
 	case 'w': case 'W':
 		player->incrZSpeed(-1.);

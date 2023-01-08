@@ -11,8 +11,8 @@ public:
 
     ~TestState() {};
 
-    void handleInput(unsigned char key) override;
-    void handleInputUp(unsigned char key) override {};
+    void handleInput(unsigned char key, int x, int y) override;
+    void handleInputUp(unsigned char key, int x, int y) override {};
 
 private:
     std::shared_ptr<GameObject> player;

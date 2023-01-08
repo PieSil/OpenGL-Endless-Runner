@@ -26,9 +26,9 @@ public:
 
 	void setCamera();
 
-	void handleInput(unsigned char key);
+	void handleInput(unsigned char key, int x, int y);
 
-	void handleInputUp(unsigned char key);
+	void handleInputUp(unsigned char key, int x, int y);
 
 	void pushState(State state);
 

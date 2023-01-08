@@ -27,12 +27,12 @@ void GameLogic::setCamera() {
 //    getCurrentState()->setCamera();
 //}
 
-void GameLogic::handleInput(unsigned char key){
-    getCurrentState()->handleInput(key);
+void GameLogic::handleInput(unsigned char key, int x, int y){
+    getCurrentState()->handleInput(key, x, y);
 }
 
-void GameLogic::handleInputUp(unsigned char key) {
-    getCurrentState()->handleInputUp(key);
+void GameLogic::handleInputUp(unsigned char key, int x, int y) {
+    getCurrentState()->handleInputUp(key, x, y);
 }
 
 void GameLogic::pushState(State state) {

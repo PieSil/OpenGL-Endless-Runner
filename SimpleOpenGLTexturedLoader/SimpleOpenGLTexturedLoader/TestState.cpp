@@ -6,7 +6,7 @@ TestState::TestState(GameLogic* game) : GameState(game) {
 	objects.push_back(std::shared_ptr<GameObject>(player));
 }
 
-void TestState::handleInput(unsigned char key) {
+void TestState::handleInput(unsigned char key, int x, int y) {
 	//manages inputs, should depend on active state
 
 	switch (key) {

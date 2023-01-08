@@ -42,7 +42,7 @@ void keyboard(unsigned char key, int x, int y)
 		break;
 	default:
 		//game.handleInput(key);
-		game.handleInput(key);
+		game.handleInput(key,x ,y);
 		//glutPostRedisplay();
 		break;
 	}
@@ -51,7 +51,7 @@ void keyboard(unsigned char key, int x, int y)
 void keyboardUp(unsigned char key, int x, int y) {
 	switch (key) {
 	default:
-		game.handleInputUp(key);
+		game.handleInputUp(key, x, y);
 		break;
 	}
 }

@@ -16,8 +16,8 @@ public:
     ~PlayingState() {};
 
     void update() override;
-    void handleInput(unsigned char key) override;
-    void handleInputUp(unsigned char key) override;
+    void handleInput(unsigned char key, int x, int y) override;
+    void handleInputUp(unsigned char key, int x, int y) override;
     void checkCollisions();
 
 private:

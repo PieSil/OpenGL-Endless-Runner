@@ -13,9 +13,9 @@ public:
     virtual ~GameState() {};
 
     virtual void update();
-    virtual void handleInput(unsigned char key) = 0;
+    virtual void handleInput(unsigned char key, int x, int y) = 0;
     void display();
-    virtual void handleInputUp(unsigned char key) = 0;
+    virtual void handleInputUp(unsigned char key, int x, int y) {};
     void setCamera();
 
     void addGameObject(float x, float y, float z, std::shared_ptr<Model> shape);
