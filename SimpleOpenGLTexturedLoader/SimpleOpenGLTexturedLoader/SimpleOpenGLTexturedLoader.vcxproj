@@ -99,7 +99,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GLUtils.cpp" />
-    <ClCompile Include="PhysicalObject.cpp" />
+    <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ShapeObject.cpp" />
@@ -118,7 +118,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GLutils.h" />
-    <ClInclude Include="PhysicalObject.h" />
+    <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="PlayingState.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ShapeObject.h" />

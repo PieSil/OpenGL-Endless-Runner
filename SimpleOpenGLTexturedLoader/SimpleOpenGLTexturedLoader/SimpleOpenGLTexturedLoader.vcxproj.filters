@@ -57,7 +57,7 @@
     <ClCompile Include="AssimpModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicalObject.cpp">
+    <ClCompile Include="PlayerObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Context.cpp">
@@ -107,7 +107,7 @@
     <ClInclude Include="Const.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicalObject.h">
+    <ClInclude Include="PlayerObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Context.h">

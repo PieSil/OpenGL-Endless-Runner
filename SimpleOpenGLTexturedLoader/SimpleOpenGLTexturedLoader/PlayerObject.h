@@ -2,11 +2,11 @@
 #include "ShapeObject.h"
 //an object subjected to laws of physics (falls if not on ground)
 
-class PhysicalObject :
+class PlayerObject :
     public ShapeObject {
 
 public:
-    explicit PhysicalObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed = 1);
+    explicit PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed = 1);
     void update() override;
     void fall();
 
