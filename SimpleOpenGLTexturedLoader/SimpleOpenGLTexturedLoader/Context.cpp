@@ -19,4 +19,5 @@ Context::Context() {
     width = 1920;
     height = 1080;
     aspectRatio = width / height;
+    score = 0;
 }

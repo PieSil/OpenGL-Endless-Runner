@@ -52,9 +52,15 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 }
 
 void PlayingState::update() {
-	std::cout << "Speed: " << player->getSpeed() << "\n";
+
+	//check player status:
+	if (player->getLives() <= 0) {
+		game->setState(State::TEST); //replace with game over state
+	}
+
 	player->move();
 	GameState::update();
+
 	//check collisions
 	checkCollisions();
 }
@@ -62,27 +68,6 @@ void PlayingState::update() {
 void PlayingState::handleInput(unsigned char key, int x, int y) {
 	//manages inputs, should depend on active state
 
-	////control Z speed (forward and backward movement)
-	//if (key == 'w' || key == 'W') {
-	//	player->incrZSpeed(1.0);
-	//} else if (key == 's' || key == 'S') {
-	//	player->incrZSpeed(-1.0);
-	//}
-
-	////control X speed (left and right movement)
-	//if (key == 'a' || key == 'A') {
-	//	player->setXSpeed(1.0);
-	//} else if (key == 'd' || key == 'A') {
-	//	player->setXSpeed(-1.0);
-	//}
-
-	////control jump
-	//if (key == ' ') {
-	//	if (player->isOnGround()) {
-	//		player->setVertSpeed(50);
-	//		player->setOnGround(false);
-	//	}
-	//}
 	switch (key) {
 	case 'w': case 'W':
 		player->incrZSpeed(1.);
@@ -110,9 +95,6 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 		player->move(0, -1, 0);
 		break;
 	*/
-	case 'c': case 'C':
-		game->setState(State::TEST);
-		break;
 	default:
 		break;
 	}

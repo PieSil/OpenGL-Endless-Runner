@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-//A class containing useful informations about the context of the application, e.g. current window resolution
+//A class containing useful informations about the context of the application, e.g. current window resolution, game difficulty and other settings
 
 class Context {
 public:
@@ -23,6 +23,17 @@ public:
 		return scaleFactor;
 	}
 
+	void incrScore(int value) {
+		score += value;
+		if (score < 0) {
+			score = 0;
+		}
+	}
+
+	int getScore() {
+		return score;
+	}
+
 private:
 
 	explicit Context(); //private constructor, enables Singleton pattern, cannot have more than one instance of Timer at a time
@@ -31,5 +42,6 @@ private:
 	float height;
 	float aspectRatio;
 	float scaleFactor;
+	int score;
 };
 

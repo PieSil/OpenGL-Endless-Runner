@@ -22,8 +22,20 @@ public:
         onGround = value;
     }
 
+    int getLives() {
+        return lives;
+    }
+
+    int incrLives(int value) {
+        lives += value;
+        if (lives < 0) {
+            lives = 0;
+        }
+    }
+
 protected:
     bool onGround;
     float jumpSpeed;
+    int lives;
 };
 

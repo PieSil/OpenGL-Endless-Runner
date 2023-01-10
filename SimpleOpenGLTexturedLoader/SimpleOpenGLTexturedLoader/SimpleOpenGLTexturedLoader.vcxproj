@@ -92,6 +92,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssimpModel.cpp" />
+    <ClCompile Include="CollectibleBehaviour.cpp" />
+    <ClCompile Include="CollectibleObject.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FairyModel.cpp" />
@@ -110,6 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssimpModel.h" />
+    <ClInclude Include="CollectibleBehaviour.h" />
+    <ClInclude Include="CollectibleObject.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="CubeModel.h" />

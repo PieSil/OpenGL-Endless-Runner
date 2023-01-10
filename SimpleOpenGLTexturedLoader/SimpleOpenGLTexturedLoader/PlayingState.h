@@ -24,7 +24,7 @@ private:
     std::shared_ptr<PlayerObject> player;
     std::list<std::shared_ptr<ShapeObject>> collidables; //objects to test for collisions
     std::shared_ptr<ShapeObject> ground;
-    //GameLevel level;
+
 };
 
 
