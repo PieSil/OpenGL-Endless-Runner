@@ -1,5 +1,7 @@
 #pragma once
 #include <memory>
+//A class containing useful informations about the context of the application, e.g. current window resolution
+
 class Context {
 public:
 
