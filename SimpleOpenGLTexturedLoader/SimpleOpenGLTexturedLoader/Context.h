@@ -34,6 +34,10 @@ public:
 		return score;
 	}
 
+	void resetScore() {
+		score = 0;
+	}
+
 private:
 
 	explicit Context(); //private constructor, enables Singleton pattern, cannot have more than one instance of Timer at a time

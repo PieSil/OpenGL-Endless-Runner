@@ -4,6 +4,7 @@
 #include <stack>
 #include "GameState.h"
 #include "PlayerObject.h"
+#include "CollectibleObject.h"
 
 //The game state which should correspond to the actual game 
 
@@ -15,6 +16,7 @@ public:
 
     ~PlayingState() {};
 
+    void display() override;
     void update() override;
     void handleInput(unsigned char key, int x, int y) override;
     void handleInputUp(unsigned char key, int x, int y) override;
@@ -23,6 +25,7 @@ public:
 private:
     std::shared_ptr<PlayerObject> player;
     std::list<std::shared_ptr<ShapeObject>> collidables; //objects to test for collisions
+    std::list<std::shared_ptr<CollectibleObject>> collectibles;
     std::shared_ptr<ShapeObject> ground;
 
 };

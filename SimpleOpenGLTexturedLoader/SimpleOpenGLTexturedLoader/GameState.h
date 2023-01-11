@@ -14,7 +14,7 @@ public:
 
     virtual void update();
     virtual void handleInput(unsigned char key, int x, int y) = 0;
-    void display();
+    virtual void display();
     virtual void handleInputUp(unsigned char key, int x, int y) {};
     void setCamera();
 

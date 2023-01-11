@@ -11,9 +11,11 @@
 #include "aiPostProcess.h"
 #include "aiScene.h"
 #include "Const.h"
+#include "Context.h"
 
 PlayingState::PlayingState(GameLogic* game) : GameState(game) {
-	//player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeModel>(CubeModel(1)), 0.25));
+	Context::getContext()->resetScore();
+
 	player = std::make_shared<PlayerObject>(PlayerObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 	//collidables.push_back(std::shared_ptr<ShapeObject>(player));
@@ -49,6 +51,13 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 	
 
 
+}
+
+void PlayingState::display(){
+	GameState::display();
+	for (auto coll = collectibles.begin(); coll != collectibles.end(); coll++) {
+		(*coll)->display();
+	}
 }
 
 void PlayingState::update() {
