@@ -14,18 +14,20 @@
 #include "Context.h"
 
 PlayingState::PlayingState(GameLogic* game) : GameState(game) {
+	//reset came score
 	Context::getContext()->resetScore();
 
-	player = std::make_shared<PlayerObject>(PlayerObject(0, 1, -5, std::make_shared<FairyModel>(FairyModel()), 10));
+	//create player object and add it to renderable objects
+	player = std::make_shared<PlayerObject>(PlayerObject(0, 3, -5, std::make_shared<FairyModel>(FairyModel()), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
-	//collidables.push_back(std::shared_ptr<ShapeObject>(player));
+
 
 	//test cube
 	std::shared_ptr<ShapeObject> test_cube = std::make_shared<ShapeObject>(ShapeObject(0, 0, -10, std::make_shared<AssimpModel>(AssimpModel(TEST_SPHERE_ID))));
 	objects.push_back(std::shared_ptr<GameObject>(test_cube));
 	collidables.push_back(std::shared_ptr<ShapeObject>(test_cube));
 
-	//ground
+	//ground/map objects definition
 	ground = std::make_shared<ShapeObject>(ShapeObject(0, 0, -10, std::make_shared<AssimpModel>(AssimpModel(GROUND_ID))));
 	objects.push_back(std::shared_ptr<GameObject>(ground));
 	//collidables.push_back(std::shared_ptr<ShapeObject>(ground));
@@ -49,12 +51,17 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 	std::shared_ptr<ShapeObject> rinv = std::make_shared<ShapeObject>(ShapeObject(0, 0, -10, std::make_shared<AssimpModel>(AssimpModel(RINVISIBLE_WALL_ID))));
 	collidables.push_back(std::shared_ptr<ShapeObject>(rinv));
 	
-
-
+	//create sample point sphere collectible
+	collectibles.push_back(std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 5, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), 0, CollectibleBehaviour::POINT)));
+	collectibles.push_back(std::make_shared<CollectibleObject>(CollectibleObject(2, 0, -7, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), 0, CollectibleBehaviour::POINT)));
+	collectibles.push_back(std::make_shared<CollectibleObject>(CollectibleObject(-2, 0, -7, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), 0, CollectibleBehaviour::POINT)));
 }
 
 void PlayingState::display(){
+	//call GameState display() function in order to render all elements in "object" list
 	GameState::display();
+
+	//then render all collectibles
 	for (auto coll = collectibles.begin(); coll != collectibles.end(); coll++) {
 		(*coll)->display();
 	}
@@ -126,6 +133,11 @@ void PlayingState::handleInputUp(unsigned char key, int x, int y) {
 	default:
 		break;
 	}
+}
+
+void PlayingState::destroyCollectible(std::shared_ptr<CollectibleObject>& collectible) {
+	auto itr = std::find(collectibles.begin(), collectibles.end(), collectible);
+	collectibles.erase(itr);
 }
 
 void PlayingState::checkCollisions() {
@@ -237,10 +249,6 @@ void PlayingState::checkCollisions() {
 		int currentY = (int)current->getPosy();
 		int currentZ = (int)current->getPosz();
 
-		//only check hitboxes if objects are close enough DO NOT USE THIS IF CLAUSE TO TEST FOR MAP COLLISIONS (can maybe be used for collectibles/hazards)
-		// //currently this if clause is not enbaled
-		//if ((currentX >= playerX - 1 && currentX <= playerX + 1) && (currentY >= playerY - 1 && currentY <= playerY + 1) && (currentZ >= playerZ - 1 && currentZ <= playerZ + 1)) {
-
 		aiVector3D* currentMin = new aiVector3D(0, 0, 0);
 		aiVector3D* currentMax = new aiVector3D(0, 0, 0);
 		current->getHitbox(currentMin, currentMax);
@@ -274,6 +282,45 @@ void PlayingState::checkCollisions() {
 		}
 		delete groundMin;
 		delete groundMax;
+	}
+
+	auto collIterator = collectibles.begin();
+
+	//iterate over all collectibles
+	//some collectibles may be removed during this process, another loop structure is needed <-- MAY NOT BE TRUE, TRY TO USE SAME LOOP STRUCTURE AS ABOVE
+	while (!collectibles.empty() && collIterator != collectibles.end()) {
+
+		bool collisionDetected = false;
+
+		int currentX = (int)(*collIterator)->getPosx();
+		int currentY = (int)(*collIterator)->getPosy();
+		int currentZ = (int)(*collIterator)->getPosz();
+
+		//only check hitboxes if objects are close enough
+		if ((currentX >= playerX - 1 && currentX <= playerX + 1) && (currentY >= playerY - 1 && currentY <= playerY + 1) && (currentZ >= playerZ - 1 && currentZ <= playerZ + 1)) {
+
+			aiVector3D* collMin = new aiVector3D(0, 0, 0);
+			aiVector3D* collMax = new aiVector3D(0, 0, 0);
+			(*collIterator)->getHitbox(collMin, collMax);
+
+			//build hitbox from min and max
+			Hitbox collectibleHitbox(*collMin, *collMax);
+
+			if (bboxIntersection(playerHitbox, collectibleHitbox)) {
+				printf("Player collided with collectible\n");
+				(*collIterator)->applyEffect(player.get());
+				collIterator = collectibles.erase(collIterator);
+				//destroyCollectible(*collIterator);
+				collisionDetected = true;
+			}
+
+			delete collMin;
+			delete collMax;
+		} 
+
+		if (!collisionDetected) {
+			collIterator++;
+		}
 	}
 
 

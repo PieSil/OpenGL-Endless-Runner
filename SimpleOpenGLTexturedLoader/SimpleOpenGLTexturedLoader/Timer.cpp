@@ -28,8 +28,8 @@ void Timer::updateElapsed() {
     double currentTime = glutGet(GLUT_ELAPSED_TIME);
     elapsedTime = currentTime - totalTime;
     totalTime = currentTime;
-    std::cout << "Elapsed time: " << elapsedTime << " millis\n";
-    std::cout << "Output elapsed: " << elapsedTime / 1000 << "\n";
+    //std::cout << "Elapsed time: " << elapsedTime << " millis\n";
+    //std::cout << "Output elapsed: " << elapsedTime / 1000 << "\n";
 }
 
 void Timer::start() {
