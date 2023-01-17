@@ -20,4 +20,5 @@ Context::Context() {
     height = 1080;
     aspectRatio = width / height;
     score = 0;
+    gameSpeed = 10;
 }

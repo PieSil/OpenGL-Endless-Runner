@@ -14,6 +14,9 @@ void CollectibleObject::applyEffect(PlayerObject* player) {
 		Context::getContext()->incrScore(1);
 		std::cout << "Score: " << Context::getContext()->getScore() << "\n";
 		break;
+	case CollectibleBehaviour::DAMAGE:
+		player->incrLives(-1);
+		std::cout << "Player lives: " << player->getLives() << "\n";
 	default:
 		break;
 	}

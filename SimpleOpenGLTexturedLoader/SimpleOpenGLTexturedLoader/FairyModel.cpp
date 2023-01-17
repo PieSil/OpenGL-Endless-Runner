@@ -4,7 +4,7 @@
 #include "Const.h"
 
 FairyModel::FairyModel(float wingsAngle) : wingsAngle(wingsAngle) {
-	wingSpeed = 100;
+	wingSpeed = 80;
 	wingsDown = true;
 }
 
@@ -104,7 +104,7 @@ void FairyModel::animate()
 	double elapsedTime = Timer::getTimer()->getElapsed();
 	if (wingsDown) {
 		wingsAngle += wingSpeed * elapsedTime;
-		if (wingsAngle >= 45)
+		if (wingsAngle >= 40)
 			wingsDown = false;
 	}
 	else {

@@ -56,7 +56,7 @@ void GameLogic::pushState(State state) {
 }
 
 void GameLogic::popState() {
-    delete(states.top()); //delete top state to avoid memory leak after pop
+    delete(states.top());
     states.pop();
 }
 

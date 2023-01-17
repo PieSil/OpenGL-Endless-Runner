@@ -25,7 +25,7 @@ void GameState::setCamera() {
 	//glTranslatef(0, 0, -20);
 	//glRotatef(30, 1., 0., 0.);
 	glLoadIdentity();
-	gluLookAt(0, 5.35898, -20, 0, 0, 0, 0, 1, 0);
+	gluLookAt(0, 15, -20, 0, 0, 0, 0, 1, 0);
 	//glLoadIdentity();
 	//gluLookAt()
 }

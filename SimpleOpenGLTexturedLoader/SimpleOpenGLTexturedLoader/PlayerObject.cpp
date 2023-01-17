@@ -1,7 +1,7 @@
 #include "PlayerObject.h"
 #include "Timer.h"
 
-PlayerObject::PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed) : ShapeObject(x, y, z, _shape, speed), onGround(false), jumpSpeed(0), lives(3) {}
+PlayerObject::PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed) : ShapeObject(x, y, z, _shape, speed), onGround(false), jumpSpeed(0), lives(3), inputRecorded(false) {}
 
 void PlayerObject::update() {
 	ShapeObject::update();

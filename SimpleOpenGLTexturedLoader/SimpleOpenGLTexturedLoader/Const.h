@@ -17,3 +17,6 @@ static const int POINT_SPHERE_ID = 10;
 static const int POWER1_ID = 11;
 static const int POWER2_ID = 12;
 static const int POWER3_ID = 13;
+
+//collectible properties
+static const int COL_SPEED = 10;

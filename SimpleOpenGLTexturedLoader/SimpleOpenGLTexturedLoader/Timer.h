@@ -20,6 +20,9 @@ public:
 		//double intElapsed = double(elapsed / 1000000);
 		//std::cout << "Output elapsed: " << intElapsed << "\n";
 		//return intElapsed;
+		//std::cout << "Elapsed: " << elapsedTime / 1000 << " millis \n";
+
+		//RETURNS ELAPSED TIME IN MILLISECONDS
 		return elapsedTime/1000;
 
 	}

@@ -71,9 +71,9 @@ void display()
     tmp = 10.f / tmp; //<--the bigger it is the closer the camera (increase float value to zoom in)
 	Context::getContext()->setScaleFactor(tmp);
 	tmp = Context::getContext()->getScaleFactor();
-	glScalef(tmp, tmp, tmp);
+	//glScalef(tmp, tmp, tmp);
 
-	glTranslatef(-scene_center.x, -scene_center.y, -scene_center.z);
+	//glTranslatef(-scene_center.x, -scene_center.y, -scene_center.z);
 
 	//draw the scene
 	game.display();

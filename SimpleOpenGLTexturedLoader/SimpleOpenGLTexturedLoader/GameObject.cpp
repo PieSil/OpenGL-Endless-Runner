@@ -10,8 +10,11 @@ void GameObject::update() {
 	//override if a certain behaviour needs to be applied
 }
 
-void GameObject::move() {
+void GameObject::move(float spd) {
 	//recover elapsed time since last iteration
+	if (spd == 0) {
+		spd = speed;
+	}
 	double elapsedTime = Timer::getTimer()->getElapsed(); 
 
 	//save previous position, used for collision resolution
@@ -20,9 +23,9 @@ void GameObject::move() {
 	prev_z = pos_z;
 
 	//move based on how much time has passed since last iteration, makes movement independent from FPS  <--- VERY IMPORTANT
-	pos_x += elapsedTime * speed * xSpeed;
-	pos_y += elapsedTime * speed * ySpeed;
-	pos_z += elapsedTime * speed * zSpeed;
+	pos_x += elapsedTime * spd * xSpeed;
+	pos_y += elapsedTime * spd * ySpeed;
+	pos_z += elapsedTime * spd * zSpeed;
 }
 
 void GameObject::revertMovement(bool x, bool y, bool z ) {

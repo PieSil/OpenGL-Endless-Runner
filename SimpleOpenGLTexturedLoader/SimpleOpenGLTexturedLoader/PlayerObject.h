@@ -26,16 +26,25 @@ public:
         return lives;
     }
 
-    int incrLives(int value) {
+    void incrLives(int value) {
         lives += value;
         if (lives < 0) {
             lives = 0;
         }
     }
 
+    void setInputRecorded(bool value) {
+        inputRecorded = value;
+    }
+
+    bool isInputRecorded() {
+        return inputRecorded;
+    }
+
 protected:
     bool onGround;
     float jumpSpeed;
     int lives;
+    bool inputRecorded;
 };
 

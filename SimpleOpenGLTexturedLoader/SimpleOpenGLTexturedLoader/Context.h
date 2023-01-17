@@ -38,6 +38,19 @@ public:
 		score = 0;
 	}
 
+	void setGameSpeed(float value) {
+		gameSpeed = value;
+	}
+
+	void incrGameSpeed(float value) {
+		gameSpeed += value;
+	}
+
+	float getGameSpeed() {
+		return gameSpeed;
+	}
+
+
 private:
 
 	explicit Context(); //private constructor, enables Singleton pattern, cannot have more than one instance of Timer at a time
@@ -47,5 +60,6 @@ private:
 	float aspectRatio;
 	float scaleFactor;
 	int score;
+	float gameSpeed;
 };
 
