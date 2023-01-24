@@ -17,6 +17,15 @@ static const int POINT_SPHERE_ID = 10;
 static const int POWER1_ID = 11;
 static const int POWER2_ID = 12;
 static const int POWER3_ID = 13;
+static const int SHELF_GROUND_ID = 14;
+static const int SHELF_LBORDER_ID = 15;
+static const int SHELF_RBORDER_ID = 16;
+static const int RUPEE_GREEN_ID = 17;
+static const int RUPEE_RED_ID = 18;
+static const int RUPEE_BLUE_ID = 19;
+static const int RUPEE_YELLOW_ID = 20;
+static const int RUPEE_PURPLE_ID = 21;
+
 
 //collectible properties
 static const int COL_SPEED = 10;

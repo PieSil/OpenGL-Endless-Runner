@@ -52,6 +52,10 @@ public:
 	ObjectDimensions getMaxCollectibleDim();
 	ObjectDimensions getGroundDim();
 
+	CollectibleObject getPoint(float posX, float posY, float posZ);
+	CollectibleObject getDamage(float posX, float posY, float posZ);	
+	CollectibleObject getPowerup(float posX, float posY, float posZ, float randomValue = -1);
+
 private:
 	ObjectDimensions collectibleDims;
 	ObjectDimensions groundDims;

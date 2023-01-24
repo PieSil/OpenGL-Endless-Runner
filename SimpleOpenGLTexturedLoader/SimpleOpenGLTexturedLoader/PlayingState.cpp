@@ -402,15 +402,15 @@ void PlayingState::spawnNewGround(){
 		//by using the resulting value as new ground's Z coordinate the new ground will collide exactly with previous ground
 	}
 
-	new_ground = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(GROUND_ID))));
+	new_ground = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(SHELF_GROUND_ID))));
 	grounds.push_back(new_ground);
 	objects.push_back(std::shared_ptr<GameObject>(new_ground));
 
-	lborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(LBORDER_ID))));
+	lborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(SHELF_LBORDER_ID))));
 	objects.push_back(std::shared_ptr<GameObject>(lborder));
 	collidables.push_back(std::shared_ptr<ShapeObject>(lborder));
 
-	rborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(RBORDER_ID))));
+	rborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(SHELF_RBORDER_ID))));
 	objects.push_back(std::shared_ptr<GameObject>(rborder));
 	collidables.push_back(std::shared_ptr<ShapeObject>(rborder));
 

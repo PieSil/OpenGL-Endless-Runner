@@ -26,8 +26,9 @@
 
 CollectibleSpawner::CollectibleSpawner() {
 	std::srand(std::time(nullptr));
-	collectibleDims = ObjectDimensions();
-	groundDims = ObjectDimensions();
+	//collectibleDims = ObjectDimensions();
+	//groundDims = ObjectDimensions();
+
 	elapsedSinceLastSpawn = 0;
 	for (int i = 0; i < SLOTS_ALONG_Z; i++) {
 		slotMemory[i] = SlotMemory();
@@ -66,6 +67,7 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 	for (int i = 0; i < SLOTS_ALONG_Z; i++) {
 		bool collectibleGenerated = false;
 		float posX = SPAWN_INIT_X + i * DELTA_X;
+		float posY = 0;
 		float posZ = SPAWN_POS_Z;
 		//auto currentSlotMemory = slotMemory[i];
 		std::shared_ptr<CollectibleObject> collectible;
@@ -73,7 +75,7 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 
 		//First check if current slot holds a row
 		if (slotMemory[i].status == SlotStatus::SPIKE_ROW) {
-			collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE));
+			collectible = std::make_shared<CollectibleObject>(getDamage(posX, posY, posZ));
 			collectibleGenerated = true;
 
 			//increment streak count
@@ -94,26 +96,13 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 			//if it's a streak of points check if PowerUp was generated, if not generate it with a very low probability
 			if (!slotMemory[i].powerGenerated && random < STREAK_POWER_PROB * MAX_RAND_VALUE) {
 
-				//generate power up
-				random = std::rand() % MAX_RAND_VALUE;
-				if (random < 0.33 * MAX_RAND_VALUE) {
-					// with p = 0.33 it's 1
-					collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1));
-				}
-				else if (random < 0.66 * MAX_RAND_VALUE) {
-					// with p = 0.33 it's 2
-					collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER2_ID)), COL_SPEED, CollectibleBehaviour::POWERUP2));
-				}
-				else {
-					// with p = 0.33 it's 3
-					collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER3_ID)), COL_SPEED, CollectibleBehaviour::POWERUP3));
-				}
+				collectible = std::make_shared<CollectibleObject>(getPowerup(posX, posY, posZ));
 				collectibleGenerated = true;
 				slotMemory[i].powerGenerated = true;
 			}
 			else {
 				//if power is not generated, generate a point instead
-				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), COL_SPEED, CollectibleBehaviour::POINT));
+				collectible = std::make_shared<CollectibleObject>(getPoint(posX, posY, posZ));
 				collectibleGenerated = true;
 			}
 
@@ -147,25 +136,25 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 				random = std::rand() % MAX_RAND_VALUE;
 				if (random < MAX_RAND_VALUE * POWER_PROB) {
 					//with p = 0.2 it's a power up
-					random = std::rand() % MAX_RAND_VALUE;
-					if (random < 0.33 * MAX_RAND_VALUE) {
-						// with p = 0.33 it's 1
-						collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1));
-					}
-					else if (random < 0.66 * MAX_RAND_VALUE) {
-						// with p = 0.33 it's 2
-						collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER2_ID)), COL_SPEED, CollectibleBehaviour::POWERUP2));
-					}
-					else {
-						// with p = 0.33 it's 3
-						collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER3_ID)), COL_SPEED, CollectibleBehaviour::POWERUP3));
-					}
+					collectible = std::make_shared<CollectibleObject>(getPowerup(posX, posY, posZ));
+					//	// with p = 0.33 it's 1
+					//	collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1));
+					//}
+					//else if (random < 0.66 * MAX_RAND_VALUE) {
+					//	// with p = 0.33 it's 2
+					//	collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER2_ID)), COL_SPEED, CollectibleBehaviour::POWERUP2));
+					//}
+					//else {
+					//	// with p = 0.33 it's 3
+					//	collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER3_ID)), COL_SPEED, CollectibleBehaviour::POWERUP3));
+					//}
 				}
+
 				else if (random < (POWER_PROB + SPIKE_PROB) * MAX_RAND_VALUE) {
 					//with p = 0.4 it's an obstacle 
 
 					//decide whether to spawn a single collectible or a streak
-		
+
 
 					//TODO FIX THIS
 					random = std::rand() % MAX_RAND_VALUE;
@@ -177,7 +166,7 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 						slotMemory[i].streakLength = (std::rand() % (MAX_SPIKE_STREAK_LENGTH - 2)) + 2; //randomly determine streak length between 2 and MAX_SPIKE_STREAK_LENGTH
 					}
 					//spawn single spike
-					collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE));
+					collectible = std::make_shared<CollectibleObject>(getDamage(posX, posY, posZ));
 
 				}
 				else {
@@ -190,13 +179,13 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 						slotMemory[i].status = POINT_ROW;
 						slotMemory[i].streakLength = (std::rand() % (MAX_POINT_STREAK_LENGTH - 2)) + 2; //randomly determine streak length between 2 and MAX_SPIKE_STREAK_LENGTH
 					}
-					//spawn single spike
-					collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), COL_SPEED, CollectibleBehaviour::POINT));
+					//spawn single point
+					collectible = std::make_shared<CollectibleObject>(getPoint(posX, posY, posZ));
 
 				}
 			}
 
-			
+
 		}
 
 		if (collectibleGenerated) {
@@ -205,55 +194,57 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 		}
 	}
 
+
 	return collectibles;
-
-	//	auto random = std::rand() % MAX_RAND_VALUE;
-	//	if (collectibleAllowed && random < COLL_PROB * MAX_RAND_VALUE) {
-	//		//with p = 0.4 place a collectible
-	//		random = std::rand() % MAX_RAND_VALUE;
-	//		if (random < MAX_RAND_VALUE * POWER_PROB) {
-	//			//with p = 0.2 it's a power up
-	//			random = std::rand() % MAX_RAND_VALUE;
-	//			if (random < 0.33 * MAX_RAND_VALUE) {
-	//				// with p = 0.33 it's 1
-	//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1));
-	//			}
-	//			else if (random < 0.66 * MAX_RAND_VALUE) {
-	//				// with p = 0.33 it's 2
-	//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER2_ID)), COL_SPEED, CollectibleBehaviour::POWERUP2));
-	//			}
-	//			else {
-	//				// with p = 0.33 it's 3
-	//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER3_ID)), COL_SPEED, CollectibleBehaviour::POWERUP3));
-	//			}
-	//		}
-	//		else if (random < (POWER_PROB + SPIKE_PROB) * MAX_RAND_VALUE) {
-	//			//with p = 0.4 it's an obstacle 
-
-	//			//TODO check if previous N positions are all occupied by an obstacle, if yes do not place an obstacle, N = MAX_SPIKES_IN_ROW
-	//			if (collectibleAllowed) {
-	//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE));
-	//			}
-	//		}
-	//		else {
-	//			//with P = 0.4 it's a point
-	//			collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), COL_SPEED, CollectibleBehaviour::POINT));
-
-	//		}
-	//		//place collectible
-	//		if (collectibleAllowed) {
-	//			collectible->incrZSpeed(-1);
-	//			collectibles.push_back(collectible);
-	//		}
-	//		else {
-	//		}
-	//	}
-	//	else {
-
-	//	}
-	//}
-	//return collectibles;
 }
+
+		//	auto random = std::rand() % MAX_RAND_VALUE;
+		//	if (collectibleAllowed && random < COLL_PROB * MAX_RAND_VALUE) {
+		//		//with p = 0.4 place a collectible
+		//		random = std::rand() % MAX_RAND_VALUE;
+		//		if (random < MAX_RAND_VALUE * POWER_PROB) {
+		//			//with p = 0.2 it's a power up
+		//			random = std::rand() % MAX_RAND_VALUE;
+		//			if (random < 0.33 * MAX_RAND_VALUE) {
+		//				// with p = 0.33 it's 1
+		//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1));
+		//			}
+		//			else if (random < 0.66 * MAX_RAND_VALUE) {
+		//				// with p = 0.33 it's 2
+		//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER2_ID)), COL_SPEED, CollectibleBehaviour::POWERUP2));
+		//			}
+		//			else {
+		//				// with p = 0.33 it's 3
+		//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER3_ID)), COL_SPEED, CollectibleBehaviour::POWERUP3));
+		//			}
+		//		}
+		//		else if (random < (POWER_PROB + SPIKE_PROB) * MAX_RAND_VALUE) {
+		//			//with p = 0.4 it's an obstacle 
+
+		//			//TODO check if previous N positions are all occupied by an obstacle, if yes do not place an obstacle, N = MAX_SPIKES_IN_ROW
+		//			if (collectibleAllowed) {
+		//				collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE));
+		//			}
+		//		}
+		//		else {
+		//			//with P = 0.4 it's a point
+		//			collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), COL_SPEED, CollectibleBehaviour::POINT));
+
+		//		}
+		//		//place collectible
+		//		if (collectibleAllowed) {
+		//			collectible->incrZSpeed(-1);
+		//			collectibles.push_back(collectible);
+		//		}
+		//		else {
+		//		}
+		//	}
+		//	else {
+
+		//	}
+		//}
+		//return collectibles;
+	//}
 
 std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectibles(aiVector3D playerPos, aiVector3D groundPos, bool considerPlayerPos) {
 	////TODO optimize
@@ -470,4 +461,40 @@ ObjectDimensions CollectibleSpawner::getGroundDim() {
 	delete max;
 
 	return ObjectDimensions(x, y, z, x * z, x * y * z);
+}
+
+CollectibleObject CollectibleSpawner::getPoint(float posX, float posY, float posZ)
+{
+	//randomly choose one model
+	auto modelId = RUPEE_GREEN_ID + std::rand() % (RUPEE_PURPLE_ID-RUPEE_GREEN_ID);
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(modelId)), COL_SPEED, CollectibleBehaviour::POINT);
+	return collectible;
+}
+
+CollectibleObject CollectibleSpawner::getDamage(float posX, float posY, float posZ)
+{
+	
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE);
+	return collectible;
+}
+
+CollectibleObject CollectibleSpawner::getPowerup(float posX, float posY, float posZ, float randomValue)
+{
+	//CollectibleObject collectible = NULL;
+	if (randomValue < 0) {
+		randomValue = std::rand() % MAX_RAND_VALUE;
+	}
+	//with p = 0.2 it's a power up
+	if (randomValue < 0.33 * MAX_RAND_VALUE) {
+		// with p = 0.33 it's 1
+		return CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1);
+	}
+	else if (randomValue < 0.66 * MAX_RAND_VALUE) {
+		// with p = 0.33 it's 2
+		return CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER2_ID)), COL_SPEED, CollectibleBehaviour::POWERUP2);
+	}
+	else {
+		// with p = 0.33 it's 3
+		return CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER3_ID)), COL_SPEED, CollectibleBehaviour::POWERUP3);
+	}
 }
