@@ -19,7 +19,7 @@ struct aiVector3D scene_min, scene_max, scene_center;
 std::map<std::string, GLuint*> textureIdMap;	// map image filenames to textureIds
 GLuint* textureIds;							// pointer to texture Array
 
-GLfloat LightAmbient[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+GLfloat LightAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 GLfloat LightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 GLfloat LightPosition[] = { 0.0f, 0.0f, 15.0f, 1.0f };
 
