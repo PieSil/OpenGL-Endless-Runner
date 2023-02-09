@@ -29,3 +29,7 @@ static const int RUPEE_PURPLE_ID = 21;
 
 //collectible properties
 static const int COL_SPEED = 10;
+
+//model properties
+static const double FAIRY_WING_SPEED = 80;
+static const double MODEL_ROTATION_SPEED = 40;

@@ -11,8 +11,8 @@ public:
 	virtual void display() = 0;
 	virtual void update();
 
-	void move(float spd = 0);
-	void revertMovement(bool x = true, bool y = true, bool z = true);
+	virtual void move(float spd = 0);
+	virtual void revertMovement(bool x = true, bool y = true, bool z = true);
 
 	float getPosx() {
 		return pos_x;

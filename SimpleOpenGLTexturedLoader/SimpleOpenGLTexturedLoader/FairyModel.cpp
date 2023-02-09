@@ -4,7 +4,7 @@
 #include "Const.h"
 
 FairyModel::FairyModel(float wingsAngle) : wingsAngle(wingsAngle) {
-	wingSpeed = 80;
+	wingSpeed = FAIRY_WING_SPEED;
 	wingsDown = true;
 }
 

@@ -13,6 +13,8 @@
 #include "Const.h"
 #include "Context.h"
 #include "Const.h"
+#include "CompositeObject.h"
+#include <vector>
 
 #define COLL_DESPAWN_Z -12
 
@@ -28,7 +30,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game) {
 	collectibleSpawner = CollectibleSpawner();
 
 	//create player object and add it to renderable objects
-	player = std::make_shared<PlayerObject>(PlayerObject(0, 3, -5, std::make_shared<FairyModel>(FairyModel()), 10));
+	player = std::make_shared<PlayerObject>(PlayerObject(0, 3, -5, ModelRepository::getModel(FAIRY_ID), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 
 
@@ -63,24 +65,45 @@ void PlayingState::update() {
 		pointsToNextAccel += 20;
 		Context::getContext()->incrGameSpeed(2);
 	}
-	//spawn ground, must be placed here because if placed in constructor may create some problems with Assimp
+
 	if (grounds.empty()) {
+		//spawn ground, must be placed here because if placed in constructor may create some problems with Assimp
 		spawnNewGround();
 		spawnNewGround();
-		spawnNewGround();
+		//spawnNewGround();
 	}
-
-	auto newCollectibles = collectibleSpawner.spawnCollectibles();
-
-	if (!newCollectibles.empty()) {
-		for (std::shared_ptr<CollectibleObject> coll : newCollectibles) {
-			collectibles.push_back(coll);
+	else {
+		//move ground
+		bool groundErased = false;
+		auto groundIterator = grounds.begin();
+		while (!grounds.empty() && groundIterator != grounds.end()) {
+			(*groundIterator).ground->move(Context::getContext()->getGameSpeed());
+			(*groundIterator).lborder->move(Context::getContext()->getGameSpeed());
+			(*groundIterator).rborder->move(Context::getContext()->getGameSpeed());
+			(*groundIterator).linvisible->move(Context::getContext()->getGameSpeed());
+			(*groundIterator).rinvisible->move(Context::getContext()->getGameSpeed());
+			if ((*groundIterator).ground->getPosz() < -160) {
+				deleteGround(*groundIterator);
+				groundIterator = grounds.erase(groundIterator);
+				groundErased = true;
+			}
+			else {
+				groundIterator++;
+			}
+		}
+		if (groundErased) {
+			spawnNewGround();
 		}
 	}
 
+
+	//play animations linked to models (e. g. rotation)
+	ModelRepository::getModelRepository()->animateModels();
+
+		//check collectible position
 	auto collIterator = collectibles.begin();
 	while (!collectibles.empty() && collIterator != collectibles.end()) {
-		
+
 		//move collectibles
 		(*collIterator)->move(Context::getContext()->getGameSpeed());
 
@@ -88,8 +111,18 @@ void PlayingState::update() {
 		if ((*collIterator)->getPosz() <= COLL_DESPAWN_Z) {
 			collIterator = collectibles.erase(collIterator);
 
-		} else {
+		}
+		else {
 			collIterator++;
+		}
+	}
+
+	//spawn collectibles
+	auto newCollectibles = collectibleSpawner.spawnCollectibles();
+
+	if (!newCollectibles.empty()) {
+		for (std::shared_ptr<CollectibleObject> coll : newCollectibles) {
+			collectibles.push_back(coll);
 		}
 	}
 
@@ -308,7 +341,7 @@ void PlayingState::checkCollisions() {
 		for (auto currentGround : grounds) {
 			aiVector3D* groundMin = new aiVector3D(0, 0, 0);
 			aiVector3D* groundMax = new aiVector3D(0, 0, 0);
-			currentGround->getHitbox(groundMin, groundMax);
+			currentGround.ground->getHitbox(groundMin, groundMax);
 			Hitbox groundHitbox = Hitbox(*groundMin, *groundMax);
 
 			if (bboxIntersection(playerHitbox, groundHitbox)) {
@@ -394,31 +427,35 @@ void PlayingState::spawnNewGround(){
 
 		aiVector3D* prevMin = new aiVector3D(0, 0, 0);
 		aiVector3D* prevMax = new aiVector3D(0, 0, 0);
-		(*groundItr)->getHitbox(prevMin, prevMax); //get hitbox of ground that immediately precedes new ground
+		(*groundItr).ground->getHitbox(prevMin, prevMax); //get hitbox of ground that immediately precedes new ground
 
-		newX = (*groundItr)->getPosx();
-		newY = (*groundItr)->getPosy();
-		newZ = (*groundItr)->getPosz() + (prevMax->z - prevMin->z); //get Z coordinate of previous ground and increase it by previous ground dimension along Z
+		newX = (*groundItr).ground->getPosx();
+		newY = (*groundItr).ground->getPosy();
+		newZ = (*groundItr).ground->getPosz() + (prevMax->z - prevMin->z); //get Z coordinate of previous ground and increase it by previous ground dimension along Z
 		//by using the resulting value as new ground's Z coordinate the new ground will collide exactly with previous ground
 	}
 
-	new_ground = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(SHELF_GROUND_ID))));
-	grounds.push_back(new_ground);
+	new_ground = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(SHELF_GROUND_ID)));
+	new_ground->incrZSpeed(-1);
 	objects.push_back(std::shared_ptr<GameObject>(new_ground));
 
-	lborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(SHELF_LBORDER_ID))));
+	lborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(SHELF_LBORDER_ID)));
+	lborder->incrZSpeed(-1);
 	objects.push_back(std::shared_ptr<GameObject>(lborder));
 	collidables.push_back(std::shared_ptr<ShapeObject>(lborder));
 
-	rborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(SHELF_RBORDER_ID))));
+	rborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(SHELF_RBORDER_ID)));
+	rborder->incrZSpeed(-1);
 	objects.push_back(std::shared_ptr<GameObject>(rborder));
 	collidables.push_back(std::shared_ptr<ShapeObject>(rborder));
 
 		//invisible walls
-	linv = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(LINVISIBLE_WALL_ID))));
+	linv = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(LINVISIBLE_WALL_ID)));
+	linv->incrZSpeed(-1);
 	collidables.push_back(std::shared_ptr<ShapeObject>(linv));
 
-	rinv = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, std::make_shared<AssimpModel>(AssimpModel(RINVISIBLE_WALL_ID))));
+	rinv = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(RINVISIBLE_WALL_ID)));
+	rinv->incrZSpeed(-1);
 	collidables.push_back(std::shared_ptr<ShapeObject>(rinv));
 
 	/*newCollectibles = collectibleSpawner.getCollectibles(aiVector3D(player->getPosx(), player->getPosy(), player->getPosz()), aiVector3D(new_ground->getPosx(), new_ground->getPosy(), new_ground->getPosz()), considerPlayerPos);
@@ -426,5 +463,34 @@ void PlayingState::spawnNewGround(){
 	for (std::shared_ptr<CollectibleObject> coll : newCollectibles) {
 		collectibles.push_back(coll);
 	}*/
+	grounds.push_back(GroundStruct(new_ground, lborder, rborder, linv, rinv));
+}
 
+void PlayingState::deleteGround(GroundStruct ground)
+{
+
+	auto objIterator = objects.begin();
+	while (!objects.empty() && objIterator != objects.end()) {
+
+		//check if pointers in ground struct and pointers in current position match, if so delete pointer from objects
+		if (ground.lborder.get() == (*objIterator).get() || ground.rborder.get() == (*objIterator).get()) {
+			objIterator = objects.erase(objIterator);
+
+		}
+		else {
+			objIterator++;
+		}
+	}
+
+	auto collIterator = collidables.begin();
+	while (!collidables.empty() && collIterator != collidables.end()) {
+
+		//check if pointers in ground struct and pointers in current position match, if so delete pointer from collidables
+		if (ground.lborder.get() == (*collIterator).get() || ground.rborder.get() == (*collIterator).get() || ground.linvisible.get() == (*collIterator).get() || ground.rinvisible.get() == (*collIterator).get()) {
+			collIterator = collidables.erase(collIterator);
+		}
+		else {
+			collIterator++;
+		}
+	}
 }

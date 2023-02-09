@@ -12,9 +12,7 @@ void ShapeObject::display() {
 	//glPopMatrix();
 }
 
-void ShapeObject::update() {
-	shape->animate();
-}
+void ShapeObject::update() {}
 
 void ShapeObject::getHitbox(struct aiVector3D* min, struct aiVector3D* max) {
 	//get bounding box size, then move bbox coordinates to current position

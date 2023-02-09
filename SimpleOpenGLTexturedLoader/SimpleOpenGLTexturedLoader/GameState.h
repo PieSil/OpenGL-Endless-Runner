@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "GameLogic.h"
+#include "ModelRepository.h"
 
 //abstract class, represents a state of the game, like menu, playing state, pause, etc. 
 //multiple states can be active at once thanks to a stack structure (see GameLogic class)

@@ -4,13 +4,16 @@ class AssimpModel :
     public Model
 {
 public:
-	explicit AssimpModel(int childrenId);
+	explicit AssimpModel(int childId, bool rotate = false);
 
 	void display(float x, float y, float z) override;
-	void animate() {};
 	void getHitbox(struct aiVector3D* min, struct aiVector3D* max) override;
+	void animate() override;
 
 protected:
-	int childrenId;
+	int childId;
+	bool rotate;
+	double angle;
+	double rotationSpeed;
 };
 

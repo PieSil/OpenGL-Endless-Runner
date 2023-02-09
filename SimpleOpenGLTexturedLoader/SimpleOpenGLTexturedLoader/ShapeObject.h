@@ -11,8 +11,8 @@ class ShapeObject :
     public GameObject {
 public:
     explicit ShapeObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed = 1);
-    void display() override;
-    void update() override;
+    virtual void display() override;
+    virtual void update() override;
     void getHitbox(struct aiVector3D* min, struct aiVector3D* max);
 
 protected:

@@ -2,6 +2,7 @@
 #include "AssimpModel.h"
 #include "Timer.h"
 #include "Context.h"
+#include "ModelRepository.h"
 #include <math.h>
 #include <cstdlib>
 #include <ctime>
@@ -467,14 +468,14 @@ CollectibleObject CollectibleSpawner::getPoint(float posX, float posY, float pos
 {
 	//randomly choose one model
 	auto modelId = RUPEE_GREEN_ID + std::rand() % (RUPEE_PURPLE_ID-RUPEE_GREEN_ID);
-	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(modelId)), COL_SPEED, CollectibleBehaviour::POINT);
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(modelId), COL_SPEED, CollectibleBehaviour::POINT);
 	return collectible;
 }
 
 CollectibleObject CollectibleSpawner::getDamage(float posX, float posY, float posZ)
 {
 	
-	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE);
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(SPIKEBALL_ID), COL_SPEED, CollectibleBehaviour::DAMAGE);
 	return collectible;
 }
 
@@ -487,14 +488,14 @@ CollectibleObject CollectibleSpawner::getPowerup(float posX, float posY, float p
 	//with p = 0.2 it's a power up
 	if (randomValue < 0.33 * MAX_RAND_VALUE) {
 		// with p = 0.33 it's 1
-		return CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(POWER1_ID), COL_SPEED, CollectibleBehaviour::POWERUP1);
 	}
 	else if (randomValue < 0.66 * MAX_RAND_VALUE) {
 		// with p = 0.33 it's 2
-		return CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER2_ID)), COL_SPEED, CollectibleBehaviour::POWERUP2);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(POWER2_ID), COL_SPEED, CollectibleBehaviour::POWERUP2);
 	}
 	else {
 		// with p = 0.33 it's 3
-		return CollectibleObject(posX, posY, posZ, std::make_shared<AssimpModel>(AssimpModel(POWER3_ID)), COL_SPEED, CollectibleBehaviour::POWERUP3);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(POWER3_ID), COL_SPEED, CollectibleBehaviour::POWERUP3);
 	}
 }

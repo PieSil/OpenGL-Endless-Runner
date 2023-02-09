@@ -19,8 +19,8 @@ struct aiVector3D scene_min, scene_max, scene_center;
 std::map<std::string, GLuint*> textureIdMap;	// map image filenames to textureIds
 GLuint* textureIds;							// pointer to texture Array
 
-GLfloat LightAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-GLfloat LightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+GLfloat LightAmbient[] = { 0.3f, 0.3f, 0.3f, 1.0f }; //default is .5, .5, .5, 1
+GLfloat LightDiffuse[] = { 0.8f, .8f, .08, 1.0f }; //default is 1., 1., 1., 1.
 GLfloat LightPosition[] = { 0.0f, 0.0f, 15.0f, 1.0f };
 
 void get_bounding_box_for_node(const struct aiNode* nd,

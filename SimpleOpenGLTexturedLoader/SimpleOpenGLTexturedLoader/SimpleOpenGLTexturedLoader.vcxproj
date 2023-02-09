@@ -94,6 +94,7 @@
     <ClCompile Include="AssimpModel.cpp" />
     <ClCompile Include="CollectibleObject.cpp" />
     <ClCompile Include="CollectibleSpawner.cpp" />
+    <ClCompile Include="CompositeObject.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FairyModel.cpp" />
@@ -101,6 +102,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GLUtils.cpp" />
+    <ClCompile Include="ModelRepository.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -114,6 +116,7 @@
     <ClInclude Include="AssimpModel.h" />
     <ClInclude Include="CollectibleObject.h" />
     <ClInclude Include="CollectibleSpawner.h" />
+    <ClInclude Include="CompositeObject.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="CubeModel.h" />
@@ -122,6 +125,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GLutils.h" />
+    <ClInclude Include="ModelRepository.h" />
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="PlayingState.h" />
     <ClInclude Include="Model.h" />
