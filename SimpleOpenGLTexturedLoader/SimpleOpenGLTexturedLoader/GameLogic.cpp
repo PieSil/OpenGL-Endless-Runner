@@ -23,6 +23,12 @@ void GameLogic::setCamera() {
     getCurrentState()->setCamera();
 }
 
+void GameLogic::setPerspective(bool setModelView)
+{
+    if(getCurrentState()) //check for not null
+        getCurrentState()->setPerspective(setModelView);
+}
+
 //void GameLogic::setCamera() {
 //    getCurrentState()->setCamera();
 //}
@@ -52,12 +58,14 @@ void GameLogic::pushState(State state) {
         states.emplace(new TestState(this));
         break;
     }
+    setPerspective();
 
 }
 
 void GameLogic::popState() {
     delete(states.top());
     states.pop();
+    setPerspective();
 }
 
 void GameLogic::setState(State state) {
@@ -66,6 +74,7 @@ void GameLogic::setState(State state) {
         popState();
 
     pushState(state); //push new state on top of stack
+    setPerspective();
 }
 
 GameState* GameLogic::getCurrentState() const {

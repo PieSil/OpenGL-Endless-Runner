@@ -13,12 +13,11 @@
 #include "Const.h"
 #include "Context.h"
 #include "Const.h"
-#include "CompositeObject.h"
 #include <vector>
 
 #define COLL_DESPAWN_Z -12
 
-PlayingState::PlayingState(GameLogic* game) : GameState(game) {
+PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 
 	pointsToNextAccel = 20;
 

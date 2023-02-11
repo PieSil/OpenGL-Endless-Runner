@@ -1,6 +1,7 @@
 #include "GameState.h"
+#include "Context.h"
 
-GameState::GameState(GameLogic* game) : game(game) {
+GameState::GameState(GameLogic* game, bool persp) : game(game), persp(persp) {
 	//this->game = std::shared_ptr<GameLogic>(game);
 	setCamera();
 }
@@ -21,14 +22,38 @@ void GameState::update() {
 	}
 }
 
-void GameState::setCamera() {
-	//glTranslatef(0, 0, -20);
-	//glRotatef(30, 1., 0., 0.);
+void GameState::setPerspective(bool setModelView)
+{
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluLookAt(0, 15, -20, 0, 0, 0, 0, 1, 0);
-	//glLoadIdentity();
-	//gluLookAt()
+	if (persp) {
+		gluPerspective(Context::getContext()->getFieldOfView(), Context::getContext()->getAspectRatio(),
+			1, 1000.0);  // Znear and Zfar 
+	}
+	else {
+		glOrtho(-Context::getContext()->getWidth() / 200.f, Context::getContext()->getWidth() / 200.f, -Context::getContext()->getHeight() / 200.f, Context::getContext()->getHeight() / 200.f, 0, 1000);
+	}
+
+	if(setModelView)
+		glMatrixMode(GL_MODELVIEW);
 }
+
+void GameState::setCamera() {
+	if (persp) {
+		//glTranslatef(0, 0, -20);
+		//glRotatef(30, 1., 0., 0.);
+		glLoadIdentity();
+		gluLookAt(0, 15, -20, 0, 0, 0, 0, 1, 0);
+		//glLoadIdentity();
+		//gluLookAt()
+	}
+	else {
+		glLoadIdentity();
+		gluLookAt(0, 0, -10, 0, 0, 0, 0, 1, 0);
+	}
+}
+
+
 
 void GameState::addGameObject(float x, float y, float z, std::shared_ptr<Model> shape) {
 	objects.push_back(std::make_shared<ShapeObject>(ShapeObject(x, y, z, shape)));

@@ -26,6 +26,8 @@ public:
 
 	void setCamera();
 
+	void setPerspective(bool setModelView = true);
+
 	void handleInput(unsigned char key, int x, int y);
 
 	void handleInputUp(unsigned char key, int x, int y);

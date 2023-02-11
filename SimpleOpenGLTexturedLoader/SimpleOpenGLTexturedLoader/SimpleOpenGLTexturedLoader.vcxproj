@@ -94,7 +94,6 @@
     <ClCompile Include="AssimpModel.cpp" />
     <ClCompile Include="CollectibleObject.cpp" />
     <ClCompile Include="CollectibleSpawner.cpp" />
-    <ClCompile Include="CompositeObject.cpp" />
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FairyModel.cpp" />
@@ -116,7 +115,6 @@
     <ClInclude Include="AssimpModel.h" />
     <ClInclude Include="CollectibleObject.h" />
     <ClInclude Include="CollectibleSpawner.h" />
-    <ClInclude Include="CompositeObject.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Context.h" />
     <ClInclude Include="CubeModel.h" />

@@ -1,4 +1,5 @@
 #include "Context.h"
+#include "Const.h"
 
 std::shared_ptr<Context> Context::contextInstance(nullptr);
 
@@ -21,4 +22,5 @@ Context::Context() {
     aspectRatio = width / height;
     score = 0;
     gameSpeed = 10;
+    fieldOfView = FOV;
 }

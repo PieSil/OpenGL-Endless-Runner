@@ -72,9 +72,6 @@
     <ClCompile Include="ModelRepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CompositeObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CubeModel.h">
@@ -132,9 +129,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ModelRepository.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CompositeObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

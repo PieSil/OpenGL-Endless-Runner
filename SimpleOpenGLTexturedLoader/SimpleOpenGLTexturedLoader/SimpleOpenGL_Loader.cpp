@@ -24,14 +24,16 @@ const double fieldOfView = 45.0;
 
 void reshape(int width, int height)
 {
-	aspectRatio = (float)width / height,
+	aspectRatio = (float)width / height;
 	Context::getContext()->setWidthHeight((float)width, (float)height);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(fieldOfView, aspectRatio,
-		1, 1000.0);  // Znear and Zfar 
+	game.setPerspective(false);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//gluPerspective(fieldOfView, aspectRatio,
+	//	1, 1000.0);  // Znear and Zfar 
 	glViewport(0, 0, width, height);
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void keyboard(unsigned char key, int x, int y)

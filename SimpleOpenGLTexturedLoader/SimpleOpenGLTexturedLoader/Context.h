@@ -15,12 +15,29 @@ public:
 		aspectRatio = w / h;
 	}
 
+	float getWidth() {
+		return width;
+	}
+
+	float getHeight() {
+		return height;
+	}
+
 	void setScaleFactor(float sf) {
 		scaleFactor = sf;
 	}
 
 	float getScaleFactor() {
 		return scaleFactor;
+	}
+
+	
+	float getAspectRatio() {
+		return aspectRatio;
+	}
+
+	double getFieldOfView() {
+		return fieldOfView;
 	}
 
 	void incrScore(int value) {
@@ -61,5 +78,6 @@ private:
 	float scaleFactor;
 	int score;
 	float gameSpeed;
+	double fieldOfView;
 };
 

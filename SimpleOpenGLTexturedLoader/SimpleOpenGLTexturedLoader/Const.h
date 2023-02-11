@@ -33,3 +33,6 @@ static const int COL_SPEED = 10;
 //model properties
 static const double FAIRY_WING_SPEED = 80;
 static const double MODEL_ROTATION_SPEED = 40;
+
+//other setting
+static const double FOV = 45.;
