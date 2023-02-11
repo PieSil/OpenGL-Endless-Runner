@@ -97,6 +97,7 @@
     <ClCompile Include="Context.cpp" />
     <ClCompile Include="CubeModel.cpp" />
     <ClCompile Include="FairyModel.cpp" />
+    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="Context.h" />
     <ClInclude Include="CubeModel.h" />
     <ClInclude Include="FairyModel.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="GameLogic.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
