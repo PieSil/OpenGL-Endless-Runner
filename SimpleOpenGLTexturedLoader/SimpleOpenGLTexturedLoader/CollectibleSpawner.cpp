@@ -75,7 +75,7 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 		auto random = std::rand() % MAX_RAND_VALUE;
 
 		//First check if current slot holds a row
-		if (slotMemory[i].status == SlotStatus::SPIKE_ROW) {
+		if (slotMemory[i].status == SlotStatus::DAMAGE_ROW) {
 			collectible = std::make_shared<CollectibleObject>(getDamage(posX, posY, posZ));
 			collectibleGenerated = true;
 
@@ -163,7 +163,7 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 						//setup streak
 						//collectible = std::make_shared<CollectibleObject>(CollectibleObject(posX, 0, posZ, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE));
 						slotMemory[i].count = 1;
-						slotMemory[i].status = SPIKE_ROW;
+						slotMemory[i].status = DAMAGE_ROW;
 						slotMemory[i].streakLength = (std::rand() % (MAX_SPIKE_STREAK_LENGTH - 2)) + 2; //randomly determine streak length between 2 and MAX_SPIKE_STREAK_LENGTH
 					}
 					//spawn single spike

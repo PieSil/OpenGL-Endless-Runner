@@ -17,7 +17,7 @@ public:
     virtual void handleInput(unsigned char key, int x, int y) = 0;
     virtual void display();
     virtual void handleInputUp(unsigned char key, int x, int y) {};
-    void setPerspective(bool setModelView = true);
+    void setPerspective(bool useDefault = true, bool setModelView = true, bool perspParam = false);
     void setCamera();
 
     void addGameObject(float x, float y, float z, std::shared_ptr<Model> shape);

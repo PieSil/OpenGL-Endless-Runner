@@ -35,9 +35,9 @@ static const int ZELDALOGO_ID = 25;
 
 //collectible properties
 static const int COL_SPEED = 10;
-static const float SHOOT_POWER_DURATION = 20000; //in millis
-static const float PROJECTILE_INTERVAL = 200; //in millis
-static const float FLIGHT_DURATION = 10000; //in millis
+static const float SHOOT_POWER_DURATION = 10; //in seconds
+static const float PROJECTILE_INTERVAL = .2; //in seconds
+static const float FLIGHT_DURATION = 10; //in seconds
 static const float PROJECTILE_SPEED = 50;
 
 
@@ -47,10 +47,13 @@ static const double MODEL_ROTATION_SPEED = 40;
 
 //other settings
 static const double FOV = 45.;
-static const void* FONT = GLUT_BITMAP_TIMES_ROMAN_24;
-static const int FONT_HEIGHT = 24;
+static const void* FONT = GLUT_BITMAP_HELVETICA_18;
+static const int FONT_HEIGHT = 18;
 static const int INITIAL_GAME_SPEED = 10;
 
 //directories
 static const std::string SCORE_DIR = "scores";
 static const std::string SCORE_FILENAME = "scores.bin";
+
+//UI properties
+static const int UI_BAR_LENGTH = 200; //in pixels

@@ -27,7 +27,7 @@ void reshape(int width, int height)
 	aspectRatio = (float)width / height;
 	Context::getContext()->setWidthHeight((float)width, (float)height);
 
-	game.setPerspective(false);
+	game.setPerspective(true, false, true);
 	//glMatrixMode(GL_PROJECTION);
 	//glLoadIdentity();
 	//gluPerspective(fieldOfView, aspectRatio,

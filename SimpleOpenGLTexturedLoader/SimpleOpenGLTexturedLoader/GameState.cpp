@@ -22,11 +22,17 @@ void GameState::update() {
 	}
 }
 
-void GameState::setPerspective(bool setModelView)
+void GameState::setPerspective(bool useDefault, bool setModelView, bool perspParam)
 {
+
+	bool perspValue = persp;
+
+	if (!useDefault)
+		perspValue = perspParam;
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	if (persp) {
+	if (perspValue) {
 		gluPerspective(Context::getContext()->getFieldOfView(), Context::getContext()->getAspectRatio(),
 			1, 1000.0);  // Znear and Zfar 
 	}

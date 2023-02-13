@@ -4,10 +4,9 @@
 
 PlayerObject::PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed) : ShapeObject(x, y, z, _shape, speed), onGround(false), jumpSpeed(0), lives(3), inputRecorded(false) {
 	shootPowerElapsed = .0;
-	shootPowerStart = 0;
-	flightPowerStart = 0;
 	shootIntervalElapsed = 0;
 	flightPowerElapsed = .0;
+	shootIntervalStart = 0;
 	shootActive = false;
 	flightActive = false;
 	shooting = false;
@@ -16,23 +15,19 @@ PlayerObject::PlayerObject(float x, float y, float z, std::shared_ptr<Model> _sh
 void PlayerObject::update() {
 	ShapeObject::update();
 	if (shootActive) { //countdown to powerup end
-		float deltaTime = glutGet(GLUT_ELAPSED_TIME) - shootPowerStart;
-		shootPowerElapsed = deltaTime;
+		shootPowerElapsed += Timer::getTimer()->getElapsed();
 		if (shootPowerElapsed >= SHOOT_POWER_DURATION) {
 			setShootActive(false);
 			shootPowerElapsed = 0;
-			shootPowerStart = 0;
 			shootIntervalElapsed = 0;
 		}
 	}
 
 	if (flightActive) { //countdown to powerup end
-		float deltaTime = glutGet(GLUT_ELAPSED_TIME) - flightPowerStart;
-		flightPowerElapsed += deltaTime;
+		flightPowerElapsed += Timer::getTimer()->getElapsed();
 		if (flightPowerElapsed >= FLIGHT_DURATION) {
 			setFlightActive(false);
 			flightPowerElapsed = 0;
-			shootPowerStart = 0;
 		}
 	}
 	fall();
@@ -52,12 +47,11 @@ void PlayerObject::fall() {
 bool PlayerObject::shoot() {
 	bool result = false;
 	if (shootActive) {
-		float deltaTime = glutGet(GLUT_ELAPSED_TIME) - shootIntervalStart;
-		shootIntervalElapsed += deltaTime;
-		if (deltaTime > PROJECTILE_INTERVAL) {
+		shootIntervalElapsed += Timer::getTimer()->getElapsed();
+		if (shootIntervalElapsed > PROJECTILE_INTERVAL) {
 			result = true;
 			shootIntervalStart = glutGet(GLUT_ELAPSED_TIME);
-			shootIntervalElapsed += 0;
+			shootIntervalElapsed = 0;
 		}
 	}
 	return result;

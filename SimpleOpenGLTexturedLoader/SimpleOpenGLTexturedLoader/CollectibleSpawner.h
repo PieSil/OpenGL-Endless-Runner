@@ -5,7 +5,7 @@
 #define SLOTS_ALONG_Z 5
 
 enum SlotStatus {
-	FREE, SPIKE_ROW, POINT_ROW, EMPTY_ROW
+	FREE, DAMAGE_ROW, POINT_ROW, EMPTY_ROW
 };
 
 struct SlotMemory {

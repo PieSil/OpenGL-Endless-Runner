@@ -33,6 +33,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 	player = std::make_shared<PlayerObject>(PlayerObject(0, 3, -5, ModelRepository::getModel(FAIRY_ID), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 
+	UIText.push_back("LIVES: ");
 
 
 	////test cube
@@ -51,6 +52,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 }
 
 void PlayingState::display(){
+	displayUI();
 	//call GameState display() function in order to render all elements in "object" list
 	GameState::display();
 
@@ -172,13 +174,13 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 		player->incrZSpeed(-1.);
 		break;*/
 	case 'a': case 'A':
-		if (player->isOnGround()) {
+		if (player->isOnGround() || player->isFlightActive()) {
 			player->incrXSpeed(1.);
 			player->setInputRecorded(true);
 		}
 		break;
 	case 'd': case 'D':
-		if (player->isOnGround()) {
+		if (player->isOnGround() || player->isFlightActive()) {
 			player->incrXSpeed(-1.);
 			player->setInputRecorded(true);
 		}
@@ -219,14 +221,14 @@ void PlayingState::handleInputUp(unsigned char key, int x, int y) {
 	//	player->incrZSpeed(1.);
 	//	break;
 	case 'a': case 'A':
-		if (player->isOnGround() && player->isInputRecorded()) {
+		if ((player->isOnGround() || player->isFlightActive()) && player->isInputRecorded()) {
 			player->incrXSpeed(-1.);
 			//player->setInputRecorded(false);
 		}
 
 		break;
 	case 'd': case 'D':
-		if (player->isOnGround() && player->isInputRecorded()) {
+		if ((player->isOnGround() || player->isFlightActive()) && player->isInputRecorded()) {
 			player->incrXSpeed(1.);
 			//player->setInputRecorded(false);
 		}
@@ -571,4 +573,51 @@ void PlayingState::spawnProjectile() {
 	std::shared_ptr<ShapeObject> projectile = std::make_shared<ShapeObject>(ShapeObject(player->getPosx(), player->getPosy(), player->getPosz(), ModelRepository::getModel(SWORD_PROJECTILE_ID), PROJECTILE_SPEED));
 	projectile->incrZSpeed(1);
 	projectiles.emplace_back(projectile);
+}
+
+void PlayingState::displayUI() {
+	if (player->isShootActive()) {
+		setPerspective(false, true, false);
+		glPushMatrix();
+		glLoadIdentity();
+
+		float barlength = player->getRemainingTime(PowerupType::SHOOT);
+		barlength = (barlength * UI_BAR_LENGTH) / SHOOT_POWER_DURATION;
+		
+		glDisable(GL_LIGHTING); //disable materials
+		glClear(GL_COLOR_BUFFER_BIT);
+		glColor3f(1, 0, 0);
+		glBegin(GL_QUADS);
+			glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 10); //top left
+			glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10 + barlength, (Context::getContext()->getHeight() / 2.f) - 10); //top right
+			glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10 + barlength, (Context::getContext()->getHeight() / 2.f) - 35); //bottom right
+			glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 35); //bottom left
+		glEnd();
+		glPopMatrix();
+		glColor3f(1, 0, 0);
+		setPerspective(); //reset perspective
+		glEnable(GL_LIGHTING); //re-enable materials
+	}
+
+	if (player->isFlightActive()) {
+		setPerspective(false, true, false);
+		glPushMatrix();
+		glLoadIdentity();
+
+		float barlength = player->getRemainingTime(PowerupType::FLIGHT);
+		barlength = (barlength * UI_BAR_LENGTH) / FLIGHT_DURATION;
+
+		glDisable(GL_LIGHTING); //disable materials
+		glColor3f(0, 0, 1);
+		glBegin(GL_QUADS);
+		glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 45); //top left
+		glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10 + barlength, (Context::getContext()->getHeight() / 2.f) - 45); //top right
+		glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10 + barlength, (Context::getContext()->getHeight() / 2.f) - 70); //bottom right
+		glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 70); //bottom left
+		glEnd();
+		glPopMatrix();
+		glColor3f(1, 0, 0);
+		setPerspective(); //reset perspective
+		glEnable(GL_LIGHTING); //re-enable materials
+	}
 }

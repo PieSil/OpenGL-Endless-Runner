@@ -1,6 +1,8 @@
 #pragma once
 #include "ShapeObject.h"
 #include "Const.h"
+#include <iostream>
+#include "Timer.h"
 
 enum class PowerupType {
     SHOOT, FLIGHT
@@ -48,20 +50,31 @@ public:
         return inputRecorded;
     }
 
+    bool isShootActive() {
+        return shootActive;
+    }
+
     void setShootActive(bool value) {
         if (value) { //if power is activated
-            shootPowerStart = glutGet(GLUT_ELAPSED_TIME);
             shootPowerElapsed = 0;
             shootIntervalElapsed = PROJECTILE_INTERVAL;
-            shootIntervalStart = glutGet(GLUT_ELAPSED_TIME);
+        }
+        else {
+            std::cout << "Power deactivated";
         }
         shootActive = value;
     }
 
+    bool isFlightActive() {
+        return flightActive;
+    }
+
     void setFlightActive(bool value) {
         if (value) { //if power is activated
-            flightPowerStart = glutGet(GLUT_ELAPSED_TIME);
             flightPowerElapsed = 0;
+        } else if (!value && !onGround && inputRecorded) { //otherwise if the player is jumping reset its horizontal speed and remove the input flag
+            inputRecorded = false;
+            resetXSpeed();
         }
         flightActive = value;
     }
@@ -79,8 +92,6 @@ public:
     float getRemainingTime(PowerupType pwr);
 
 protected:
-    float shootPowerStart;
-    float flightPowerStart;
     float shootPowerElapsed;
     float shootIntervalStart;
     float shootIntervalElapsed;

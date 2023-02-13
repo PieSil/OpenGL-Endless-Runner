@@ -4,6 +4,7 @@
 #include <vector>
 #include <stack>
 #include <map>
+#include <string>
 #include "GameState.h"
 #include "PlayerObject.h"
 #include "CollectibleObject.h"
@@ -48,6 +49,7 @@ public:
     void spawnNewGround();
     void deleteGround(GroundStruct ground);
     void spawnProjectile();
+    void displayUI();
 
 private:
     std::shared_ptr<PlayerObject> player;
@@ -56,7 +58,8 @@ private:
     //std::shared_ptr<ShapeObject> ground;
     std::vector<GroundStruct> grounds; //use a vector of "grounds" allows for multiple objects classified and treated as ground
     std::vector<std::shared_ptr<ShapeObject>> projectiles;
-    CollectibleSpawner  collectibleSpawner;
+    std::vector<std::string> UIText;
+    CollectibleSpawner collectibleSpawner;
     int pointsToNextAccel;
 
 };
