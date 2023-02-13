@@ -436,6 +436,19 @@ int InitGL()					 // All Setup For OpenGL goes here
 	return TRUE;					// Initialization Went OK
 }
 
+void output(float x, float y, std::string str, void* font)
+{
+	int len, i;
+
+	glRasterPos2f(x, y);
+	len = str.length();
+
+	for (i = 0; i < len; i++) {
+		glutBitmapCharacter(font, str[i]);
+	}
+	glutPostRedisplay();
+}
+
 /*
 void mul4x4ByPoint(GLfloat matrix[16], float *x, float *y, float *z, float *w) {
 	float x_val = *x;

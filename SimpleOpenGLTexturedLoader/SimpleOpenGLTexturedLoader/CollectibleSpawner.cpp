@@ -15,8 +15,8 @@
 #define POINT_PROB 0.2
 #define SPIKE_PROB 0.6
 #define STREAK_PROB 0.9 
-#define STREAK_POWER_PROB 0.01
-#define POWER_PROB POINT_PROB * STREAK_PROB * STREAK_POWER_PROB //this ensures that probability of spawning a powerup is always the regardless if it spawns in a streak or bi itself
+#define STREAK_POWER_PROB 1 //0.01
+#define POWER_PROB POINT_PROB * STREAK_PROB * STREAK_POWER_PROB //this ensures that probability of spawning a powerup is always the same regardless if it spawns in a streak or bi itself
 #define MAX_RAND_VALUE 100
 #define DELTA_Z 3
 #define DELTA_X -3
@@ -373,78 +373,78 @@ std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::getCollectible
 }
 
 
-ObjectDimensions CollectibleSpawner::getMaxCollectibleDim() {
-	auto point = std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), 5, CollectibleBehaviour::POINT));
-	auto spike = std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), 5, CollectibleBehaviour::DAMAGE));
-	auto power = std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), 5, CollectibleBehaviour::POWERUP1));
-
-	aiVector3D* pointMin = new aiVector3D(0, 0, 0);
-	aiVector3D* pointMax = new aiVector3D(0, 0, 0);
-
-	aiVector3D* spikeMin = new aiVector3D(0, 0, 0);
-	aiVector3D* spikeMax = new aiVector3D(0, 0, 0);
-
-	aiVector3D* powerMin = new aiVector3D(0, 0, 0);
-	aiVector3D* powerMax = new aiVector3D(0, 0, 0);
-
-	point->getHitbox(pointMin, pointMax);
-	spike->getHitbox(spikeMin, spikeMax);
-	power->getHitbox(powerMin, powerMax);
-
-	float pointX = abs(pointMax->x - pointMin->x);
-	float pointY = abs(pointMax->y - pointMin->y);
-	float pointZ = abs(pointMax->z - pointMin->z);
-
-	float spikeX = abs(spikeMax->x - spikeMin->x);
-	float spikeY = abs(spikeMax->y - spikeMin->y);
-	float spikeZ = abs(spikeMax->z - spikeMin->z);
-
-	float powerX = abs(powerMax->x - powerMin->x);
-	float powerY = abs(powerMax->y - powerMin->y);
-	float powerZ = abs(powerMax->z - powerMin->z);
-
-	float maxX = pointX;
-	float maxY = pointY;
-	float maxZ = pointZ;
-
-	//find max for each of the 3 dimensions
-
-	if (spikeX > maxX) {
-		maxX = spikeX;
-	}
-
-	if (powerX > maxX) {
-		maxX = powerX;
-	}
-
-	if (spikeY > maxY) {
-		maxY = spikeY;
-	}
-
-	if (powerY > maxY) {
-		maxY = powerY;
-	}
-
-	if (spikeZ > maxZ) {
-		maxZ = spikeZ;
-	}
-
-	if (powerZ > maxZ) {
-		maxZ = powerZ;
-	}
-
-	delete pointMin;
-	delete pointMax;
-
-	delete spikeMin;
-	delete spikeMax;
-
-	delete powerMin;
-	delete powerMax;
-
-	//create struct that holds info about max height, width, depth, area (along XZ plane) and volume a collectible may have
-	return ObjectDimensions(maxX, maxY, maxZ, maxX * maxZ, maxX * maxZ * maxY);
-}
+//ObjectDimensions CollectibleSpawner::getMaxCollectibleDim() {
+//	auto point = std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), 5, CollectibleBehaviour::POINT));
+//	auto spike = std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), 5, CollectibleBehaviour::DAMAGE));
+//	auto power = std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), 5, CollectibleBehaviour::SWORD));
+//
+//	aiVector3D* pointMin = new aiVector3D(0, 0, 0);
+//	aiVector3D* pointMax = new aiVector3D(0, 0, 0);
+//
+//	aiVector3D* spikeMin = new aiVector3D(0, 0, 0);
+//	aiVector3D* spikeMax = new aiVector3D(0, 0, 0);
+//
+//	aiVector3D* powerMin = new aiVector3D(0, 0, 0);
+//	aiVector3D* powerMax = new aiVector3D(0, 0, 0);
+//
+//	point->getHitbox(pointMin, pointMax);
+//	spike->getHitbox(spikeMin, spikeMax);
+//	power->getHitbox(powerMin, powerMax);
+//
+//	float pointX = abs(pointMax->x - pointMin->x);
+//	float pointY = abs(pointMax->y - pointMin->y);
+//	float pointZ = abs(pointMax->z - pointMin->z);
+//
+//	float spikeX = abs(spikeMax->x - spikeMin->x);
+//	float spikeY = abs(spikeMax->y - spikeMin->y);
+//	float spikeZ = abs(spikeMax->z - spikeMin->z);
+//
+//	float powerX = abs(powerMax->x - powerMin->x);
+//	float powerY = abs(powerMax->y - powerMin->y);
+//	float powerZ = abs(powerMax->z - powerMin->z);
+//
+//	float maxX = pointX;
+//	float maxY = pointY;
+//	float maxZ = pointZ;
+//
+//	//find max for each of the 3 dimensions
+//
+//	if (spikeX > maxX) {
+//		maxX = spikeX;
+//	}
+//
+//	if (powerX > maxX) {
+//		maxX = powerX;
+//	}
+//
+//	if (spikeY > maxY) {
+//		maxY = spikeY;
+//	}
+//
+//	if (powerY > maxY) {
+//		maxY = powerY;
+//	}
+//
+//	if (spikeZ > maxZ) {
+//		maxZ = spikeZ;
+//	}
+//
+//	if (powerZ > maxZ) {
+//		maxZ = powerZ;
+//	}
+//
+//	delete pointMin;
+//	delete pointMax;
+//
+//	delete spikeMin;
+//	delete spikeMax;
+//
+//	delete powerMin;
+//	delete powerMax;
+//
+//	//create struct that holds info about max height, width, depth, area (along XZ plane) and volume a collectible may have
+//	return ObjectDimensions(maxX, maxY, maxZ, maxX * maxZ, maxX * maxZ * maxY);
+//}
 
 ObjectDimensions CollectibleSpawner::getGroundDim() {
 	auto ground = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(GROUND_ID))));
@@ -488,14 +488,14 @@ CollectibleObject CollectibleSpawner::getPowerup(float posX, float posY, float p
 	//with p = 0.2 it's a power up
 	if (randomValue < 0.33 * MAX_RAND_VALUE) {
 		// with p = 0.33 it's 1
-		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(POWER1_ID), COL_SPEED, CollectibleBehaviour::POWERUP1);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(SWORD_POWERUP_ID), COL_SPEED, CollectibleBehaviour::SWORD);
 	}
 	else if (randomValue < 0.66 * MAX_RAND_VALUE) {
 		// with p = 0.33 it's 2
-		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(POWER2_ID), COL_SPEED, CollectibleBehaviour::POWERUP2);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(HEART_ID), COL_SPEED, CollectibleBehaviour::HEART);
 	}
 	else {
 		// with p = 0.33 it's 3
-		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(POWER3_ID), COL_SPEED, CollectibleBehaviour::POWERUP3);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(ZELDALOGO_ID), COL_SPEED, CollectibleBehaviour::WINGS);
 	}
 }

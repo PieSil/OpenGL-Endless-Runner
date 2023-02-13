@@ -17,6 +17,17 @@ void CollectibleObject::applyEffect(PlayerObject* player) {
 	case CollectibleBehaviour::DAMAGE:
 		player->incrLives(-1);
 		std::cout << "Player lives: " << player->getLives() << "\n";
+		break;
+	case CollectibleBehaviour::SWORD:
+		player->setShootActive(true);
+		break;
+	case CollectibleBehaviour::HEART:
+		player->incrLives(1);
+		std::cout << "Player lives: " << player->getLives() << "\n";
+		break;
+	case CollectibleBehaviour::WINGS:
+		player->setFlightActive(true);
+		break;
 	default:
 		break;
 	}

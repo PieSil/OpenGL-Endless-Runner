@@ -31,7 +31,7 @@ void GameState::setPerspective(bool setModelView)
 			1, 1000.0);  // Znear and Zfar 
 	}
 	else {
-		glOrtho(-Context::getContext()->getWidth() / 200.f, Context::getContext()->getWidth() / 200.f, -Context::getContext()->getHeight() / 200.f, Context::getContext()->getHeight() / 200.f, 0, 1000);
+		glOrtho(-Context::getContext()->getWidth() / 2.f, Context::getContext()->getWidth() / 2.f, -Context::getContext()->getHeight() / 2.f, Context::getContext()->getHeight() / 2.f, 0, 1000);
 	}
 
 	if(setModelView)

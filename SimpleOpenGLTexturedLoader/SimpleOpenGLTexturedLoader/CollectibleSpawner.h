@@ -49,7 +49,7 @@ public:
 	std::list<std::shared_ptr<CollectibleObject>> spawnCollectibles();
 	std::list<std::shared_ptr<CollectibleObject>> getCollectibles(aiVector3D playerPos, aiVector3D groundPos, bool considerPlayerPos = false);
 	std::list<std::shared_ptr<CollectibleObject>> getCollectibleRow();
-	ObjectDimensions getMaxCollectibleDim();
+	//ObjectDimensions getMaxCollectibleDim();
 	ObjectDimensions getGroundDim();
 
 	CollectibleObject getPoint(float posX, float posY, float posZ);

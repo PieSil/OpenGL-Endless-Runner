@@ -8,9 +8,9 @@
 
 class GameState; //definition needed to avoid circular inclusion
 
-enum class State {	
+enum class State {
 	//possible states
-	PLAYING, TEST
+	PLAYING, TEST, SCORE, LEADERBOARD
 };
 
 

@@ -1,29 +1,30 @@
 #pragma once
 #include <memory>
-#include <string>
-#include <conio.h>
-#include <iostream>
-#include <string>
 #include <fstream>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 #include <sys/stat.h>
-#include <direct.h>
+#include <cstdlib>
+
 class FileManager
 {
 public:
 	~FileManager() {
-		currentFile.close();
+		closeFile();
 	}; //destroyer
 
 	static FileManager* getInstance();
-	void openFile(std::string directory, std::string filename, bool append = true);
+	void openFile(std::string directory, std::string filename);
 	void closeFile();
-	void readString();
-	void writeString();
+	std::vector<std::pair<std::string, int>> readScores(std::string directory, std::string filename);
+	void writeScore(const std::string& playerName, int newScore, std::string directory, std::string filename);
 
 
 private:
 	explicit FileManager();
 	static std::shared_ptr<FileManager> managerInstance;
-	std::fstream currentFile;
+	std::fstream file;
 };
 

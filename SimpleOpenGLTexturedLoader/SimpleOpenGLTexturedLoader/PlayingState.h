@@ -47,6 +47,7 @@ public:
     void checkCollisions();
     void spawnNewGround();
     void deleteGround(GroundStruct ground);
+    void spawnProjectile();
 
 private:
     std::shared_ptr<PlayerObject> player;
@@ -54,6 +55,7 @@ private:
     std::vector<std::shared_ptr<CollectibleObject>> collectibles; //Items in this list MUST NOT be included in GameState "object" list
     //std::shared_ptr<ShapeObject> ground;
     std::vector<GroundStruct> grounds; //use a vector of "grounds" allows for multiple objects classified and treated as ground
+    std::vector<std::shared_ptr<ShapeObject>> projectiles;
     CollectibleSpawner  collectibleSpawner;
     int pointsToNextAccel;
 

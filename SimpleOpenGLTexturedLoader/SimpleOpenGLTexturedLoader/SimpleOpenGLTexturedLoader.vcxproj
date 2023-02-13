@@ -106,6 +106,8 @@
     <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="RegisterScoreState.cpp" />
+    <ClCompile Include="ScoreViewerState.cpp" />
     <ClCompile Include="ShapeObject.cpp" />
     <ClCompile Include="SimpleOpenGL_Loader.cpp" />
     <ClCompile Include="SphereModel.cpp" />
@@ -129,6 +131,8 @@
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="PlayingState.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="RegisterScoreState.h" />
+    <ClInclude Include="ScoreViewerState.h" />
     <ClInclude Include="ShapeObject.h" />
     <ClInclude Include="SphereModel.h" />
     <ClInclude Include="TestState.h" />

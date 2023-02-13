@@ -1,4 +1,6 @@
 #pragma once
+#include <GL\glut.h>
+#include <string>
 
 //define constants here
 
@@ -25,14 +27,30 @@ static const int RUPEE_RED_ID = 18;
 static const int RUPEE_BLUE_ID = 19;
 static const int RUPEE_YELLOW_ID = 20;
 static const int RUPEE_PURPLE_ID = 21;
+static const int SWORD_POWERUP_ID = 22;
+static const int SWORD_PROJECTILE_ID = 23;
+static const int HEART_ID = 24;
+static const int ZELDALOGO_ID = 25;
 
 
 //collectible properties
 static const int COL_SPEED = 10;
+static const float SHOOT_POWER_DURATION = 20000; //in millis
+static const float PROJECTILE_INTERVAL = 200; //in millis
+static const float FLIGHT_DURATION = 10000; //in millis
+static const float PROJECTILE_SPEED = 50;
+
 
 //model properties
 static const double FAIRY_WING_SPEED = 80;
 static const double MODEL_ROTATION_SPEED = 40;
 
-//other setting
+//other settings
 static const double FOV = 45.;
+static const void* FONT = GLUT_BITMAP_TIMES_ROMAN_24;
+static const int FONT_HEIGHT = 24;
+static const int INITIAL_GAME_SPEED = 10;
+
+//directories
+static const std::string SCORE_DIR = "scores";
+static const std::string SCORE_FILENAME = "scores.bin";

@@ -2,6 +2,8 @@
 #include "CubeModel.h"
 #include "PlayingState.h"
 #include "TestState.h"
+#include "RegisterScoreState.h"
+#include "ScoreViewerState.h"
 #include "Timer.h"
 
 GameLogic::GameLogic() {
@@ -49,11 +51,15 @@ void GameLogic::pushState(State state) {
     case State::PLAYING:
         states.emplace(new PlayingState(this));
         break;
-
     case State::TEST:
         states.emplace(new TestState(this));
         break;
-
+   case State::SCORE:
+        states.emplace(new RegisterScoreState(this));
+        break;
+   case State::LEADERBOARD:
+       states.emplace(new ScoreViewerState(this));
+        break;
     default:
         states.emplace(new TestState(this));
         break;

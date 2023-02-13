@@ -16,6 +16,7 @@
 #include <vector>
 
 #define COLL_DESPAWN_Z -12
+#define PROJ_DESPAWN_Z 40
 
 PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 
@@ -57,9 +58,20 @@ void PlayingState::display(){
 	for (auto coll = collectibles.begin(); coll != collectibles.end(); coll++) {
 		(*coll)->display();
 	}
+
+	for (auto proj = projectiles.begin(); proj != projectiles.end(); proj++) {
+		(*proj)->display();
+	}
 }
 
 void PlayingState::update() {
+	//play animations linked to models (e. g. rotation)
+	ModelRepository::getModelRepository()->animateModels();
+
+	if (player->isShooting() && player->shoot()) {
+		spawnProjectile();
+	}
+
 	if (pointsToNextAccel - Context::getContext()->getScore() <= 0) {
 		pointsToNextAccel += 20;
 		Context::getContext()->incrGameSpeed(2);
@@ -95,11 +107,7 @@ void PlayingState::update() {
 		}
 	}
 
-
-	//play animations linked to models (e. g. rotation)
-	ModelRepository::getModelRepository()->animateModels();
-
-		//check collectible position
+	//update collectibles position
 	auto collIterator = collectibles.begin();
 	while (!collectibles.empty() && collIterator != collectibles.end()) {
 
@@ -114,6 +122,22 @@ void PlayingState::update() {
 		else {
 			collIterator++;
 		}
+	}
+
+	//update projectiles position
+	auto projIterator = projectiles.begin();
+	while (!projectiles.empty() && projIterator != projectiles.end()) {
+
+		//move collectibles
+		(*projIterator)->move();
+		if ((*projIterator)->getPosz() >= PROJ_DESPAWN_Z) {
+			projIterator = projectiles.erase(projIterator);
+
+		}
+		else {
+			projIterator++;
+		}
+
 	}
 
 	//spawn collectibles
@@ -133,7 +157,7 @@ void PlayingState::update() {
 
 	//check player status:
 	if (player->getLives() <= 0) {
-		game->setState(State::TEST); //replace with game over state
+		game->setState(State::SCORE); //register player score
 	}
 }
 
@@ -159,7 +183,13 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 			player->setInputRecorded(true);
 		}
 		break;
-	case ' ': case 'r':
+	case 'e': case 'E':
+		if (!player->isShooting()) {
+			//spawn projectile
+			player->setShooting(true);
+		}
+		break;
+	case 32: //spacebar
 		if (player->isOnGround()) {
 			player->setInputRecorded(false);
 			player->resetXSpeed();
@@ -199,6 +229,11 @@ void PlayingState::handleInputUp(unsigned char key, int x, int y) {
 		if (player->isOnGround() && player->isInputRecorded()) {
 			player->incrXSpeed(1.);
 			//player->setInputRecorded(false);
+		}
+		break;
+	case 'e': case 'E':
+		if (player->isShooting()) {
+			player->setShooting(false);
 		}
 		break;
 	default:
@@ -368,15 +403,15 @@ void PlayingState::checkCollisions() {
 		int currentY = (int)(*collIterator)->getPosy();
 		int currentZ = (int)(*collIterator)->getPosz();
 
+		aiVector3D* collMin = new aiVector3D(0, 0, 0);
+		aiVector3D* collMax = new aiVector3D(0, 0, 0);
+		(*collIterator)->getHitbox(collMin, collMax);
+
+		//build hitbox from min and max
+		Hitbox collectibleHitbox(*collMin, *collMax);
+
 		//only check hitboxes if objects are close enough
 		if ((currentX >= playerX - 5 && currentX <= playerX + 5) && (currentY >= playerY - 5 && currentY <= playerY + 5) && (currentZ >= playerZ - 5 && currentZ <= playerZ + 5)) {
-
-			aiVector3D* collMin = new aiVector3D(0, 0, 0);
-			aiVector3D* collMax = new aiVector3D(0, 0, 0);
-			(*collIterator)->getHitbox(collMin, collMax);
-
-			//build hitbox from min and max
-			Hitbox collectibleHitbox(*collMin, *collMax);
 
 			if (bboxIntersection(playerHitbox, collectibleHitbox)) {
 				//if a collision is detected apply the collectible effect to player, then erase the collectible
@@ -386,10 +421,46 @@ void PlayingState::checkCollisions() {
 				collIterator = collectibles.erase(collIterator);
 				collisionDetected = true;
 			}
-
-			delete collMin;
-			delete collMax;
 		} 
+
+		//if current collectible is a spike check collisions with projectiles
+		if (!collisionDetected && (*collIterator)->getCollType() == CollectibleBehaviour::DAMAGE) {
+			auto projIterator = projectiles.begin();
+			while (!collisionDetected && !projectiles.empty() && projIterator != projectiles.end()) {
+
+				float projX = (*projIterator)->getPosx();
+				float projY = (*projIterator)->getPosy();
+				float projZ = (*projIterator)->getPosz();
+
+				//only check collisions if current collectibles is close enough to current projectile
+				if ((currentX >= projX - 5 && currentX <= projX + 5) && (currentY >= projY - 5 && currentY <= projY + 5) && (currentZ >= projZ - 5 && currentZ <= projZ + 5)) {
+					aiVector3D* projMin = new aiVector3D(0, 0, 0);
+					aiVector3D* projMax = new aiVector3D(0, 0, 0);
+					(*projIterator)->getHitbox(projMin, projMax);
+
+					//build hitbox from min and max
+					Hitbox projectileHitbox(*projMin, *projMax);
+
+					if (bboxIntersection(projectileHitbox, collectibleHitbox)) {
+						projIterator = projectiles.erase(projIterator);
+						collIterator = collectibles.erase(collIterator);
+						collisionDetected = true;
+					}
+
+					delete projMin;
+					delete projMax;
+
+				}
+
+
+				if (!collisionDetected) {
+					projIterator++;
+				}
+			}
+		}
+
+		delete collMin;
+		delete collMax;
 
 		if (!collisionDetected) {
 			collIterator++;
@@ -492,4 +563,12 @@ void PlayingState::deleteGround(GroundStruct ground)
 			collIterator++;
 		}
 	}
+
+	
+}
+
+void PlayingState::spawnProjectile() {
+	std::shared_ptr<ShapeObject> projectile = std::make_shared<ShapeObject>(ShapeObject(player->getPosx(), player->getPosy(), player->getPosz(), ModelRepository::getModel(SWORD_PROJECTILE_ID), PROJECTILE_SPEED));
+	projectile->incrZSpeed(1);
+	projectiles.emplace_back(projectile);
 }

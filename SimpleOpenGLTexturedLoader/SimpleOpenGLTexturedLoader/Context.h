@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <string>
 //A class containing useful informations about the context of the application, e.g. current window resolution, game difficulty and other settings
 
 class Context {
@@ -67,6 +68,23 @@ public:
 		return gameSpeed;
 	}
 
+	void concatCharToPlayerName(char c) {
+		playerName += c;
+	}
+
+	void clearPlayerName() {
+		playerName = "";
+	}
+
+	std::string getPlayerName() {
+		return playerName;
+	}
+
+	void deletePlayerNameChar() {
+		if (!playerName.empty())
+			playerName.erase(playerName.size() - 1);
+	}
+
 
 private:
 
@@ -79,5 +97,6 @@ private:
 	int score;
 	float gameSpeed;
 	double fieldOfView;
+	std::string playerName;
 };
 

@@ -21,6 +21,6 @@ Context::Context() {
     height = 1080;
     aspectRatio = width / height;
     score = 0;
-    gameSpeed = 10;
+    gameSpeed = INITIAL_GAME_SPEED;
     fieldOfView = FOV;
 }
