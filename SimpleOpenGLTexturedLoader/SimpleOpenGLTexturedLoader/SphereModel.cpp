@@ -3,7 +3,7 @@
 
 SphereModel::SphereModel(float _radius, int _slices, int _stack) : radius(_radius), slices(_slices), stack(_stack) {}
 
-void SphereModel::display(float x, float y, float z) {
+void SphereModel::display(float x, float y, float z, bool ortho) {
 
 	//glOrtho(-250, 250, -250, 250, 1 , 1000.0);
 	glPushMatrix();

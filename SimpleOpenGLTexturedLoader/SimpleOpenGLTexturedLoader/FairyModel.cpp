@@ -8,7 +8,7 @@ FairyModel::FairyModel(float wingsAngle) : wingsAngle(wingsAngle) {
 	wingsDown = true;
 }
 
-void FairyModel::display(float x, float y, float z) {
+void FairyModel::display(float x, float y, float z, bool ortho) {
 		aiVector3D* min = new aiVector3D(0, 0, 0);
 		aiVector3D* max = new aiVector3D(0, 0, 0);
 

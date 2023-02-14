@@ -14,6 +14,8 @@
 #include "Context.h"
 #include "Const.h"
 #include <vector>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #define COLL_DESPAWN_Z -12
 #define PROJ_DESPAWN_Z 40
@@ -52,7 +54,6 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 }
 
 void PlayingState::display(){
-	displayUI();
 	//call GameState display() function in order to render all elements in "object" list
 	GameState::display();
 
@@ -64,6 +65,7 @@ void PlayingState::display(){
 	for (auto proj = projectiles.begin(); proj != projectiles.end(); proj++) {
 		(*proj)->display();
 	}
+	displayUI();
 }
 
 void PlayingState::update() {
@@ -194,7 +196,8 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 	case 32: //spacebar
 		if (player->isOnGround()) {
 			player->setInputRecorded(false);
-			player->resetXSpeed();
+			if(!player->isFlightActive())
+				player->resetXSpeed();
 			player->setJumpSpeed(25);
 			player->setOnGround(false);
 		}
@@ -576,16 +579,20 @@ void PlayingState::spawnProjectile() {
 }
 
 void PlayingState::displayUI() {
+	glPushMatrix();
+	setPerspMode(false);
+	glDisable(GL_LIGHTING); //disable materials
+	glLoadIdentity();
+	gluLookAt(0, 0, -1, 0, 0, 0, 0, 1, 0);
 	if (player->isShootActive()) {
-		setPerspective(false, true, false);
+		//if player has shooting powerup draw rectangle the length of which decreases based on powerup time left
+		//color is red
 		glPushMatrix();
 		glLoadIdentity();
 
 		float barlength = player->getRemainingTime(PowerupType::SHOOT);
 		barlength = (barlength * UI_BAR_LENGTH) / SHOOT_POWER_DURATION;
 		
-		glDisable(GL_LIGHTING); //disable materials
-		glClear(GL_COLOR_BUFFER_BIT);
 		glColor3f(1, 0, 0);
 		glBegin(GL_QUADS);
 			glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 10); //top left
@@ -594,20 +601,17 @@ void PlayingState::displayUI() {
 			glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 35); //bottom left
 		glEnd();
 		glPopMatrix();
-		glColor3f(1, 0, 0);
-		setPerspective(); //reset perspective
-		glEnable(GL_LIGHTING); //re-enable materials
 	}
 
 	if (player->isFlightActive()) {
-		setPerspective(false, true, false);
+		//if player has enhanced jump powerup draw rectangle the length of which decreases based on powerup time left
+		//color is blue 
 		glPushMatrix();
 		glLoadIdentity();
 
 		float barlength = player->getRemainingTime(PowerupType::FLIGHT);
 		barlength = (barlength * UI_BAR_LENGTH) / FLIGHT_DURATION;
 
-		glDisable(GL_LIGHTING); //disable materials
 		glColor3f(0, 0, 1);
 		glBegin(GL_QUADS);
 		glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 45); //top left
@@ -616,8 +620,33 @@ void PlayingState::displayUI() {
 		glVertex2f(-(Context::getContext()->getWidth() / 2.f) + 10, (Context::getContext()->getHeight() / 2.f) - 70); //bottom left
 		glEnd();
 		glPopMatrix();
-		glColor3f(1, 0, 0);
-		setPerspective(); //reset perspective
-		glEnable(GL_LIGHTING); //re-enable materials
 	}
+
+	//draw score
+	glPushMatrix();
+	std::string out = "SCORE: " + std::to_string(Context::getContext()->getScore());
+	int textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	float xPos = (textWidth / (2.f * Context::getContext()->getWidth()) + textWidth / 2.f);
+	float yPos = (FONT_HEIGHT / (2.f * Context::getContext()->getHeight()) + (Context::getContext()->getHeight() / 2.f) - (FONT_HEIGHT + 10));
+	glColor3f(.5, .5, .5);
+	output(xPos, yPos, out);
+	glPopMatrix();
+	glEnable(GL_LIGHTING); //re-enable materials
+
+	//draw heart
+	float scaleFactor = Context::getContext()->getScaleFactor();;
+	std::shared_ptr<Model> heart = ModelRepository::getModel(HEART_ID);
+	//glBegin(GL_POLYGON);
+	glPushMatrix();
+	glScalef(1 / scaleFactor, 1 / scaleFactor, 1 / scaleFactor);
+	yPos = (Context::getContext()->getHeight() * scaleFactor / 2.f) - 20 * scaleFactor; //defines an offest along y-axis from the top border of the window
+	for (int i = 0; i < player->getLives(); i++) {
+		float xPos = scaleFactor*((-Context::getContext()->getWidth()/ 2.f) + 20 + 40 * i); //defines an offest along x-axis from the right border of the window
+		heart->display(xPos, yPos, 0);
+	}
+	glPopMatrix();
+
+	
+	setPerspMode(true);
+	glPopMatrix();
 }

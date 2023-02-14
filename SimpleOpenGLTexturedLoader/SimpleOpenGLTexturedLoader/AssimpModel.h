@@ -6,7 +6,7 @@ class AssimpModel :
 public:
 	explicit AssimpModel(int childId, bool rotate = false);
 
-	void display(float x, float y, float z) override;
+	void display(float x, float y, float z, bool ortho = false) override;
 	void getHitbox(struct aiVector3D* min, struct aiVector3D* max) override;
 	void animate() override;
 

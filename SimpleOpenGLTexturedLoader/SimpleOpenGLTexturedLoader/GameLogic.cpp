@@ -25,10 +25,9 @@ void GameLogic::setCamera() {
     getCurrentState()->setCamera();
 }
 
-void GameLogic::setPerspective(bool useDefault, bool setModelView, bool perspParam)
-{
+void GameLogic::setPerspective(bool setModelView) {
     if(getCurrentState()) //check for not null
-        getCurrentState()->setPerspective(useDefault, setModelView, perspParam);
+        getCurrentState()->setPerspective(setModelView);
 }
 
 //void GameLogic::setCamera() {

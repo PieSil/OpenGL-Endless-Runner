@@ -14,6 +14,7 @@ public:
     void update() override;
     void handleInput(unsigned char key, int x, int y) override;
     void handleInputUp(unsigned char key, int x, int y) override;
+    void display() override;
 
 private:
     std::shared_ptr<GameObject> player;

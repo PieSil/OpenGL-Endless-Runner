@@ -1,8 +1,11 @@
 #include "TestState.h"
 #include "SphereModel.h"
+#include "Const.h"
+#include "Context.h"
 
 TestState::TestState(GameLogic* game) : GameState(game, false) {
-	player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<SphereModel>(SphereModel(1)), 1));
+	//player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<SphereModel>(SphereModel(1))));
+	player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<AssimpModel>(AssimpModel(HEART_ID))));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 }
 
@@ -47,5 +50,11 @@ void TestState::handleInputUp(unsigned char key, int x, int y) {
 	default:
 		break;
 	}
+}
+
+void TestState::display() {
+	double scaleFactor = Context::getContext()->getScaleFactor();
+	glScalef(1/scaleFactor, 1/scaleFactor, 1/scaleFactor);
+	GameState::display();
 }
 

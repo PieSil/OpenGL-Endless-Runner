@@ -8,7 +8,7 @@ class FairyModel :
 {
 public:
     explicit FairyModel(float wingsAngle = 0);
-    void display(float x, float y, float z) override;
+    void display(float x, float y, float z, bool ortho = false) override;
     void animate() override;
     void getHitbox(struct aiVector3D* min, struct aiVector3D* max) override;
 

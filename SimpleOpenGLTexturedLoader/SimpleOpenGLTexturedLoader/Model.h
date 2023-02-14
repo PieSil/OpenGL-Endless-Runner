@@ -8,7 +8,7 @@ class Model {
 public:
 	explicit Model();
 
-	virtual void display(float x, float y, float z) = 0;
+	virtual void display(float x, float y, float z, bool ortho = false) = 0;
 	virtual void animate() {};
 	virtual void getHitbox(struct aiVector3D* min, struct aiVector3D* max) = 0;
 };

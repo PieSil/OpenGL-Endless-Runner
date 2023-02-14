@@ -22,22 +22,17 @@ void GameState::update() {
 	}
 }
 
-void GameState::setPerspective(bool useDefault, bool setModelView, bool perspParam)
-{
-
-	bool perspValue = persp;
-
-	if (!useDefault)
-		perspValue = perspParam;
+void GameState::setPerspective(bool setModelView) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	if (perspValue) {
+	if (persp) {
 		gluPerspective(Context::getContext()->getFieldOfView(), Context::getContext()->getAspectRatio(),
 			1, 1000.0);  // Znear and Zfar 
 	}
 	else {
 		glOrtho(-Context::getContext()->getWidth() / 2.f, Context::getContext()->getWidth() / 2.f, -Context::getContext()->getHeight() / 2.f, Context::getContext()->getHeight() / 2.f, 0, 1000);
+		//gluOrtho2D(-Context::getContext()->getWidth() / 2.f, Context::getContext()->getWidth() / 2.f, -Context::getContext()->getHeight() / 2.f, Context::getContext()->getHeight() / 2.f);
 	}
 
 	if(setModelView)
@@ -50,12 +45,13 @@ void GameState::setCamera() {
 		//glRotatef(30, 1., 0., 0.);
 		glLoadIdentity();
 		gluLookAt(0, 15, -20, 0, 0, 0, 0, 1, 0);
+		//gluLookAt(0, 0, 0, 0, 0, 0, 0, 1, 0);
 		//glLoadIdentity();
 		//gluLookAt()
 	}
 	else {
 		glLoadIdentity();
-		gluLookAt(0, 0, -10, 0, 0, 0, 0, 1, 0);
+		gluLookAt(0, 0, -1, 0, 0, 0, 0, 1, 0);
 	}
 }
 

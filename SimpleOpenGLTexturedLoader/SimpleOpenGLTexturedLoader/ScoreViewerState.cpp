@@ -21,15 +21,18 @@ void ScoreViewerState::handleInput(unsigned char key, int x, int y) {
 }
 
 void ScoreViewerState::display() {
+	glDisable(GL_LIGHTING);
+	glColor3f(1, .5, 0);
 	std::string out;
-	glClear(GL_COLOR_BUFFER_BIT);
-	out = "TOP 5 SCORES: ";
-	int w = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
-	float posX = w / (2.f * glutGet(GLUT_WINDOW_WIDTH));
-	float posY = FONT_HEIGHT / (2.f * glutGet(GLUT_WINDOW_HEIGHT));
 
-	
-	output(w/2.f, 6*42, "TOP 5 SCORES: ");
+	//show leaderbord headline
+	out = "TOP 5 SCORES: ";
+	int textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	float posX = (textWidth / (2.f * Context::getContext()->getWidth()) + textWidth / 2.f);
+	float posY = (FONT_HEIGHT / (2.f * Context::getContext()->getHeight()) + (Context::getContext()->getHeight() / 2.f) - (FONT_HEIGHT + 10));
+
+	//show leaderboard
+	output(posX, posY,out);
 	int i;
 	for (i = 0; i < 5; i++) {
 		try {
@@ -38,13 +41,26 @@ void ScoreViewerState::display() {
 		catch (const std::out_of_range& e) {
 			out = "---: ---";
 		}
-		float posX = w / (.2 * glutGet(GLUT_WINDOW_WIDTH));
-		float posY = FONT_HEIGHT / (.04 + ((float)i/10.f) * glutGet(GLUT_WINDOW_HEIGHT));
-		output(w/2.f,(- (float)FONT_HEIGHT / 2.f - i * 42)+5*42, out);
+		textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+		posX = (textWidth / (2.f * Context::getContext()->getWidth()) + textWidth / 2.f);
+		posY = (FONT_HEIGHT / (2.f * Context::getContext()->getHeight()) + (Context::getContext()->getHeight() / 2.f) - (FONT_HEIGHT + 10 + 50*(1+i)));
+		output(posX,posY,out);
 	}
 
-	output(w/2.f, ((float)FONT_HEIGHT / 2.f - (i + 4) * 42) + 6 * 42, "YOUR SCORE: ");
+	//show score headline
+	out = "YOUR SCORE: ";
+	textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	posX = (textWidth / (2.f * Context::getContext()->getWidth()) + textWidth / 2.f);
+	posY -= (FONT_HEIGHT / (2.f * Context::getContext()->getHeight()) - FONT_HEIGHT+100);
+	glColor3f(1, 1, 1);
+	output(posX, posY, out);
+
+	//show player score
 	out = Context::getContext()->getPlayerName() + ": ";
 	out += std::to_string(Context::getContext()->getScore());
-	output(w/2.f, ((float)FONT_HEIGHT / 2.f - (i + 5) * 42)+6*42, out.c_str());
+	textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	posX = (textWidth / (2.f * Context::getContext()->getWidth()) + textWidth / 2.f);
+	posY -= (FONT_HEIGHT / (2.f * Context::getContext()->getHeight()) - 2*FONT_HEIGHT + 100);
+	output(posX, posY, out.c_str());
+	glEnable(GL_LIGHTING);
 }
