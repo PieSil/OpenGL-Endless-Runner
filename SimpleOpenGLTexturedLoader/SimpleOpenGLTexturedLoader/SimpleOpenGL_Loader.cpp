@@ -58,6 +58,10 @@ void keyboardUp(unsigned char key, int x, int y) {
 	}
 }
 
+void mouseMotion(int x, int y) {
+	game.mouseMotion(x, y);
+}
+
 void display()
 {
 	float tmp;
@@ -110,6 +114,7 @@ int main(int argc, char **argv)
 	//glutTimerFunc(1000 / 120, timerFunc, 0);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboardUp);
+	glutPassiveMotionFunc(mouseMotion);
 	glutIdleFunc(idle);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

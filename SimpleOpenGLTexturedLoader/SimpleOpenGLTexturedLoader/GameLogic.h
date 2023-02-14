@@ -10,7 +10,7 @@ class GameState; //definition needed to avoid circular inclusion
 
 enum class State {
 	//possible states
-	PLAYING, TEST, SCORE, LEADERBOARD
+	PLAYING, TEST, SCORE, LEADERBOARD, MOUSE
 };
 
 
@@ -31,6 +31,8 @@ public:
 	void handleInput(unsigned char key, int x, int y);
 
 	void handleInputUp(unsigned char key, int x, int y);
+
+	void mouseMotion(int x, int y);
 
 	void pushState(State state);
 

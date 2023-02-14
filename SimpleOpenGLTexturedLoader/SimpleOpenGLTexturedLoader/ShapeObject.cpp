@@ -26,3 +26,8 @@ void ShapeObject::getHitbox(struct aiVector3D* min, struct aiVector3D* max) {
 	max->y += pos_y;
 	max->z += pos_z;
 }
+
+void ShapeObject::setModel(std::shared_ptr<Model> newShape)
+{
+	shape = newShape;
+}

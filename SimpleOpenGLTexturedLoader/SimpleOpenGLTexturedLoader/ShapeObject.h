@@ -14,6 +14,7 @@ public:
     virtual void display() override;
     virtual void update() override;
     void getHitbox(struct aiVector3D* min, struct aiVector3D* max);
+    void setModel(std::shared_ptr<Model> newShape);
 
 protected:
     std::shared_ptr<Model> shape;

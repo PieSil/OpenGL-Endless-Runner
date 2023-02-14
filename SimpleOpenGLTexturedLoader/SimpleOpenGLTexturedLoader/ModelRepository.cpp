@@ -40,5 +40,6 @@ ModelRepository::ModelRepository() {
     models[HEART_ID] = std::make_shared<AssimpModel>(AssimpModel(HEART_ID, true));
     models[ZELDALOGO_ID] = std::make_shared<AssimpModel>(AssimpModel(ZELDALOGO_ID, true));
     models[CROSS_ID] = std::make_shared<AssimpModel>(AssimpModel(CROSS_ID, true));
-
+    models[WHITE_RECTAGLE_ID] = std::make_shared<AssimpModel>(AssimpModel(WHITE_RECTAGLE_ID, false));
+    models[RED_RECTANGLE_ID] = std::make_shared<AssimpModel>(AssimpModel(RED_RECTANGLE_ID, false));
 }

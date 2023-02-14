@@ -90,3 +90,8 @@ auto bboxIntersection = [](Hitbox a, Hitbox b) {
 
 	return result;
 };
+
+bool mouseBboxIntersection(int x, int y, Hitbox h) {
+	return x > h.min.x && x < h.max.x&&
+		y< h.max.y&& y> h.min.y;
+}
