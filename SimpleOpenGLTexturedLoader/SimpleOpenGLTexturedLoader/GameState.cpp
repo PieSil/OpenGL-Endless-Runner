@@ -54,9 +54,3 @@ void GameState::setCamera() {
 		gluLookAt(0, 0, -1, 0, 0, 0, 0, 1, 0);
 	}
 }
-
-
-
-void GameState::addGameObject(float x, float y, float z, std::shared_ptr<Model> shape) {
-	objects.push_back(std::make_shared<ShapeObject>(ShapeObject(x, y, z, shape)));
-}

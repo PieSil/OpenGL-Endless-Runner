@@ -31,6 +31,7 @@ static const int SWORD_POWERUP_ID = 22;
 static const int SWORD_PROJECTILE_ID = 23;
 static const int HEART_ID = 24;
 static const int ZELDALOGO_ID = 25;
+static const int CROSS_ID = 26;
 
 
 //collectible properties

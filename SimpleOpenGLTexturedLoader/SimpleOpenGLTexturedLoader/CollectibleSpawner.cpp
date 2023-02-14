@@ -15,7 +15,7 @@
 #define POINT_PROB 0.2
 #define SPIKE_PROB 0.6
 #define STREAK_PROB 0.9 
-#define STREAK_POWER_PROB 1 //0.01
+#define STREAK_POWER_PROB 0.01
 #define POWER_PROB POINT_PROB * STREAK_PROB * STREAK_POWER_PROB //this ensures that probability of spawning a powerup is always the same regardless if it spawns in a streak or bi itself
 #define MAX_RAND_VALUE 100
 #define DELTA_Z 3
@@ -475,7 +475,7 @@ CollectibleObject CollectibleSpawner::getPoint(float posX, float posY, float pos
 CollectibleObject CollectibleSpawner::getDamage(float posX, float posY, float posZ)
 {
 	
-	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(SPIKEBALL_ID), COL_SPEED, CollectibleBehaviour::DAMAGE);
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(CROSS_ID), COL_SPEED, CollectibleBehaviour::DAMAGE);
 	return collectible;
 }
 

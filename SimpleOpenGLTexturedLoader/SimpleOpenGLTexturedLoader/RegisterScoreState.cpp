@@ -15,9 +15,11 @@ void RegisterScoreState::handleInput(unsigned char key, int x, int y){
 		break;
 	case 13: //enter
 		//FileManager::getInstance()->openFile(SCORE_DIR, SCORE_FILENAME);
-		FileManager::getInstance()->writeScore(Context::getContext()->getPlayerName(), Context::getContext()->getScore(), SCORE_DIR, SCORE_FILENAME);
-		//FileManager::getInstance()->closeFile();
-		game->setState(State::LEADERBOARD); //replace with game over state
+		if (!Context::getContext()->getPlayerName().empty()) {
+			FileManager::getInstance()->writeScore(Context::getContext()->getPlayerName(), Context::getContext()->getScore(), SCORE_DIR, SCORE_FILENAME);
+			//FileManager::getInstance()->closeFile();
+			game->setState(State::LEADERBOARD); //replace with game over state
+		}
 		break;
 	case 32: //spacebar
 		key = ' ';

@@ -359,6 +359,7 @@ void PlayingState::checkCollisions() {
 					if (bboxIntersection(projectileHitbox, collectibleHitbox)) {
 						projIterator = projectiles.erase(projIterator);
 						collIterator = collectibles.erase(collIterator);
+						Context::getContext()->incrScore(1);
 						collisionDetected = true;
 					}
 

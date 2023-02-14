@@ -19,12 +19,11 @@ public:
     virtual void handleInputUp(unsigned char key, int x, int y) {};
     void setPerspective(bool setModelView = true);
     void setCamera();
-    void addGameObject(float x, float y, float z, std::shared_ptr<Model> shape);
 
     void setPerspMode(bool usePersp, bool autoSetPersp = true, bool autoSetCamera = true) { 
         //if usePersp == true switches to perspective mode, otherwise switches to orthographic mode
         //if autoSetPersp == true also modifies the projection matrix accordingly using glPerspective/glOrtho THIS WILL AUTOMATICALLY SWITCH TO THE MODELVIEW MATRIX AFTER SETTING THE PERSPECTIVE MODE
-        //if autoSetCamera == true also modifies the location of the camera according to new perspective <--THIS WILL ONLY BE CONDIERED IF autoSetPersp IS ALSO "true"
+        //if autoSetCamera == true also modifies the location of the camera according to new perspective <--THIS WILL ONLY BE CONSIDERED IF autoSetPersp IS ALSO "true"
         persp = usePersp;
         if (autoSetPersp) {
             setPerspective();
