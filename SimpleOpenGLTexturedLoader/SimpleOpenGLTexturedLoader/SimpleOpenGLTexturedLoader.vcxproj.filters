@@ -149,6 +149,9 @@
     <ClInclude Include="ScoreViewerState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Hitbox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SimpleOpenGLTexturedLoader.rc">

@@ -127,6 +127,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GLutils.h" />
+    <ClInclude Include="Hitbox.h" />
     <ClInclude Include="ModelRepository.h" />
     <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="PlayingState.h" />
