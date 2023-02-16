@@ -2,7 +2,7 @@
 #include "Context.h"
 #include <iostream>
 
-CollectibleObject::CollectibleObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed, CollectibleBehaviour behaviour) : ShapeObject(x, y, z, _shape, speed), behaviour(behaviour) {
+CollectibleObject::CollectibleObject(float x, float y, float z, std::shared_ptr<Model> _shape, CollectibleBehaviour behaviour, float speed, aiVector3D scale) : ShapeObject(x, y, z, _shape, scale, speed), behaviour(behaviour) {
 	shape = std::shared_ptr<Model>(_shape);
 }
 

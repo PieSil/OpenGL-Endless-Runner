@@ -12,7 +12,7 @@ class PlayerObject :
     public ShapeObject {
 
 public:
-    explicit PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed = 1);
+    explicit PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, aiVector3D scale = aiVector3D(1,1,1), float speed = 1);
     void update() override;
     void fall();
 

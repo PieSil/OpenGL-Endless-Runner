@@ -33,7 +33,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 	collectibleSpawner = CollectibleSpawner();
 
 	//create player object and add it to renderable objects
-	player = std::make_shared<PlayerObject>(PlayerObject(0, 3, -5, ModelRepository::getModel(FAIRY_ID), 10));
+	player = std::make_shared<PlayerObject>(PlayerObject(0, 3, -5, ModelRepository::getModel(FAIRY_ID), aiVector3D(1,1,1), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 
 	UIText.push_back("LIVES: ");
@@ -484,7 +484,7 @@ void PlayingState::deleteGround(GroundStruct ground)
 }
 
 void PlayingState::spawnProjectile() {
-	std::shared_ptr<ShapeObject> projectile = std::make_shared<ShapeObject>(ShapeObject(player->getPosx(), player->getPosy(), player->getPosz(), ModelRepository::getModel(SWORD_PROJECTILE_ID), PROJECTILE_SPEED));
+	std::shared_ptr<ShapeObject> projectile = std::make_shared<ShapeObject>(ShapeObject(player->getPosx(), player->getPosy(), player->getPosz(), ModelRepository::getModel(SWORD_PROJECTILE_ID), aiVector3D(1, 1, 1), PROJECTILE_SPEED));
 	projectile->incrZSpeed(1);
 	projectiles.emplace_back(projectile);
 }

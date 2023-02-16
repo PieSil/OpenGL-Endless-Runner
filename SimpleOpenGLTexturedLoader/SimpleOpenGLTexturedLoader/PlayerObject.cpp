@@ -2,7 +2,7 @@
 #include "Timer.h"
 
 
-PlayerObject::PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, float speed) : ShapeObject(x, y, z, _shape, speed), onGround(false), jumpSpeed(0), lives(3), inputRecorded(false) {
+PlayerObject::PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, aiVector3D scale, float speed) : ShapeObject(x, y, z, _shape, scale, speed), onGround(false), jumpSpeed(0), lives(3), inputRecorded(false) {
 	shootPowerElapsed = .0;
 	shootIntervalElapsed = 0;
 	flightPowerElapsed = .0;

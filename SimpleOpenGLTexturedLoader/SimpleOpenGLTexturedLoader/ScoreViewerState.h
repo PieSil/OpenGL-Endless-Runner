@@ -8,5 +8,6 @@ public:
     void display() override;
 private:
     std::vector<std::pair<std::string, int>> scores;
+    std::vector<ShapeObject> scoreBackgrounds;
 };
 

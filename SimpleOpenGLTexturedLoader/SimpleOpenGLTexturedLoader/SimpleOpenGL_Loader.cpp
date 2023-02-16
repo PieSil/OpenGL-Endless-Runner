@@ -87,7 +87,6 @@ void display()
 
 	//draw the scene
 	game.display();
-
 	glutSwapBuffers();
 }
 

@@ -85,6 +85,17 @@ public:
 			playerName.erase(playerName.size() - 1);
 	}
 
+	float  getRelativeWindowX(float fraction, float offset = 0.f) {
+		return (width / 2.f) - (width * fraction) - offset;
+	}
+
+	float  getRelativeWindowY(float fraction, float offset = 0.f) {
+		return (height / 2.f) - (height * fraction) - offset;
+	}
+
+	float getScaleForTarget(float targetValue, float actualValue) {
+		return actualValue/targetValue;
+	}
 
 private:
 

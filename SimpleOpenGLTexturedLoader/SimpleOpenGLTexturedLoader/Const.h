@@ -62,3 +62,8 @@ static const std::string SCORE_FILENAME = "scores.bin";
 
 //UI properties
 static const int UI_BAR_LENGTH = 200; //in pixels
+
+//printable string
+static const std::string TOP5_STRING = "TOP 5 SCORES: ";
+static const std::string YOUR_SCORE_STRING = "YOUR SCORE: ";
+static const std::string DEFAULT_STRING = "---: ---";

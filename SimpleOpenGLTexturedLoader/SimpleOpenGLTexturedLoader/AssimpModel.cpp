@@ -7,7 +7,7 @@ AssimpModel::AssimpModel(int childId, bool rotate) : childId(childId), rotate(ro
 	rotationSpeed = MODEL_ROTATION_SPEED;
 }
 
-void AssimpModel::display(float x, float y, float z, bool ortho) {
+void AssimpModel::display(float x, float y, float z, aiVector3D scale, bool ortho) {
 	aiVector3D* min = new aiVector3D(0, 0, 0);
 	aiVector3D* max = new aiVector3D(0, 0, 0);
 
@@ -18,6 +18,7 @@ void AssimpModel::display(float x, float y, float z, bool ortho) {
 		if (rotate) {
 			glRotatef(angle, 0., 1., 0.);
 		}
+		glScalef(1/scale.x, 1/scale.y, 1/scale.z);
 		recursive_render(scene, scene->mRootNode->mChildren[childId], 1.0);  //!!IMPORTANT: rendered object depends on the order of the objects inside the imported scene
 
 		glPopMatrix();

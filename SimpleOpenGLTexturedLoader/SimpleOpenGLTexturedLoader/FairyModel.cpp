@@ -8,13 +8,14 @@ FairyModel::FairyModel(float wingsAngle) : wingsAngle(wingsAngle) {
 	wingsDown = true;
 }
 
-void FairyModel::display(float x, float y, float z, bool ortho) {
+void FairyModel::display(float x, float y, float z, aiVector3D scale, bool ortho) {
 		aiVector3D* min = new aiVector3D(0, 0, 0);
 		aiVector3D* max = new aiVector3D(0, 0, 0);
 
 		glPushMatrix();
 		//glLoadIdentity();
 		glTranslatef(x, y, z);
+		glScalef(1/scale.x, 1/scale.y, 1/scale.z);
 		recursive_render(scene, scene->mRootNode->mChildren[FAIRY_ID], 1.0);  //!!IMPORTANT: rendered object depends on the order of the objects inside the imported scene
 																			  //this specific call should render a fairy
 		glPopMatrix();
@@ -23,6 +24,7 @@ void FairyModel::display(float x, float y, float z, bool ortho) {
 		//glLoadIdentity();
 		glTranslatef(x, y, z);
 		glRotatef(wingsAngle, 0., 0., 1.);
+		glScalef(scale.x, scale.y, scale.z);
 		recursive_render(scene, scene->mRootNode->mChildren[LWINGS_ID], 1.0);
 		glPopMatrix();
 
@@ -30,6 +32,7 @@ void FairyModel::display(float x, float y, float z, bool ortho) {
 		//glLoadIdentity();
 		glTranslatef(x, y, z);
 		glRotatef(-1 * wingsAngle, 0., 0., 1.);
+		glScalef(scale.x, scale.y, scale.z);
 		recursive_render(scene, scene->mRootNode->mChildren[RWINGS_ID], 1.0);
 		glPopMatrix();
 

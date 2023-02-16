@@ -1,12 +1,13 @@
 #pragma once
 #include<list>
 #include<vector>
+#include "GLutils.h"
 
 //represents any kind of object that can be rendered, an object should have (at the least) an update function (that may or may not actually do something) and a posisition
 
 class GameObject {
 public:
-	explicit GameObject(float x, float y, float z, float _speed = 0.);
+	explicit GameObject(float x, float y, float z, aiVector3D scale = aiVector3D(1,1,1), float _speed = 0.);
 
 	virtual void display() = 0;
 	virtual void update();
@@ -95,6 +96,10 @@ public:
 		return speed;
 	}
 
+	void setScale(aiVector3D scale) {
+		this->scale = scale;
+	}
+
 protected:
 	float pos_x;
 	float pos_y;
@@ -106,5 +111,6 @@ protected:
 	float xSpeed;
 	float ySpeed;
 	float zSpeed;
+	aiVector3D scale;
 };
 

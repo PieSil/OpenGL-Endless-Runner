@@ -10,7 +10,7 @@ public:
 
     explicit SphereModel(float radius, int slices = 32, int stacks = 32);
 
-    void display(float x, float y, float z, bool ortho = false) override;
+    void display(float x, float y, float z, aiVector3D scale = aiVector3D(1, 1, 1), bool ortho = false) override;
     void getHitbox(struct aiVector3D* min, struct aiVector3D* max) override;
 
 protected:

@@ -468,14 +468,14 @@ CollectibleObject CollectibleSpawner::getPoint(float posX, float posY, float pos
 {
 	//randomly choose one model
 	auto modelId = RUPEE_GREEN_ID + std::rand() % (RUPEE_PURPLE_ID-RUPEE_GREEN_ID);
-	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(modelId), COL_SPEED, CollectibleBehaviour::POINT);
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(modelId), CollectibleBehaviour::POINT, COL_SPEED);
 	return collectible;
 }
 
 CollectibleObject CollectibleSpawner::getDamage(float posX, float posY, float posZ)
 {
 	
-	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(CROSS_ID), COL_SPEED, CollectibleBehaviour::DAMAGE);
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(CROSS_ID), CollectibleBehaviour::DAMAGE, COL_SPEED);
 	return collectible;
 }
 
@@ -488,14 +488,14 @@ CollectibleObject CollectibleSpawner::getPowerup(float posX, float posY, float p
 	//with p = 0.2 it's a power up
 	if (randomValue < 0.33 * MAX_RAND_VALUE) {
 		// with p = 0.33 it's 1
-		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(SWORD_POWERUP_ID), COL_SPEED, CollectibleBehaviour::SWORD);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(SWORD_POWERUP_ID), CollectibleBehaviour::SWORD, COL_SPEED);
 	}
 	else if (randomValue < 0.66 * MAX_RAND_VALUE) {
 		// with p = 0.33 it's 2
-		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(HEART_ID), COL_SPEED, CollectibleBehaviour::HEART);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(HEART_ID), CollectibleBehaviour::HEART, COL_SPEED);
 	}
 	else {
 		// with p = 0.33 it's 3
-		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(ZELDALOGO_ID), COL_SPEED, CollectibleBehaviour::WINGS);
+		return CollectibleObject(posX, posY, posZ, ModelRepository::getModel(ZELDALOGO_ID), CollectibleBehaviour::WINGS, COL_SPEED);
 	}
 }

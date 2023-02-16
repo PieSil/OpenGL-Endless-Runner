@@ -2,7 +2,7 @@
 
 CubeModel::CubeModel(float _size) : size(_size) {}
 
-void CubeModel::display(float x, float y, float z, bool ortho) {
+void CubeModel::display(float x, float y, float z, aiVector3D scale, bool ortho) {
 	glPushMatrix();
 	//glLoadIdentity();
 	glTranslatef(x, y, z);
