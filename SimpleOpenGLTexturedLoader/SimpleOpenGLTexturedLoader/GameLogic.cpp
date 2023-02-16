@@ -6,12 +6,13 @@
 #include "ScoreViewerState.h"
 #include "Timer.h"
 #include "MouseTestState.h"
+#include "MenuState.h"
 
 GameLogic::GameLogic() {
 	//ShapeObject playerObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)));
 	/*player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)), 0.25));
 	objects.push_back(std::shared_ptr<GameObject>(player));*/
-    setState(State::MOUSE);
+    setState(State::MENU);
     keyBuffer = '_';
 }
 void GameLogic::display() {
@@ -48,6 +49,11 @@ void GameLogic::mouseMotion(int x, int y)
     getCurrentState()->mouseMotion(x, y);
 }
 
+void GameLogic::resumeGame()
+{
+    pushState(State::PLAYING);
+}
+
 void GameLogic::pushState(State state) {
     switch (state) {
 
@@ -65,8 +71,11 @@ void GameLogic::pushState(State state) {
    case State::LEADERBOARD:
        states.emplace(new ScoreViewerState(this));
         break;
-   case State::MOUSE:
+   /*case State::MOUSE:
        states.emplace(new MouseTestState(this));
+       break;*/
+   case State::MENU:
+       states.emplace(new MenuState(this));
        break;
     default:
         states.emplace(new TestState(this));

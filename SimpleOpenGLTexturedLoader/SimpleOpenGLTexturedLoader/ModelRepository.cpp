@@ -42,4 +42,6 @@ ModelRepository::ModelRepository() {
     models[CROSS_ID] = std::make_shared<AssimpModel>(AssimpModel(CROSS_ID, true));
     models[WHITE_RECTAGLE_ID] = std::make_shared<AssimpModel>(AssimpModel(WHITE_RECTAGLE_ID, false));
     models[RED_RECTANGLE_ID] = std::make_shared<AssimpModel>(AssimpModel(RED_RECTANGLE_ID, false));
+    models[GAME_MENU] = std::make_shared<AssimpModel>(AssimpModel(GAME_MENU, true));
+    models[START_BUTTON] = std::make_shared<AssimpModel>(AssimpModel(START_BUTTON, true));
 }

@@ -10,7 +10,8 @@ class GameState; //definition needed to avoid circular inclusion
 
 enum class State {
 	//possible states
-	PLAYING, TEST, SCORE, LEADERBOARD, MOUSE
+	PLAYING, TEST, SCORE, LEADERBOARD, MOUSE, 
+	MENU, // menu that appears when the game starts
 };
 
 
@@ -33,6 +34,8 @@ public:
 	void handleInputUp(unsigned char key, int x, int y);
 
 	void mouseMotion(int x, int y);
+
+	void resumeGame();
 
 	void pushState(State state);
 

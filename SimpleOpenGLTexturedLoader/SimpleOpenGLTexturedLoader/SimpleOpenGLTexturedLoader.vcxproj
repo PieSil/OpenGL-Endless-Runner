@@ -102,6 +102,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GLUtils.cpp" />
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="ModelRepository.cpp" />
     <ClCompile Include="MouseTestState.cpp" />
     <ClCompile Include="PlayerObject.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GLutils.h" />
     <ClInclude Include="Hitbox.h" />
+    <ClInclude Include="MenuState.h" />
     <ClInclude Include="ModelRepository.h" />
     <ClInclude Include="MouseTestState.h" />
     <ClInclude Include="PlayerObject.h" />
