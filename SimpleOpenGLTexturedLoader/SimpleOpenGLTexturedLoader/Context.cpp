@@ -16,10 +16,9 @@ Context* Context::getContext()
 }
 
 Context::Context() {
+    setWidthHeight(INITIAL_WIDTH, INITIAL_HEIGHT);
     scaleFactor = 1;
-    width = 1920;
-    height = 1080;
-    aspectRatio = width / height;
+    //aspectRatio = width / height;
     score = 0;
     gameSpeed = INITIAL_GAME_SPEED;
     fieldOfView = FOV;

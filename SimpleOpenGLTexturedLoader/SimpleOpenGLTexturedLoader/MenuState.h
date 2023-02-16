@@ -14,4 +14,5 @@ private:
     ShapeObject menu;
     ShapeObject startButton;
     GameLogic* game;
+    bool scaleSet;
 };

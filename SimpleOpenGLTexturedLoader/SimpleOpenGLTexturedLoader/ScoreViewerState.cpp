@@ -94,4 +94,5 @@ void ScoreViewerState::display() {
 	glEnable(GL_LIGHTING);
 	GameState::display();
 	delete (min, max);
+	glEnable(GL_DEPTH_TEST);
 }

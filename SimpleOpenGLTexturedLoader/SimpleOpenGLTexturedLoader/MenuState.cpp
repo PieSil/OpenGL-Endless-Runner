@@ -2,20 +2,22 @@
 #include "Hitbox.h"
 #include "Context.h"
 float scaleMultFact = .5;
+float scaleFactor =  0.0302175377;
 
 void MenuState::display()
 {
-	glPushMatrix();
-	float scaleFactor = Context::getContext()->getScaleFactor();
-	scaleFactor *= scaleMultFact;
-	aiVector3D scale = (scaleFactor, scaleFactor, scaleFactor);
-	//glScalef(1 / scaleFactor, 1 / scaleFactor, 1 / scaleFactor);
+
+	//glPushMatrix();
 	GameState::display();
-	menu.setScale(scale);
+	float xPos = Context::getContext()->getRelativeWindowX(1/2.f);
+	float yPos = Context::getContext()->getRelativeWindowY(1/2.f);
+	menu.setPosX(xPos);
+	menu.setPosY(yPos);
+	startButton.setPosX(xPos);
+	startButton.setPosY(yPos);
 	menu.display();
-	startButton.setScale(scale);
 	startButton.display();
-	glPopMatrix();
+	//glPopMatrix();
 }
 
 void MenuState::handleInput(unsigned char key, int x, int y)
@@ -23,10 +25,10 @@ void MenuState::handleInput(unsigned char key, int x, int y)
 }
 
 MenuState::MenuState(GameLogic* pointer, bool persp) : GameState(pointer, persp),
-game(pointer)
+game(pointer), scaleSet(false)
 {
-	float scaleFactor = Context::getContext()->getScaleFactor();
-	scaleFactor *= scaleMultFact;
+	/*float scaleFactor = Context::getContext()->getScaleFactor();
+	scaleFactor *= scaleMultFact;*/
 	aiVector3D scale = (scaleFactor, scaleFactor, scaleFactor);
 	menu = ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU), scale);
 	startButton = ShapeObject(0, 0, 0, ModelRepository::getModel(START_BUTTON), scale);

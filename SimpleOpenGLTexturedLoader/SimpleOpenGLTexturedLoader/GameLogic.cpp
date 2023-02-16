@@ -12,7 +12,7 @@ GameLogic::GameLogic() {
 	//ShapeObject playerObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)));
 	/*player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)), 0.25));
 	objects.push_back(std::shared_ptr<GameObject>(player));*/
-    setState(State::MENU);
+    setState(State::PLAYING);
     keyBuffer = '_';
 }
 void GameLogic::display() {
