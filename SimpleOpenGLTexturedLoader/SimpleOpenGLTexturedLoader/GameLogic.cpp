@@ -49,6 +49,10 @@ void GameLogic::mouseMotion(int x, int y)
     getCurrentState()->mouseMotion(x, y);
 }
 
+void GameLogic::mouse(int button, int state, int x, int y) {
+    getCurrentState()->mouse(button, state, x, y);
+}
+
 void GameLogic::resumeGame()
 {
     pushState(State::PLAYING);

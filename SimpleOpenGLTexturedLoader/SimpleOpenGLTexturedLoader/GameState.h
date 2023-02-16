@@ -18,6 +18,7 @@ public:
     virtual void display();
     virtual void handleInputUp(unsigned char key, int x, int y) {};
     virtual void mouseMotion(int x, int y) {};
+    virtual void mouse(int button, int state, int x, int y) {};
     void setPerspective(bool setModelView = true);
     void setCamera();
 
