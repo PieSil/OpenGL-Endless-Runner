@@ -263,6 +263,7 @@ void recursive_render(const struct aiScene* sc, const struct aiNode* nd, float s
 	}
 
 	glPopMatrix();
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 // ----------------------------------------------------------------------------

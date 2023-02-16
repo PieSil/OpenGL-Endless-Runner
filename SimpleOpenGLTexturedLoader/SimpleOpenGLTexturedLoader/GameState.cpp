@@ -51,6 +51,6 @@ void GameState::setCamera() {
 	}
 	else {
 		glLoadIdentity();
-		gluLookAt(0, 0, -1, 0, 0, 0, 0, 1, 0);
+		gluLookAt(0, 0, -10, 0, 0, 0, 0, 1, 0);
 	}
 }
