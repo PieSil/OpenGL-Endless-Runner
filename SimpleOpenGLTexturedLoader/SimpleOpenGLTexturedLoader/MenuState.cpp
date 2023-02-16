@@ -26,11 +26,11 @@ void MenuState::handleInput(unsigned char key, int x, int y)
 	Hitbox h = Hitbox(*v1, *v2);
 	if (mouseBboxIntersection(x - Context::getContext()->getWidth() / 2,
 		y - Context::getContext()->getHeight() / 2, h))
-		game.pushState(State::PLAYING);
+		game->setState(State::PLAYING);
 }
 
 MenuState::MenuState(GameLogic* pointer, bool persp) : GameState(pointer, persp),
-game(*pointer), menu(ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU))),
+game(pointer), menu(ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU))),
 startButton(ShapeObject(0, 0, 0, ModelRepository::getModel(START_BUTTON)))
 {
 }

@@ -12,5 +12,5 @@ public:
 private:
     ShapeObject menu;
     ShapeObject startButton;
-    GameLogic game;
+    GameLogic* game;
 };
