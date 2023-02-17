@@ -14,6 +14,7 @@ class PlayerObject :
 public:
     explicit PlayerObject(float x, float y, float z, std::shared_ptr<Model> _shape, aiVector3D scale = aiVector3D(1,1,1), float speed = 1);
     void update() override;
+    void display() override;
     void fall();
 
     bool isOnGround() {
@@ -89,19 +90,38 @@ public:
         return shooting;
     }
 
+    void setInvincible(bool value) {
+        if (value) {
+            invicibilityElapsed = 0;
+            invicibleDisplayElapsed = INVICIBLE_DISPLAY_INTERVAL;
+        }
+        else {
+            invicibilityElapsed = 0;
+            invicibleDisplayElapsed = 0;
+        }
+        invincible = value;
+    }
+
+    bool isInvincible() {
+        return invincible;
+    }
+
     float getRemainingTime(PowerupType pwr);
 
 protected:
+    float invicibilityElapsed;
+    float invicibleDisplayElapsed;
     float shootPowerElapsed;
     float shootIntervalStart;
     float shootIntervalElapsed;
     float flightPowerElapsed;
-    bool onGround;
     float jumpSpeed;
     int lives;
+    bool onGround;
     bool inputRecorded;
     bool shootActive;
     bool flightActive;
     bool shooting;
+    bool invincible;
 };
 

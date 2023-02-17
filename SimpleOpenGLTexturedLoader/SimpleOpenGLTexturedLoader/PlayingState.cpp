@@ -24,6 +24,10 @@
 PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 
 	pointsToNextAccel = 20;
+	aKeyPressed = false;
+	dKeyPressed = false;
+	leftArrowPressed = false;
+	rightArrowPressed = false;
 
 	//reset game score
 	Context::getContext()->resetScore();
@@ -55,6 +59,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 }
 
 void PlayingState::display(){
+	drawBackGround();
 	//call GameState display() function in order to render all elements in "object" list
 	GameState::display();
 
@@ -177,13 +182,15 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 		player->incrZSpeed(-1.);
 		break;*/
 	case 'a': case 'A':
-		if (player->isOnGround() || player->isFlightActive()) {
+		if ((!leftArrowPressed && !rightArrowPressed) && (player->isOnGround() || player->isFlightActive())) {
+			aKeyPressed = true;
 			player->incrXSpeed(1.);
 			player->setInputRecorded(true);
 		}
 		break;
 	case 'd': case 'D':
-		if (player->isOnGround() || player->isFlightActive()) {
+		if ((!leftArrowPressed && !rightArrowPressed) && (player->isOnGround() || player->isFlightActive())) {
+			dKeyPressed = true;
 			player->incrXSpeed(-1.);
 			player->setInputRecorded(true);
 		}
@@ -226,13 +233,15 @@ void PlayingState::handleInputUp(unsigned char key, int x, int y) {
 	//	break;
 	case 'a': case 'A':
 		if ((player->isOnGround() || player->isFlightActive()) && player->isInputRecorded()) {
+			aKeyPressed = false;
 			player->incrXSpeed(-1.);
 			//player->setInputRecorded(false);
 		}
 
 		break;
-	case 'd': case 'D':
+	case 'd': case 'D': 
 		if ((player->isOnGround() || player->isFlightActive()) && player->isInputRecorded()) {
+			dKeyPressed = false;
 			player->incrXSpeed(1.);
 			//player->setInputRecorded(false);
 		}
@@ -244,6 +253,56 @@ void PlayingState::handleInputUp(unsigned char key, int x, int y) {
 		break;
 	default:
 		break;
+	}
+
+	if (!aKeyPressed && !dKeyPressed && !leftArrowPressed && !rightArrowPressed) {
+		player->setInputRecorded(false);
+	}
+}
+
+void PlayingState::handleSpecialInput(int key, int x, int y) {
+	switch (key) {
+	case GLUT_KEY_LEFT:
+		if ((!aKeyPressed && !dKeyPressed) && (player->isOnGround() || player->isFlightActive())) {
+			leftArrowPressed = true;
+			player->incrXSpeed(1.);
+			player->setInputRecorded(true);
+		}
+		break;
+	case GLUT_KEY_RIGHT:
+		if ((!aKeyPressed && !dKeyPressed) && (player->isOnGround() || player->isFlightActive())) {
+			rightArrowPressed = true;
+			player->incrXSpeed(-1.);
+			player->setInputRecorded(true);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
+void PlayingState::handleSpecialInputUp(int key, int x, int y) {
+	switch (key) {
+	case GLUT_KEY_LEFT:
+		if ((player->isOnGround() || player->isFlightActive()) && player->isInputRecorded()) {
+			leftArrowPressed = false;
+			player->incrXSpeed(-1.);
+			//player->setInputRecorded(false);
+		}
+		break;
+	case GLUT_KEY_RIGHT:
+		if ((player->isOnGround() || player->isFlightActive()) && player->isInputRecorded()) {
+			rightArrowPressed = false;
+			player->incrXSpeed(1.);
+			//player->setInputRecorded(false);
+		}
+		break;
+	default:
+		break;
+	}
+
+	if (!aKeyPressed && !dKeyPressed && !leftArrowPressed && !rightArrowPressed) {
+		player->setInputRecorded(false);
 	}
 }
 
@@ -328,13 +387,14 @@ void PlayingState::checkCollisions() {
 		//only check hitboxes if objects are close enough
 		if ((currentX >= playerX - 5 && currentX <= playerX + 5) && (currentY >= playerY - 5 && currentY <= playerY + 5) && (currentZ >= playerZ - 5 && currentZ <= playerZ + 5)) {
 
-			if (bboxIntersection(playerHitbox, collectibleHitbox)) {
+			if (bboxIntersection(playerHitbox, collectibleHitbox))  {
 				//if a collision is detected apply the collectible effect to player, then erase the collectible
 				//collIterator MUST NOT be updated during this iteration
 				printf("Player collided with collectible\n");
-				(*collIterator)->applyEffect(player.get());
-				collIterator = collectibles.erase(collIterator);
-				collisionDetected = true;
+				if ((*collIterator)->applyEffect(player.get())) {
+					collIterator = collectibles.erase(collIterator);
+					collisionDetected = true;
+				}
 			}
 		} 
 
@@ -560,4 +620,30 @@ void PlayingState::displayUI() {
 	
 	setPerspMode(true);
 	glPopMatrix();
+}
+
+void PlayingState::drawBackGround()
+{
+	glDisable(GL_DEPTH_TEST);
+	glPushMatrix();
+	setPerspMode(false);
+	aiVector3D* min = new aiVector3D(0, 0, 0);
+	aiVector3D* max = new aiVector3D(0, 0, 0);
+
+	std::shared_ptr<Model> backgroundModel = ModelRepository::getModel(WHITE_RECTAGLE_ID);
+	backgroundModel->getHitbox(min, max);
+
+	//get background position (center)
+	float posX = Context::getContext()->getRelativeWindowX(.5);
+	float posY = Context::getContext()->getRelativeWindowY(.5);
+
+	//get x and y scale factors based on window size
+	float xScale = Context::getContext()->getScaleForTarget(Context::getContext()->getWidth(), max->x - min->x);
+	float yScale = Context::getContext()->getScaleForTarget(Context::getContext()->getHeight(), max->y - min->y);
+	backgroundModel->display(posX, posY, 0, aiVector3D(xScale, yScale, 1));
+
+	setPerspMode(true);
+	glPopMatrix();
+	glEnable(GL_DEPTH_TEST);
+	delete(min, max);
 }

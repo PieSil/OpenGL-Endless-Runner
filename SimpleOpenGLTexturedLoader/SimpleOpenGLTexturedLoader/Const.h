@@ -40,11 +40,14 @@ static const int START_BUTTON = 30;
 
 //collectible properties
 static const int COL_SPEED = 10;
+
+//player properties
 static const float SHOOT_POWER_DURATION = 10; //in seconds
 static const float PROJECTILE_INTERVAL = .2; //in seconds
 static const float FLIGHT_DURATION = 10; //in seconds
 static const float PROJECTILE_SPEED = 50;
-
+static const float INVICIBILITY_DURATION = 2; //in seconds
+static const float INVICIBLE_DISPLAY_INTERVAL = .2; //in seconds
 
 //model properties
 static const double FAIRY_WING_SPEED = 80;

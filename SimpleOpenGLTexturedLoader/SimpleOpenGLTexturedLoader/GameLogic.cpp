@@ -44,6 +44,18 @@ void GameLogic::handleInputUp(unsigned char key, int x, int y) {
     getCurrentState()->handleInputUp(key, x, y);
 }
 
+void GameLogic::handleSpecialInput(int key, int x, int y) {
+    if (!states.empty()) {
+        getCurrentState()->handleSpecialInput(key, x, y);
+    }
+}
+
+void GameLogic::handleSpecialInputUp(int key, int x, int y) {
+    if (!states.empty()) {
+        getCurrentState()->handleSpecialInputUp(key, x, y);
+    }
+}
+
 void GameLogic::mouseMotion(int x, int y)
 {
     getCurrentState()->mouseMotion(x, y);

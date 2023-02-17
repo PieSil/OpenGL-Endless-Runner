@@ -45,11 +45,14 @@ public:
     void update() override;
     void handleInput(unsigned char key, int x, int y) override;
     void handleInputUp(unsigned char key, int x, int y) override;
+    void handleSpecialInput(int key, int x, int y) override;
+    void handleSpecialInputUp(int key, int x, int y) override;
     void checkCollisions();
     void spawnNewGround();
     void deleteGround(GroundStruct ground);
     void spawnProjectile();
     void displayUI();
+    void drawBackGround();
 
 private:
     std::shared_ptr<PlayerObject> player;
@@ -61,7 +64,10 @@ private:
     std::vector<std::string> UIText;
     CollectibleSpawner collectibleSpawner;
     int pointsToNextAccel;
-
+    bool aKeyPressed;
+    bool dKeyPressed;
+    bool leftArrowPressed;
+    bool rightArrowPressed;
 };
 
 

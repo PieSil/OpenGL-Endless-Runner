@@ -10,6 +10,15 @@ PlayerObject::PlayerObject(float x, float y, float z, std::shared_ptr<Model> _sh
 	shootActive = false;
 	flightActive = false;
 	shooting = false;
+	invincible = false;
+	invicibilityElapsed = 0;
+	invicibleDisplayElapsed = 0;
+}
+
+void PlayerObject::display() {
+	if (!invincible || invicibleDisplayElapsed < INVICIBLE_DISPLAY_INTERVAL) {
+		ShapeObject::display();
+	}
 }
 
 void PlayerObject::update() {
@@ -28,6 +37,18 @@ void PlayerObject::update() {
 		if (flightPowerElapsed >= FLIGHT_DURATION) {
 			setFlightActive(false);
 			flightPowerElapsed = 0;
+		}
+	}
+
+	if (invincible) {
+		float elapsed = Timer::getTimer()->getElapsed();
+		invicibilityElapsed += elapsed;
+		invicibleDisplayElapsed += elapsed;
+		if (invicibilityElapsed >= INVICIBILITY_DURATION) {
+			setInvincible(false);
+		}
+		if (invicibleDisplayElapsed >= 2 * INVICIBLE_DISPLAY_INTERVAL) {
+			invicibleDisplayElapsed = 0;
 		}
 	}
 	fall();
@@ -50,7 +71,6 @@ bool PlayerObject::shoot() {
 		shootIntervalElapsed += Timer::getTimer()->getElapsed();
 		if (shootIntervalElapsed > PROJECTILE_INTERVAL) {
 			result = true;
-			shootIntervalStart = glutGet(GLUT_ELAPSED_TIME);
 			shootIntervalElapsed = 0;
 		}
 	}

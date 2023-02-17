@@ -50,6 +50,14 @@ void keyboard(unsigned char key, int x, int y)
 	}
 }
 
+void specialKeyboard(int key, int x, int y) {
+	game.handleSpecialInput(key, x, y);
+}
+
+void specialKeyboardUp(int key, int x, int y) {
+	game.handleSpecialInputUp(key, x, y);
+}
+
 void keyboardUp(unsigned char key, int x, int y) {
 	switch (key) {
 	default:
@@ -117,6 +125,8 @@ int main(int argc, char **argv)
 	//glutTimerFunc(1000 / 120, timerFunc, 0);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboardUp);
+	glutSpecialFunc(specialKeyboard);
+	glutSpecialUpFunc(specialKeyboardUp);
 	glutPassiveMotionFunc(mouseMotion);
 	glutMouseFunc(mouse);
 	glutIdleFunc(idle);

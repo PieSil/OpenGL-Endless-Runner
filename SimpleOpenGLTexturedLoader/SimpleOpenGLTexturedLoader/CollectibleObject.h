@@ -13,7 +13,7 @@ class CollectibleObject :
 public:
     explicit CollectibleObject(float x, float y, float z, std::shared_ptr<Model> _shape, CollectibleBehaviour behaviour, float speed = 1, aiVector3D scale = aiVector3D(1, 1, 1));
 
-    void applyEffect(PlayerObject* player);
+    bool applyEffect(PlayerObject* player);
 
     CollectibleBehaviour getCollType() {
         return behaviour;

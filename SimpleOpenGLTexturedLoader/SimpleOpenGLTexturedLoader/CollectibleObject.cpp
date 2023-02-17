@@ -6,8 +6,9 @@ CollectibleObject::CollectibleObject(float x, float y, float z, std::shared_ptr<
 	shape = std::shared_ptr<Model>(_shape);
 }
 
-void CollectibleObject::applyEffect(PlayerObject* player) {
+bool CollectibleObject::applyEffect(PlayerObject* player) {
 	//applies collectible effect to player or context
+	bool result = true; //returns true if collectible should be destoyed
 
 	switch (behaviour) {
 	case CollectibleBehaviour::POINT:
@@ -15,14 +16,25 @@ void CollectibleObject::applyEffect(PlayerObject* player) {
 		std::cout << "Score: " << Context::getContext()->getScore() << "\n";
 		break;
 	case CollectibleBehaviour::DAMAGE:
-		player->incrLives(-1);
-		std::cout << "Player lives: " << player->getLives() << "\n";
+		if (!player->isInvincible()) {
+			player->incrLives(-1);
+			std::cout << "Player lives: " << player->getLives() << "\n";
+			player->setInvincible(true);
+		}
+		else {
+			result = false;
+		}
 		break;
 	case CollectibleBehaviour::SWORD:
 		player->setShootActive(true);
 		break;
 	case CollectibleBehaviour::HEART:
-		player->incrLives(1);
+		if (player->getLives() >= 3) {
+			Context::getContext()->incrScore(1);
+		}
+		else {
+			player->incrLives(1);
+		}
 		std::cout << "Player lives: " << player->getLives() << "\n";
 		break;
 	case CollectibleBehaviour::WINGS:
@@ -31,4 +43,6 @@ void CollectibleObject::applyEffect(PlayerObject* player) {
 	default:
 		break;
 	}
+
+	return result;
 }
