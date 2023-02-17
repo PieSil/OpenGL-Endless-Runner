@@ -32,6 +32,7 @@ void RegisterScoreState::handleInput(unsigned char key, int x, int y){
 void RegisterScoreState::display()
 {
 	//set up display mode (disable materials, disable depth test)
+	setCamera();
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glColor3f(1, 1, 1); //use white for text

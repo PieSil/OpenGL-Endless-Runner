@@ -100,6 +100,16 @@ public:
 		this->scale = scale;
 	}
 
+	void resetScale() {
+		scale = baseScale;
+	}
+
+	void adjustScale(aiVector3D scaleMultiplier) {
+		scale.x = baseScale.x * scaleMultiplier.x;
+		scale.y = baseScale.y * scaleMultiplier.y;
+		scale.z = baseScale.z * scaleMultiplier.z;
+	}
+
 protected:
 	float pos_x;
 	float pos_y;
@@ -111,6 +121,7 @@ protected:
 	float xSpeed;
 	float ySpeed;
 	float zSpeed;
+	aiVector3D baseScale;
 	aiVector3D scale;
 };
 

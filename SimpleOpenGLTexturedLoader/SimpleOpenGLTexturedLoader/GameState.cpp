@@ -1,5 +1,7 @@
 #include "GameState.h"
 #include "Context.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 GameState::GameState(GameLogic* game, bool persp) : game(game), persp(persp) {
 	//this->game = std::shared_ptr<GameLogic>(game);
@@ -43,6 +45,8 @@ void GameState::setCamera() {
 	if (persp) {
 		//glTranslatef(0, 0, -20);
 		//glRotatef(30, 1., 0., 0.);
+
+		//frint parameter decides wether camera should have an angle (front = false) or not (front = true)
 		glLoadIdentity();
 		gluLookAt(0, 15, -20, 0, 0, 0, 0, 1, 0);
 		//gluLookAt(0, 0, 0, 0, 0, 0, 0, 1, 0);

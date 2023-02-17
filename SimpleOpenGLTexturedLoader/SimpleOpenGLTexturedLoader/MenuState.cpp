@@ -11,6 +11,10 @@ void MenuState::display()
 	GameState::display();
 	float xPos = Context::getContext()->getRelativeWindowX(1/2.f);
 	float yPos = Context::getContext()->getRelativeWindowY(1/2.f);
+	float xScale = Context::getContext()->getOrthoScaleX();
+	float yScale = Context::getContext()->getOrthoScaleY();
+	menu.adjustScale(aiVector3D(xScale, yScale, 1));
+	startButton.adjustScale(aiVector3D(xScale, yScale, 1));
 	menu.setPosX(xPos);
 	menu.setPosY(yPos);
 	startButton.setPosX(xPos);
@@ -29,7 +33,8 @@ game(pointer), scaleSet(false)
 {
 	/*float scaleFactor = Context::getContext()->getScaleFactor();
 	scaleFactor *= scaleMultFact;*/
-	aiVector3D scale = (scaleFactor, scaleFactor, scaleFactor);
+	aiVector3D scale = aiVector3D(scaleFactor, scaleFactor, 1);
+	//aiVector3D scale = (1, 1, 1);
 	menu = ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU), scale);
 	startButton = ShapeObject(0, 0, 0, ModelRepository::getModel(START_BUTTON), scale);
 }

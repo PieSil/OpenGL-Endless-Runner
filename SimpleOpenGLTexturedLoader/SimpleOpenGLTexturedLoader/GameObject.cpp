@@ -4,7 +4,7 @@
 #include "Context.h"
 #include <iostream>
 
-GameObject::GameObject(float x, float y, float z, aiVector3D scale, float _speed) : pos_x(x), pos_y(y), pos_z(z), prev_x(x), prev_y(y), prev_z(z), speed(_speed), xSpeed(0), ySpeed(0), zSpeed(0), scale(scale) {
+GameObject::GameObject(float x, float y, float z, aiVector3D scale, float _speed) : pos_x(x), pos_y(y), pos_z(z), prev_x(x), prev_y(y), prev_z(z), speed(_speed), xSpeed(0), ySpeed(0), zSpeed(0), scale(scale), baseScale(scale) {
 }
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <string>
+#include "Const.h"
 //A class containing useful informations about the context of the application, e.g. current window resolution, game difficulty and other settings
 
 class Context {
@@ -14,6 +15,8 @@ public:
 		width = w;
 		height = h;
 		aspectRatio = w / h;
+		orthoScaleFactorX = (float)INITIAL_WIDTH / width;
+		orthoScaleFactorY = (float)INITIAL_HEIGHT / height;
 	}
 
 	float getWidth() {
@@ -97,6 +100,14 @@ public:
 		return actualValue/targetValue;
 	}
 
+	float getOrthoScaleX() {
+		return orthoScaleFactorX;
+	}
+
+	float getOrthoScaleY() {
+		return orthoScaleFactorY;
+	}
+
 private:
 
 	explicit Context(); //private constructor, enables Singleton pattern, cannot have more than one instance of Timer at a time
@@ -105,6 +116,8 @@ private:
 	float height;
 	float aspectRatio;
 	float scaleFactor;
+	float orthoScaleFactorX;
+	float orthoScaleFactorY;
 	int score;
 	float gameSpeed;
 	double fieldOfView;
