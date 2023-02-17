@@ -188,7 +188,7 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 			player->setInputRecorded(true);
 		}
 		break;
-	case 'e': case 'E':
+	case 'e': case 'E': case 13: //13 = enter:
 		if (!player->isShooting()) {
 			//spawn projectile
 			player->setShooting(true);
@@ -237,7 +237,7 @@ void PlayingState::handleInputUp(unsigned char key, int x, int y) {
 			//player->setInputRecorded(false);
 		}
 		break;
-	case 'e': case 'E':
+	case 'e': case 'E': case 13: //13 = enter:
 		if (player->isShooting()) {
 			player->setShooting(false);
 		}
@@ -536,7 +536,7 @@ void PlayingState::displayUI() {
 	//draw score
 	glPushMatrix();
 	std::string out = "SCORE: " + std::to_string(Context::getContext()->getScore());
-	int textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	int textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	float xPos = (textWidth / (2.f * Context::getContext()->getWidth()) + textWidth / 2.f);
 	float yPos = (FONT_HEIGHT / (2.f * Context::getContext()->getHeight()) + (Context::getContext()->getHeight() / 2.f) - (FONT_HEIGHT + 10));
 	glColor3f(.5, .5, .5);

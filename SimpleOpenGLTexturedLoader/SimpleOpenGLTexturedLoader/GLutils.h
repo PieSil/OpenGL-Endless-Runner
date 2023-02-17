@@ -15,6 +15,7 @@
 
 #include "GL/glut.h"
 #include <IL/il.h>
+#include "Const.h"
 
 //#include "GameLogic.h"
 
@@ -53,7 +54,7 @@ void do_motion(void);
 int LoadGLTextures(const aiScene* scene);
 int InitGL();
 int loadasset(const char* path);
-void output(float x, float y, std::string str, void* font = GLUT_BITMAP_TIMES_ROMAN_24);
+void output(float x, float y, std::string str, void* font = FONT);
 //void mul4x4ByPoint(GLfloat matrix[16], float* x, float* y, float* z, float* w);
 //float* mul4x4By4x4(GLfloat matrix[16], float target[16]);
 	// ----------------------------------------------------------------------------
