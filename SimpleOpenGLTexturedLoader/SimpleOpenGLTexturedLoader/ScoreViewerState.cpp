@@ -35,7 +35,7 @@ void ScoreViewerState::display() {
 
 	//show leaderbord headline
 	out = TOP5_STRING;
-	float textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	float textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 
 	float posX = Context::getContext()->getRelativeWindowX(.5, -textWidth *.5);
 	float posY = Context::getContext()->getRelativeWindowY(1 / 10.f);
@@ -57,7 +57,7 @@ void ScoreViewerState::display() {
 		catch (const std::out_of_range& e) {
 			out = DEFAULT_STRING;
 		}
-		textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+		textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 		posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
 		posY = Context::getContext()->getRelativeWindowY((2+i)/10.f);
 
@@ -69,7 +69,7 @@ void ScoreViewerState::display() {
 
 	//show score headline
 	out = YOUR_SCORE_STRING;
-	textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
 	posY = Context::getContext()->getRelativeWindowY(8/10.f);
 	glColor3f(1, 1, 1);
@@ -81,7 +81,7 @@ void ScoreViewerState::display() {
 
 	out = Context::getContext()->getPlayerName() + ": ";
 	out += std::to_string(Context::getContext()->getScore());
-	textWidth = glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)out.c_str());
+	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
 	posY = Context::getContext()->getRelativeWindowY(9/10.f);
 	output(posX, posY, out.c_str());

@@ -3,7 +3,7 @@
 #include "Context.h"
 #include "GLutils.h"
 
-RegisterScoreState::RegisterScoreState(GameLogic* game) : GameState(game, true) {
+RegisterScoreState::RegisterScoreState(GameLogic* game) : GameState(game, false) {
 	Context::getContext()->clearPlayerName();
 }
 
@@ -31,6 +31,31 @@ void RegisterScoreState::handleInput(unsigned char key, int x, int y){
 
 void RegisterScoreState::display()
 {
-	output(0, 0, "Insert your name, press [ENTER] to confirm");
-	output(0, -1, Context::getContext()->getPlayerName());
+	//set up display mode (disable materials, disable depth test)
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glColor3f(1, 1, 1); //use white for text
+
+	//print player score
+	std::string out = "SCORE: " + std::to_string(Context::getContext()->getScore());
+	float textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
+	float posX = Context::getContext()->getRelativeWindowX(.5, -textWidth / 2.f);
+	float posY = Context::getContext()->getRelativeWindowY(1 / 5.f, -FONT_HEIGHT / 2.f);
+	output(posX, posY, out.c_str());
+
+	//print message
+	out = "Insert your name, press [ENTER] to confirm";
+	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
+	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth/2.f);
+	posY = Context::getContext()->getRelativeWindowY( 2 / 5.f, -FONT_HEIGHT/2.f);
+	output(posX, posY, out);
+
+	//dynamically proìint player name
+	out = Context::getContext()->getPlayerName();
+	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
+	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth / 2.f);
+	posY = Context::getContext()->getRelativeWindowY(.5, -FONT_HEIGHT / 2.f);
+	output(posX, posY, Context::getContext()->getPlayerName());
+	glEnable(GL_LIGHTING);
+	glEnable(GL_DEPTH_TEST);
 }

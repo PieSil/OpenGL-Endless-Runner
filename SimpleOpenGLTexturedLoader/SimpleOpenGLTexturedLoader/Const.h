@@ -52,7 +52,7 @@ static const double MODEL_ROTATION_SPEED = 40;
 
 //other settings
 static const double FOV = 45.;
-static const void* FONT = GLUT_BITMAP_HELVETICA_18;
+static void* FONT = GLUT_BITMAP_HELVETICA_18;
 static const int FONT_HEIGHT = 18;
 static const int INITIAL_GAME_SPEED = 10;
 static const int INITIAL_WIDTH = 900;
