@@ -42,6 +42,7 @@ bool CollectibleObject::applyEffect(PlayerObject* player) {
 		break;
 	case CollectibleBehaviour::WINGS:
 		player->setFlightActive(true);
+		AudioPlayer::playSound(SWORD_SOUND);
 		break;
 	default:
 		break;
