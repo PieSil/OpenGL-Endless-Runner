@@ -7,10 +7,24 @@ AudioPlayer::AudioPlayer() {
     soundEngine = createIrrKlangDevice();
     soundEngine->addSoundSourceFromFile(SUBWAY_BACK.c_str(), ESM_AUTO_DETECT, true);
     soundEngine->play2D(SUBWAY_BACK.c_str());
+    soundEngine->stopAllSounds();
     soundEngine->addSoundSourceFromFile(RUPEE_SOUND.c_str(), ESM_AUTO_DETECT, true);
     soundEngine->play2D(SUBWAY_BACK.c_str());
+    soundEngine->stopAllSounds();
     soundEngine->addSoundSourceFromFile(SWORD_SOUND.c_str(), ESM_AUTO_DETECT, true);
     soundEngine->play2D(SUBWAY_BACK.c_str());
+    soundEngine->stopAllSounds();
+    soundEngine->addSoundSourceFromFile(HEART_SOUND.c_str(), ESM_AUTO_DETECT, true);
+    soundEngine->play2D(HEART_SOUND.c_str());
+    soundEngine->stopAllSounds();
+    soundEngine->addSoundSourceFromFile(DAMAGE_SOUND.c_str(), ESM_AUTO_DETECT, true);
+    soundEngine->play2D(DAMAGE_SOUND.c_str());
+    soundEngine->stopAllSounds();
+    soundEngine->addSoundSourceFromFile(POP_SOUND.c_str(), ESM_AUTO_DETECT, true);
+    soundEngine->play2D(POP_SOUND.c_str());
+    soundEngine->stopAllSounds();
+    soundEngine->addSoundSourceFromFile(SHOOT_SOUND.c_str(), ESM_AUTO_DETECT, true);
+    soundEngine->play2D(SHOOT_SOUND.c_str());
     soundEngine->stopAllSounds();
     _setBackground(SUBWAY_BACK);
 }

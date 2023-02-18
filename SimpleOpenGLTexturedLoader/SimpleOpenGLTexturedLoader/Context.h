@@ -64,7 +64,8 @@ public:
 	}
 
 	void incrGameSpeed(float value) {
-		gameSpeed += value;
+		if (gameSpeed < (2*15)+10)
+			gameSpeed += value;
 	}
 
 	float getGameSpeed() {

@@ -82,6 +82,7 @@ void PlayingState::update() {
 
 	if (player->isShooting() && player->shoot()) {
 		spawnProjectile();
+		AudioPlayer::playSound(SHOOT_SOUND);
 	}
 
 	if (pointsToNextAccel - Context::getContext()->getScore() <= 0) {
@@ -423,6 +424,7 @@ void PlayingState::checkCollisions() {
 						projIterator = projectiles.erase(projIterator);
 						collIterator = collectibles.erase(collIterator);
 						Context::getContext()->incrScore(1);
+						AudioPlayer::playSound(POP_SOUND);
 						collisionDetected = true;
 					}
 

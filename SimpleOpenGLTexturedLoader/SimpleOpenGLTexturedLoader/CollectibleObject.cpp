@@ -22,6 +22,7 @@ bool CollectibleObject::applyEffect(PlayerObject* player) {
 			player->incrLives(-1);
 			//std::cout << "Player lives: " << player->getLives() << "\n";
 			player->setInvincible(true);
+			AudioPlayer::playSound(DAMAGE_SOUND);
 		}
 		else {
 			result = false;
@@ -38,6 +39,7 @@ bool CollectibleObject::applyEffect(PlayerObject* player) {
 		else {
 			player->incrLives(1);
 		}
+		AudioPlayer::playSound(HEART_SOUND);
 		//std::cout << "Player lives: " << player->getLives() << "\n";
 		break;
 	case CollectibleBehaviour::WINGS:

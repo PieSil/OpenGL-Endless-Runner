@@ -77,3 +77,7 @@ static const std::string DEFAULT_STRING = "---: ---";
 static const std::string SUBWAY_BACK = "audio\\background-subway.mp3";
 static const std::string RUPEE_SOUND = "audio\\rupee-sound.mp3";
 static const std::string SWORD_SOUND = "audio\\magic-sword.wav";
+static const std::string DAMAGE_SOUND = "audio\\hurt-sound.mp3";
+static const std::string HEART_SOUND = "audio\\heart-sound.mp3";
+static const std::string SHOOT_SOUND = "audio\\knife-sound.mp3";
+static const std::string POP_SOUND = "audio\\pop-sound.mp3";
