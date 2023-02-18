@@ -14,6 +14,7 @@
 #include "GLutils.h"
 #include "Timer.h"
 #include "Context.h"
+#include "AudioPlayer.h"
 
 // ----------------------------------------------------------------------------
 GameLogic game = GameLogic();
@@ -114,6 +115,7 @@ void timerFunc(int value) {
 
 int main(int argc, char **argv)
 {
+	AudioPlayer::getAudioPlayer(); //calls AudioPlayer constructor and loads all sound files
 	struct aiLogStream stream;
 
 	glutInitWindowSize(900,600);

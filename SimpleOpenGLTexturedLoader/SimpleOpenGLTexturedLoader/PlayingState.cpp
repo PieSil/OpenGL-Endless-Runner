@@ -37,7 +37,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 	collectibleSpawner = CollectibleSpawner();
 
 	//create player object and add it to renderable objects
-	player = std::make_shared<PlayerObject>(PlayerObject(0, 3, -5, ModelRepository::getModel(FAIRY_ID), aiVector3D(1,1,1), 10));
+	player = std::make_shared<PlayerObject>(PlayerObject(0, 0, -5, ModelRepository::getModel(FAIRY_ID), aiVector3D(1,1,1), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 
 	UIText.push_back("LIVES: ");
@@ -56,6 +56,8 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 	for (auto coll : collectibles) {
 		coll->incrZSpeed(-1);
 	}
+	AudioPlayer::setBackground(SUBWAY_BACK);
+	AudioPlayer::playBackground();
 }
 
 void PlayingState::display(){
@@ -167,6 +169,7 @@ void PlayingState::update() {
 
 	//check player status:
 	if (player->getLives() <= 0) {
+		AudioPlayer::stopAllSounds();
 		game->setState(State::SCORE); //register player score
 	}
 }

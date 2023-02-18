@@ -72,3 +72,8 @@ static const int UI_BAR_LENGTH = 200; //in pixels
 static const std::string TOP5_STRING = "TOP 5 SCORES: ";
 static const std::string YOUR_SCORE_STRING = "YOUR SCORE: ";
 static const std::string DEFAULT_STRING = "---: ---";
+
+//audio files paths
+static const std::string SUBWAY_BACK = "audio\\background-subway.mp3";
+static const std::string RUPEE_SOUND = "audio\\rupee-sound.mp3";
+static const std::string SWORD_SOUND = "audio\\magic-sword.wav";

@@ -54,7 +54,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\DevIL\include;..\..\AssImp\include;..\..\glut;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\irrKlang\include;..\..\DevIL\include;..\..\AssImp\include;..\..\glut;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -64,8 +64,8 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>OpenGL32.lib;assimp.lib;DevIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\AssImp\lib\assimp_release-dll_win32;..\..\DevIL\lib;..\..\glut;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OpenGL32.lib;assimp.lib;DevIL.lib;irrKlang.exp;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\irrKlang\lib\Win32-visualStudio;..\..\AssImp\lib\assimp_release-dll_win32;..\..\DevIL\lib;..\..\glut;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -92,6 +92,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssimpModel.cpp" />
+    <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="CollectibleObject.cpp" />
     <ClCompile Include="CollectibleSpawner.cpp" />
     <ClCompile Include="Context.cpp" />
@@ -119,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssimpModel.h" />
+    <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="CollectibleObject.h" />
     <ClInclude Include="CollectibleSpawner.h" />
     <ClInclude Include="Const.h" />

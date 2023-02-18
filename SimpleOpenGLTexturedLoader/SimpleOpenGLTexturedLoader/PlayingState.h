@@ -9,6 +9,7 @@
 #include "PlayerObject.h"
 #include "CollectibleObject.h"
 #include "CollectibleSpawner.h"
+#include "AudioPlayer.h"
 
 //The game state which should correspond to the actual game 
 
