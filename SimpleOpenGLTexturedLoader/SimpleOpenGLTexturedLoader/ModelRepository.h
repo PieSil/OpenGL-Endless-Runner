@@ -20,6 +20,13 @@ public:
 			(*i).second->animate();
 		}
 	}
+
+	void resetAllAnimations() {
+		for (auto i = models.begin(); i != models.end(); i++)
+		{
+			(*i).second->resetAnimation();
+		}
+	}
 private:
 
 	explicit ModelRepository(); //private constructor, enables Singleton pattern

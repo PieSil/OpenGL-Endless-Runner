@@ -23,6 +23,9 @@ public:
 	static void playBackground();
 	static void dropBackground();
 	static bool setBackground(std::string path);
+	static bool isBackgroundActive() {
+		return getAudioPlayer()->_isBackgroundActive();
+	};
 
 private:
 	explicit AudioPlayer();
@@ -31,6 +34,9 @@ private:
 	void _playBackground();
 	void _dropBackground();
 	bool _setBackground(std::string path);
+	bool _isBackgroundActive() {
+		return backGroundSet;
+	};
 	static std::shared_ptr<AudioPlayer> instance;
 	ISoundEngine* soundEngine;
 	ISound* backgroundMusic;

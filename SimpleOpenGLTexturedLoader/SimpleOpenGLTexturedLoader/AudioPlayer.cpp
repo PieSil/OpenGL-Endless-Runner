@@ -47,14 +47,21 @@ void AudioPlayer::_stopAllSounds(){
 
 void AudioPlayer::_playBackground() {
     backgroundMusic = playSound(backgroundPath, true, true);
+    if (backgroundPath.compare(FAIRY_BACKGROUND) == 0) {
+        backgroundMusic->setVolume(.05);
+    }
+    else {
+        backgroundMusic->setVolume(1);
+    }
     backGroundSet = true;
 }
 
 void AudioPlayer::_dropBackground() {
-    if (backgroundMusic) {
+    if (backGroundSet) {
         backgroundMusic->stop();
         backgroundMusic->drop();
     }
+    backGroundSet = false;
 }
 
 bool AudioPlayer::_setBackground(std::string path){

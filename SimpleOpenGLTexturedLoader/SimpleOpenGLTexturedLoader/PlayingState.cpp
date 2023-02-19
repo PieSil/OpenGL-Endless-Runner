@@ -21,8 +21,9 @@
 #define COLL_DESPAWN_Z -12
 #define PROJ_DESPAWN_Z 40
 
-PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
+PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK) {
 
+	ModelRepository::getModelRepository()->resetAllAnimations();
 	pointsToNextAccel = 20;
 	aKeyPressed = false;
 	dKeyPressed = false;
@@ -55,10 +56,6 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 
 	for (auto coll : collectibles) {
 		coll->incrZSpeed(-1);
-	}
-	if (AudioPlayer::setBackground(SUBWAY_BACK)) {
-		AudioPlayer::dropBackground();
-		AudioPlayer::playBackground();
 	}
 }
 
@@ -625,7 +622,7 @@ void PlayingState::displayUI() {
 	glEnable(GL_LIGHTING); //re-enable materials
 
 	//draw hearts
-	float scaleFactor = Context::getContext()->getScaleFactor();;
+	float scaleFactor = Context::getContext()->getScaleFactor();
 	std::shared_ptr<Model> heart = ModelRepository::getModel(HEART_ID);
 	//glBegin(GL_POLYGON);
 	glPushMatrix();

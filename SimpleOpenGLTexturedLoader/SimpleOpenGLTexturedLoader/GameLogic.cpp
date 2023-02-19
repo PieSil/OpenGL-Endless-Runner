@@ -7,12 +7,13 @@
 #include "Timer.h"
 #include "MouseTestState.h"
 #include "MenuState.h"
+#include "InfoState.h"
 
 GameLogic::GameLogic() {
 	//ShapeObject playerObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)));
 	/*player = std::make_shared<ShapeObject>(ShapeObject(0, 0, 0, std::make_shared<CubeShape>(CubeShape(1)), 0.25));
 	objects.push_back(std::shared_ptr<GameObject>(player));*/
-    setState(State::MENU);
+    setState(State::LEADERBOARD);
     keyBuffer = '_';
 }
 void GameLogic::display() {
@@ -93,21 +94,27 @@ void GameLogic::pushState(State state) {
    case State::MENU:
        states.emplace(new MenuState(this));
        break;
+   case State::INFO:
+       states.emplace(new InfoState(this));
+       break;
     default:
         states.emplace(new TestState(this));
         break;
     }
+    getCurrentState()->playBackground();
     setPerspective();
 
 }
 
 void GameLogic::popState() {
+    //getCurrentState()->dropBackground();
     delete(states.top());
     states.pop();
     setPerspective();
 }
 
 void GameLogic::setState(State state) {
+
 
     if (!states.empty())
         popState();

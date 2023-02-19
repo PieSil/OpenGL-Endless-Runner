@@ -50,7 +50,7 @@ void MenuState::handleInput(unsigned char key, int x, int y)
 {
 }
 
-MenuState::MenuState(GameLogic* pointer, bool persp) : GameState(pointer, persp),
+MenuState::MenuState(GameLogic* pointer, bool persp) : GameState(pointer, persp, FAIRY_BACKGROUND),
 game(pointer), scaleSet(false)
 {
 	//float scaleFactor = Context::getContext()->getScaleFactor();
@@ -59,10 +59,6 @@ game(pointer), scaleSet(false)
 	//aiVector3D scale = (1, 1, 1);
 	menu = ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU));
 	startButton = ShapeObject(0, 0, 0, ModelRepository::getModel(START_BUTTON));
-	if (AudioPlayer::setBackground(FAIRY_BACKGROUND)) {
-		AudioPlayer::dropBackground();
-		AudioPlayer::playBackground();
-	}
 }
 
 void MenuState::mouseMotion(int x, int y)
@@ -83,7 +79,8 @@ void MenuState::mouse(int button, int state, int x, int y) {
 	case GLUT_LEFT_BUTTON:
 		if (mouseBboxIntersection(x - Context::getContext()->getWidth() / 2,
 			y - Context::getContext()->getHeight() / 2, h))
-			game->setState(State::PLAYING);
+			AudioPlayer::playSound(CLICK_SOUND);
+			game->setState(State::INFO);
 		break;
 	default:
 		break;

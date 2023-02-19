@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-GameState::GameState(GameLogic* game, bool persp) : game(game), persp(persp) {
+GameState::GameState(GameLogic* game, bool persp, std::string backgroundMusicPath) : game(game), persp(persp), backgroundMusicPath(backgroundMusicPath) {
 	//this->game = std::shared_ptr<GameLogic>(game);
 	setCamera();
 }

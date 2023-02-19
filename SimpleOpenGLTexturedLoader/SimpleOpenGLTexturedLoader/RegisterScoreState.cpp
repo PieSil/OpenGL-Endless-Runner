@@ -4,13 +4,8 @@
 #include "GLutils.h"
 #include "AudioPlayer.h"
 
-RegisterScoreState::RegisterScoreState(GameLogic* game) : GameState(game, false) {
-	Context::getContext()->clearPlayerName();
+RegisterScoreState::RegisterScoreState(GameLogic* game) : GameState(game, false, FAIRY_BACKGROUND) {
 	charLimit = 20;
-	if (AudioPlayer::setBackground(FAIRY_BACKGROUND)) {
-		AudioPlayer::dropBackground();
-		AudioPlayer::playBackground();
-	}
 }
 
 void RegisterScoreState::handleInput(unsigned char key, int x, int y){
@@ -24,6 +19,7 @@ void RegisterScoreState::handleInput(unsigned char key, int x, int y){
 		if (!Context::getContext()->getPlayerName().empty()) {
 			FileManager::getInstance()->writeScore(Context::getContext()->getPlayerName(), Context::getContext()->getScore(), SCORE_DIR, SCORE_FILENAME);
 			//FileManager::getInstance()->closeFile();
+			AudioPlayer::playSound(CLICK_SOUND);
 			game->setState(State::LEADERBOARD); //replace with game over state
 		}
 		break;

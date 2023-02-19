@@ -2,6 +2,7 @@
 #include <memory>
 #include "GameLogic.h"
 #include "ModelRepository.h"
+#include "AudioPlayer.h"
 
 //abstract class, represents a state of the game, like menu, playing state, pause, etc. 
 //multiple states can be active at once thanks to a stack structure (see GameLogic class)
@@ -9,7 +10,7 @@
 class GameState {
    
 public:
-    explicit GameState(GameLogic* game, bool persp = false);
+    explicit GameState(GameLogic* game, bool persp = false, std::string backgroundMusicPath = FAIRY_BACKGROUND);
 
     virtual ~GameState() {};
 
@@ -38,10 +39,22 @@ public:
         }
     }
 
+    void playBackground() {
+        if (AudioPlayer::setBackground(backgroundMusicPath) || !AudioPlayer::isBackgroundActive()) {
+            AudioPlayer::dropBackground();
+            AudioPlayer::playBackground();
+        }
+    }
+
+    void dropBackground() {
+        AudioPlayer::dropBackground();
+    }
+
 protected:
     //GameLogic* game;
     GameLogic* game; //a pointer to the GameLogic object, this is necessary in order to push/pop/set a state from within another state 
     std::vector<std::shared_ptr<GameObject>> objects; //a list of (pointers to) objects that need to be rendered
+    std::string backgroundMusicPath;
     bool persp;
 };
 

@@ -5,14 +5,10 @@
 #include "GLutils.h"
 #include "Hitbox.h"
 #include "AudioPlayer.h"
-ScoreViewerState::ScoreViewerState(GameLogic* game) : GameState(game, false) {
+ScoreViewerState::ScoreViewerState(GameLogic* game) : GameState(game, false, FAIRY_BACKGROUND) {
 
 	//reads scores from file
 	scores = FileManager::getInstance()->readScores(SCORE_DIR, SCORE_FILENAME);
-	if (AudioPlayer::setBackground(FAIRY_BACKGROUND)) {
-		AudioPlayer::dropBackground();
-		AudioPlayer::playBackground();
-	}
 
 }
 
@@ -20,7 +16,8 @@ void ScoreViewerState::handleInput(unsigned char key, int x, int y) {
 	switch (key) {
 	case 13: //enter
 		Context::getContext()->clearPlayerName();
-		game->setState(State::PLAYING);
+		AudioPlayer::playSound(CLICK_SOUND);
+		game->setState(State::MENU);
 			break;
 		default:
 			break;
@@ -77,19 +74,19 @@ void ScoreViewerState::display() {
 		output(posX, posY, out);
 	}
 
-
+	backgroundModel = (ModelRepository::getModel(EMPTY_YELLOW));
+	backgroundModel->getHitbox(min, max);
+	glColor3f(0, 0, 0);
 	if (Context::getContext()->getPlayerName().size() != 0) {
-		backgroundModel = (ModelRepository::getModel(EMPTY_YELLOW));
-		backgroundModel->getHitbox(min, max);
 
 		//show score headline
 		out = YOUR_SCORE_STRING;
 		textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 		posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-		posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
+		posY = Context::getContext()->getRelativeWindowY(7 / 10.f);
 		xScale = Context::getContext()->getScaleForTarget(textWidth + 30, max->x - min->x);
 		yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
-		glColor3f(0, 0, 0);
+		
 
 		//show player score
 		glEnable(GL_LIGHTING);
@@ -102,7 +99,7 @@ void ScoreViewerState::display() {
 		out += std::to_string(Context::getContext()->getScore());
 		textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 		posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-		posY = Context::getContext()->getRelativeWindowY(9 / 10.f);
+		posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
 		xScale = Context::getContext()->getScaleForTarget(textWidth + 30, max->x - min->x);
 		yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
 		output(posX, posY, out.c_str());
@@ -112,6 +109,18 @@ void ScoreViewerState::display() {
 		glDisable(GL_LIGHTING);
 		output(posX, posY, out);
 	}
+
+	out = "Press [ENTER] to get back to menu";
+	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
+	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
+	posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
+	xScale = Context::getContext()->getScaleForTarget(textWidth + 100, max->x - min->x);
+	yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
+	output(posX, posY, out.c_str());
+	glEnable(GL_LIGHTING);
+	backgroundModel->display(posX - textWidth * .5, posY - 3 + FONT_HEIGHT / 2.f, 0, aiVector3D(xScale, yScale, 1));
+	glDisable(GL_LIGHTING);
+	output(posX, posY, out);
 
 	glEnable(GL_LIGHTING);
 	GameState::display();

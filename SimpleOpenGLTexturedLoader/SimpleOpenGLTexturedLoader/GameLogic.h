@@ -12,6 +12,7 @@ enum class State {
 	//possible states
 	PLAYING, TEST, SCORE, LEADERBOARD, MOUSE, 
 	MENU, // menu that appears when the game starts
+	INFO, // displays info about game (controls and rules)
 };
 
 
