@@ -22,7 +22,7 @@ public:
 	static void stopAllSounds();
 	static void playBackground();
 	static void dropBackground();
-	static void setBackground(std::string path);
+	static bool setBackground(std::string path);
 
 private:
 	explicit AudioPlayer();
@@ -30,10 +30,11 @@ private:
 	void _stopAllSounds();
 	void _playBackground();
 	void _dropBackground();
-	void _setBackground(std::string path);
+	bool _setBackground(std::string path);
 	static std::shared_ptr<AudioPlayer> instance;
 	ISoundEngine* soundEngine;
 	ISound* backgroundMusic;
 	std::string backgroundPath;
+	bool backGroundSet;
 };
 

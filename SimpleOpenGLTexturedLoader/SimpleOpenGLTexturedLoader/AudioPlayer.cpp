@@ -26,7 +26,15 @@ AudioPlayer::AudioPlayer() {
     soundEngine->addSoundSourceFromFile(SHOOT_SOUND.c_str(), ESM_AUTO_DETECT, true);
     soundEngine->play2D(SHOOT_SOUND.c_str());
     soundEngine->stopAllSounds();
-    _setBackground(SUBWAY_BACK);
+    soundEngine->addSoundSourceFromFile(CLICK_SOUND.c_str(), ESM_AUTO_DETECT, true);
+    soundEngine->play2D(CLICK_SOUND.c_str());
+    soundEngine->stopAllSounds();
+    soundEngine->addSoundSourceFromFile(FAIRY_BACKGROUND.c_str(), ESM_AUTO_DETECT, true);
+    soundEngine->play2D(FAIRY_BACKGROUND.c_str());
+    soundEngine->stopAllSounds();
+    backgroundMusic = nullptr;
+    backGroundSet = false;
+    //_setBackground("");
 }
 
 ISound* AudioPlayer::_playSound(std::string path, bool loop, bool track) {
@@ -39,15 +47,25 @@ void AudioPlayer::_stopAllSounds(){
 
 void AudioPlayer::_playBackground() {
     backgroundMusic = playSound(backgroundPath, true, true);
+    backGroundSet = true;
 }
 
 void AudioPlayer::_dropBackground() {
-    backgroundMusic->stop();
-    backgroundMusic->drop();
+    if (backgroundMusic) {
+        backgroundMusic->stop();
+        backgroundMusic->drop();
+    }
 }
 
-void AudioPlayer::_setBackground(std::string path){
-    backgroundPath = path;
+bool AudioPlayer::_setBackground(std::string path){
+    bool result = false;
+    if (!(backgroundPath.compare(path)==0)) {
+        backgroundPath = path;
+        result = true;
+    }
+
+    return result;
+
 }
 
 AudioPlayer* AudioPlayer::getAudioPlayer()
@@ -75,7 +93,7 @@ void AudioPlayer::dropBackground(){
     AudioPlayer::getAudioPlayer()->_dropBackground();
 }
 
-void AudioPlayer::setBackground(std::string path) {
-    AudioPlayer::getAudioPlayer()->_setBackground(path);
+bool AudioPlayer::setBackground(std::string path) {
+    return AudioPlayer::getAudioPlayer()->_setBackground(path);
 }
 

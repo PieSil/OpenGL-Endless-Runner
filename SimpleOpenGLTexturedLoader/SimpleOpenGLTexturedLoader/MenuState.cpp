@@ -1,6 +1,8 @@
 #include "MenuState.h"
 #include "Hitbox.h"
 #include "Context.h"
+#include "AudioPlayer.h"
+
 float scaleMultFact = .5;
 float scaleFactor =  0.0302175377;
 
@@ -57,6 +59,10 @@ game(pointer), scaleSet(false)
 	//aiVector3D scale = (1, 1, 1);
 	menu = ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU));
 	startButton = ShapeObject(0, 0, 0, ModelRepository::getModel(START_BUTTON));
+	if (AudioPlayer::setBackground(FAIRY_BACKGROUND)) {
+		AudioPlayer::dropBackground();
+		AudioPlayer::playBackground();
+	}
 }
 
 void MenuState::mouseMotion(int x, int y)

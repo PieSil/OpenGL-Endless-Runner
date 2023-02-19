@@ -2,10 +2,15 @@
 #include "Const.h"
 #include "Context.h"
 #include "GLutils.h"
+#include "AudioPlayer.h"
 
 RegisterScoreState::RegisterScoreState(GameLogic* game) : GameState(game, false) {
 	Context::getContext()->clearPlayerName();
 	charLimit = 20;
+	if (AudioPlayer::setBackground(FAIRY_BACKGROUND)) {
+		AudioPlayer::dropBackground();
+		AudioPlayer::playBackground();
+	}
 }
 
 void RegisterScoreState::handleInput(unsigned char key, int x, int y){

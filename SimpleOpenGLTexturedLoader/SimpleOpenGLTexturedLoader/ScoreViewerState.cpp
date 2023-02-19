@@ -4,10 +4,15 @@
 #include "Const.h"
 #include "GLutils.h"
 #include "Hitbox.h"
+#include "AudioPlayer.h"
 ScoreViewerState::ScoreViewerState(GameLogic* game) : GameState(game, false) {
 
 	//reads scores from file
 	scores = FileManager::getInstance()->readScores(SCORE_DIR, SCORE_FILENAME);
+	if (AudioPlayer::setBackground(FAIRY_BACKGROUND)) {
+		AudioPlayer::dropBackground();
+		AudioPlayer::playBackground();
+	}
 
 }
 

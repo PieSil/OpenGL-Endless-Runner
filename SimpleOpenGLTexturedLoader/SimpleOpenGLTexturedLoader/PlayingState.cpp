@@ -56,8 +56,10 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 	for (auto coll : collectibles) {
 		coll->incrZSpeed(-1);
 	}
-	AudioPlayer::setBackground(SUBWAY_BACK);
-	AudioPlayer::playBackground();
+	if (AudioPlayer::setBackground(SUBWAY_BACK)) {
+		AudioPlayer::dropBackground();
+		AudioPlayer::playBackground();
+	}
 }
 
 void PlayingState::display(){
