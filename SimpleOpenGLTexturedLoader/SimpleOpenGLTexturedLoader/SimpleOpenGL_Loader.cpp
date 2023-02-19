@@ -123,7 +123,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInit(&argc, argv);
 
-	glutCreateWindow("Assimp - Very simple OpenGL sample");
+	glutCreateWindow("The Collector Game");
 	//glutTimerFunc(1000 / 120, timerFunc, 0);
 	glutKeyboardFunc(keyboard);
 	glutKeyboardUpFunc(keyboardUp);

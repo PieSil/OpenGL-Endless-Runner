@@ -113,7 +113,7 @@ void ScoreViewerState::display() {
 	out = "Press [ENTER] to get back to menu";
 	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-	posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
+	posY = Context::getContext()->getRelativeWindowY(9 / 10.f);
 	xScale = Context::getContext()->getScaleForTarget(textWidth + 100, max->x - min->x);
 	yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
 	output(posX, posY, out.c_str());
