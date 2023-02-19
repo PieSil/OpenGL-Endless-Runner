@@ -9,8 +9,12 @@ class AudioPlayer{
 public:
 	~AudioPlayer() {
 		soundEngine->stopAllSounds();
-		delete backgroundMusic;
-		delete soundEngine;
+
+		/*if(backgroundMusic)
+			delete backgroundMusic;*/
+
+		if (soundEngine)
+			delete soundEngine;
 	}; //dest
 
 	static AudioPlayer* getAudioPlayer();

@@ -58,3 +58,28 @@ void GameState::setCamera() {
 		gluLookAt(0, 0, -10, 0, 0, 0, 0, 1, 0);
 	}
 }
+
+void GameState::drawBackground(bool persp) {
+	glDisable(GL_DEPTH_TEST);
+	glPushMatrix();
+	setPerspMode(false);
+	aiVector3D* min = new aiVector3D(0, 0, 0);
+	aiVector3D* max = new aiVector3D(0, 0, 0);
+
+	std::shared_ptr<Model> backgroundModel = ModelRepository::getModel(GAME_MENU);
+	backgroundModel->getHitbox(min, max);
+
+	//get background position (center)
+	float posX = Context::getContext()->getRelativeWindowX(.5);
+	float posY = Context::getContext()->getRelativeWindowY(.5);
+
+	//get x and y scale factors based on window size
+	float xScale = Context::getContext()->getScaleForTarget(Context::getContext()->getWidth(), max->x - min->x);
+	float yScale = Context::getContext()->getScaleForTarget(Context::getContext()->getHeight(), max->y - min->y);
+	backgroundModel->display(posX, posY, 0, aiVector3D(xScale / 1.15, yScale, 1));
+
+	setPerspMode(persp);
+	glPopMatrix();
+	glEnable(GL_DEPTH_TEST);
+	delete(min, max);
+}

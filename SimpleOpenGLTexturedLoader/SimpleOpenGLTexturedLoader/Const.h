@@ -36,6 +36,11 @@ static const int WHITE_RECTAGLE_ID = 28;
 static const int RED_RECTANGLE_ID = 27;
 static const int GAME_MENU = 29;
 static const int START_BUTTON = 30;
+static const int RESUME_BUTTON = 31;
+static const int STATS_BUTTON = 32;
+static const int EXIT_BUTTON = 33;
+static const int EMPTY_YELLOW = 34;
+static const int EMPTY_GREEN = 35;
 
 
 //collectible properties

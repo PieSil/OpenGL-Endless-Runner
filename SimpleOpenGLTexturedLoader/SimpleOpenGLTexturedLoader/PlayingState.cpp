@@ -61,7 +61,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true) {
 }
 
 void PlayingState::display(){
-	drawBackGround();
+	GameState::drawBackground(true);
 	//call GameState display() function in order to render all elements in "object" list
 	GameState::display();
 
@@ -524,7 +524,7 @@ void PlayingState::deleteGround(GroundStruct ground)
 	while (!objects.empty() && objIterator != objects.end()) {
 
 		//check if pointers in ground struct and pointers in current position match, if so delete pointer from objects
-		if (ground.lborder.get() == (*objIterator).get() || ground.rborder.get() == (*objIterator).get()) {
+		if (ground.ground.get() == (*objIterator).get() || ground.lborder.get() == (*objIterator).get() || ground.rborder.get() == (*objIterator).get()) {
 			objIterator = objects.erase(objIterator);
 
 		}
@@ -599,17 +599,30 @@ void PlayingState::displayUI() {
 	}
 
 	//draw score
+	aiVector3D* min = new aiVector3D(0, 0, 0);
+	aiVector3D* max = new aiVector3D(0, 0, 0);
+	glColor3f(0, 0, 0);
+
+	//get a pointer to desired model and get its size
+	std::shared_ptr<Model> backgroundModel = ModelRepository::getModel(EMPTY_YELLOW);
+	backgroundModel->getHitbox(min, max);
+
 	glPushMatrix();
 	std::string out = "SCORE: " + std::to_string(Context::getContext()->getScore());
 	int textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	float xPos = (textWidth / (2.f * Context::getContext()->getWidth()) + textWidth / 2.f);
 	float yPos = (FONT_HEIGHT / (2.f * Context::getContext()->getHeight()) + (Context::getContext()->getHeight() / 2.f) - (FONT_HEIGHT + 10));
-	glColor3f(.5, .5, .5);
+
+	float xScale = Context::getContext()->getScaleForTarget(textWidth + 50, max->x - min->x);
+	float yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
+	glEnable(GL_LIGHTING);
+	backgroundModel->display(xPos - textWidth * .5, yPos + FONT_HEIGHT / 2.f, 0, aiVector3D(xScale, yScale, 1));
+	glDisable(GL_LIGHTING);
 	output(xPos, yPos, out);
 	glPopMatrix();
 	glEnable(GL_LIGHTING); //re-enable materials
 
-	//draw heart
+	//draw hearts
 	float scaleFactor = Context::getContext()->getScaleFactor();;
 	std::shared_ptr<Model> heart = ModelRepository::getModel(HEART_ID);
 	//glBegin(GL_POLYGON);
@@ -625,30 +638,6 @@ void PlayingState::displayUI() {
 	
 	setPerspMode(true);
 	glPopMatrix();
+	delete (min, max);
 }
 
-void PlayingState::drawBackGround()
-{
-	glDisable(GL_DEPTH_TEST);
-	glPushMatrix();
-	setPerspMode(false);
-	aiVector3D* min = new aiVector3D(0, 0, 0);
-	aiVector3D* max = new aiVector3D(0, 0, 0);
-
-	std::shared_ptr<Model> backgroundModel = ModelRepository::getModel(WHITE_RECTAGLE_ID);
-	backgroundModel->getHitbox(min, max);
-
-	//get background position (center)
-	float posX = Context::getContext()->getRelativeWindowX(.5);
-	float posY = Context::getContext()->getRelativeWindowY(.5);
-
-	//get x and y scale factors based on window size
-	float xScale = Context::getContext()->getScaleForTarget(Context::getContext()->getWidth(), max->x - min->x);
-	float yScale = Context::getContext()->getScaleForTarget(Context::getContext()->getHeight(), max->y - min->y);
-	backgroundModel->display(posX, posY, 0, aiVector3D(xScale, yScale, 1));
-
-	setPerspMode(true);
-	glPopMatrix();
-	glEnable(GL_DEPTH_TEST);
-	delete(min, max);
-}

@@ -23,6 +23,7 @@ public:
     virtual void handleSpecialInputUp(int key, int x, int y) {};
     void setPerspective(bool setModelView = true);
     void setCamera();
+    void drawBackground(bool persp = false);
 
     void setPerspMode(bool usePersp, bool autoSetPersp = true, bool autoSetCamera = true) { 
         //if usePersp == true switches to perspective mode, otherwise switches to orthographic mode

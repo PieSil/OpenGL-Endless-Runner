@@ -19,7 +19,7 @@ void ShapeObject::display() {
 
 void ShapeObject::update() {}
 
-void ShapeObject::getHitbox(struct aiVector3D* min, struct aiVector3D* max) {
+void ShapeObject::getHitbox(struct aiVector3D* min, struct aiVector3D* max, bool excludeScale) {
 	//get bounding box size, then move bbox coordinates to current position
 
 	shape->getHitbox(min, max);
@@ -31,14 +31,16 @@ void ShapeObject::getHitbox(struct aiVector3D* min, struct aiVector3D* max) {
 	max->y += pos_y;
 	max->z += pos_z;
 
-	//apply scale
-	min->x /= scale.x;
-	min->y /= scale.y;
-	min->z /= scale.z;
+	if (!excludeScale) {
+		//apply scale
+		min->x /= scale.x;
+		min->y /= scale.y;
+		min->z /= scale.z;
 
-	max->x /= scale.x;
-	max->y /= scale.y;
-	max->z /= scale.z;
+		max->x /= scale.x;
+		max->y /= scale.y;
+		max->z /= scale.z;
+	}
 
 }
 

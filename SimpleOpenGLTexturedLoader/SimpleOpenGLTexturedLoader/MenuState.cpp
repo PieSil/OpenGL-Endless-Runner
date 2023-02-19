@@ -6,15 +6,32 @@ float scaleFactor =  0.0302175377;
 
 void MenuState::display()
 {
+	glDisable(GL_DEPTH_TEST);
+	aiVector3D* min = new aiVector3D(0, 0, 0);
+	aiVector3D* max = new aiVector3D(0, 0, 0);
+
+	menu.getHitbox(min, max, true);
 
 	//glPushMatrix();
 	GameState::display();
 	float xPos = Context::getContext()->getRelativeWindowX(1/2.f);
 	float yPos = Context::getContext()->getRelativeWindowY(1/2.f);
-	float xScale = Context::getContext()->getOrthoScaleX();
-	float yScale = Context::getContext()->getOrthoScaleY();
-	menu.adjustScale(aiVector3D(xScale, yScale, 1));
+	//float xScale = Context::getContext()->getOrthoScaleX();
+	//float yScale = Context::getContext()->getOrthoScaleY();
+	float windowWidth = Context::getContext()->getWidth();
+	float windowHeight = Context::getContext()->getHeight();
+	float menuWidth = max->x - min->x;
+	float menuHeight = max->y - min->y;
+	float xScale = 1;
+	float yScale = 1;
+	if(menuWidth != windowWidth)
+		xScale = Context::getContext()->getScaleForTarget(windowWidth, menuWidth);
+	if(menuHeight != windowHeight)
+		yScale = Context::getContext()->getScaleForTarget(windowHeight, menuHeight);
+	menu.adjustScale(aiVector3D(xScale/1.15, yScale, 1));
 	startButton.adjustScale(aiVector3D(xScale, yScale, 1));
+	//menu.setScale(aiVector3D(xScale, yScale, 1));
+	//startButton.setScale(aiVector3D(xScale, yScale, 1));
 	menu.setPosX(xPos);
 	menu.setPosY(yPos);
 	startButton.setPosX(xPos);
@@ -22,6 +39,9 @@ void MenuState::display()
 	menu.display();
 	startButton.display();
 	//glPopMatrix();
+
+	delete(min, max);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void MenuState::handleInput(unsigned char key, int x, int y)
@@ -31,12 +51,12 @@ void MenuState::handleInput(unsigned char key, int x, int y)
 MenuState::MenuState(GameLogic* pointer, bool persp) : GameState(pointer, persp),
 game(pointer), scaleSet(false)
 {
-	/*float scaleFactor = Context::getContext()->getScaleFactor();
-	scaleFactor *= scaleMultFact;*/
+	//float scaleFactor = Context::getContext()->getScaleFactor();
+	//scaleFactor *= scaleMultFact;
 	aiVector3D scale = aiVector3D(scaleFactor, scaleFactor, 1);
 	//aiVector3D scale = (1, 1, 1);
-	menu = ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU), scale);
-	startButton = ShapeObject(0, 0, 0, ModelRepository::getModel(START_BUTTON), scale);
+	menu = ShapeObject(0, 0, 0, ModelRepository::getModel(GAME_MENU));
+	startButton = ShapeObject(0, 0, 0, ModelRepository::getModel(START_BUTTON));
 }
 
 void MenuState::mouseMotion(int x, int y)

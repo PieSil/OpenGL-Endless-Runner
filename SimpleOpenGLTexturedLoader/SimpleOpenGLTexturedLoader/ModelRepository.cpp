@@ -43,5 +43,10 @@ ModelRepository::ModelRepository() {
     models[WHITE_RECTAGLE_ID] = std::make_shared<AssimpModel>(AssimpModel(WHITE_RECTAGLE_ID, false));
     models[RED_RECTANGLE_ID] = std::make_shared<AssimpModel>(AssimpModel(RED_RECTANGLE_ID, false));
     models[GAME_MENU] = std::make_shared<AssimpModel>(AssimpModel(GAME_MENU, false));
-    models[START_BUTTON] = std::make_shared<AssimpModel>(AssimpModel(START_BUTTON, false)); 
+    models[START_BUTTON] = std::make_shared<AssimpModel>(AssimpModel(START_BUTTON, false));
+    models[RESUME_BUTTON] = std::make_shared<AssimpModel>(AssimpModel(RESUME_BUTTON, false));
+    models[STATS_BUTTON] = std::make_shared<AssimpModel>(AssimpModel(STATS_BUTTON, false));
+    models[EXIT_BUTTON] = std::make_shared<AssimpModel>(AssimpModel(EXIT_BUTTON, false));
+    models[EMPTY_YELLOW] = std::make_shared<AssimpModel>(AssimpModel(EMPTY_YELLOW, false));
+    models[EMPTY_GREEN] = std::make_shared<AssimpModel>(AssimpModel(EMPTY_GREEN, false));
 }

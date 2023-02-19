@@ -53,7 +53,6 @@ public:
     void deleteGround(GroundStruct ground);
     void spawnProjectile();
     void displayUI();
-    void drawBackGround();
 
 private:
     std::shared_ptr<PlayerObject> player;
