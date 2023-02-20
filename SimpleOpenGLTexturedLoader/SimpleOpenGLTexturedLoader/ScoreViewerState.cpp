@@ -17,7 +17,7 @@ void ScoreViewerState::handleInput(unsigned char key, int x, int y) {
 	case 13: //enter
 		Context::getContext()->clearPlayerName();
 		AudioPlayer::playSound(CLICK_SOUND);
-		game->setState(State::MENU);
+		game->popState();
 			break;
 		default:
 			break;

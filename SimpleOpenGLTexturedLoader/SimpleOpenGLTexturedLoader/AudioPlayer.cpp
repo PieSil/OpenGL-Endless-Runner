@@ -45,7 +45,7 @@ void AudioPlayer::_stopAllSounds(){
     soundEngine->stopAllSounds();
 }
 
-void AudioPlayer::_playBackground() {
+ISound* AudioPlayer::_playBackground() {
     backgroundMusic = playSound(backgroundPath, true, true);
     if (backgroundPath.compare(FAIRY_BACKGROUND) == 0) {
         backgroundMusic->setVolume(.05);
@@ -54,6 +54,8 @@ void AudioPlayer::_playBackground() {
         backgroundMusic->setVolume(1);
     }
     backGroundSet = true;
+
+    return backgroundMusic;
 }
 
 void AudioPlayer::_dropBackground() {
@@ -92,8 +94,8 @@ void AudioPlayer::stopAllSounds(){
     AudioPlayer::getAudioPlayer()->_stopAllSounds();
 }
 
-void AudioPlayer::playBackground(){
-    AudioPlayer::getAudioPlayer()->_playBackground();
+ISound* AudioPlayer::playBackground(){
+    return AudioPlayer::getAudioPlayer()->_playBackground();
 }
 
 void AudioPlayer::dropBackground(){

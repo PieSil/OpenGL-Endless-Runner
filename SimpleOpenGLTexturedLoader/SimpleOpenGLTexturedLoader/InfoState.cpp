@@ -68,7 +68,7 @@ void InfoState::display() {
 	glDisable(GL_LIGHTING);
 
 	posX -= (max->x - min->x);
-	out = "will earn you points";
+	out = "will earn you points.";
 	output(posX, posY, out);
 
 	//print sword controls
@@ -167,10 +167,18 @@ void InfoState::display() {
 	out = "or shoot them to earn points.";
 	output(posX, posY, out);
 
+	out = "Press [BACKSPACE] anytime to pause the game.";
+	posX = leftX;
+	posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
+	glEnable(GL_LIGHTING);
+	model->display(modelX, posY - 3 + FONT_HEIGHT / 2.f, 0, aiVector3D(scaleX, scaleY, 1));
+	glDisable(GL_LIGHTING);
+	output(posX, posY, out);
+
 	out = "Press [ENTER] when you are ready to start.";
 	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-	posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
+	posY = Context::getContext()->getRelativeWindowY(9 / 10.f);
 	modelX = Context::getContext()->getRelativeWindowX(.5);
 	model->getHitbox(min, max);
 	scaleX = Context::getContext()->getScaleForTarget(textWidth+100, max->x - min->x);

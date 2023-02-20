@@ -184,6 +184,15 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 	case 's': case 'S':
 		player->incrZSpeed(-1.);
 		break;*/
+	case 8: // backspace
+		player->resetXSpeed();
+		aKeyPressed = false;
+		aKeyPressed = false;
+		leftArrowPressed = false;
+		rightArrowPressed = false;
+		player->setShooting(false);
+		game->pushState(State::PAUSE);
+		break;
 	case 'a': case 'A':
 		if ((!leftArrowPressed && !rightArrowPressed) && (player->isOnGround() || player->isFlightActive())) {
 			aKeyPressed = true;

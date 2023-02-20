@@ -20,7 +20,7 @@ public:
 	static AudioPlayer* getAudioPlayer();
 	static ISound* playSound(std::string path, bool loop = false, bool track = false);
 	static void stopAllSounds();
-	static void playBackground();
+	static ISound* playBackground();
 	static void dropBackground();
 	static bool setBackground(std::string path);
 	static bool isBackgroundActive() {
@@ -31,7 +31,7 @@ private:
 	explicit AudioPlayer();
 	ISound* _playSound(std::string path, bool loop = false, bool track = false);
 	void _stopAllSounds();
-	void _playBackground();
+	ISound* _playBackground();
 	void _dropBackground();
 	bool _setBackground(std::string path);
 	bool _isBackgroundActive() {

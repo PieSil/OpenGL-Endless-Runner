@@ -12,7 +12,8 @@ class GameState {
 public:
     explicit GameState(GameLogic* game, bool persp = false, std::string backgroundMusicPath = FAIRY_BACKGROUND);
 
-    virtual ~GameState() {};
+    virtual ~GameState() {
+    };
 
     virtual void update();
     virtual void handleInput(unsigned char key, int x, int y) = 0;
@@ -39,7 +40,8 @@ public:
         }
     }
 
-    void playBackground() {
+    virtual void playBackground() {
+     
         if (AudioPlayer::setBackground(backgroundMusicPath) || !AudioPlayer::isBackgroundActive()) {
             AudioPlayer::dropBackground();
             AudioPlayer::playBackground();
@@ -56,5 +58,6 @@ protected:
     std::vector<std::shared_ptr<GameObject>> objects; //a list of (pointers to) objects that need to be rendered
     std::string backgroundMusicPath;
     bool persp;
+ 
 };
 

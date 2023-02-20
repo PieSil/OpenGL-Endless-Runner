@@ -97,6 +97,9 @@ void GameLogic::pushState(State state) {
    case State::INFO:
        states.emplace(new InfoState(this));
        break;
+   case State::PAUSE:
+       states.emplace(new MenuState(this, true));
+       break;
     default:
         states.emplace(new TestState(this));
         break;
@@ -106,10 +109,19 @@ void GameLogic::pushState(State state) {
 
 }
 
+void GameLogic::setAndPushState(State first, State tos) {
+    //changes current state and also pushes a new on as TOS
+    setState(first);
+    pushState(tos);
+
+}
+
 void GameLogic::popState() {
     //getCurrentState()->dropBackground();
     delete(states.top());
     states.pop();
+    if (!states.empty())
+        getCurrentState()->playBackground();
     setPerspective();
 }
 

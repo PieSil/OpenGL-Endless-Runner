@@ -13,6 +13,7 @@ enum class State {
 	PLAYING, TEST, SCORE, LEADERBOARD, MOUSE, 
 	MENU, // menu that appears when the game starts
 	INFO, // displays info about game (controls and rules)
+	PAUSE, //same as MENU but displays a different button instead of start
 };
 
 
@@ -45,6 +46,8 @@ public:
 	void resumeGame();
 
 	void pushState(State state);
+
+	void setAndPushState(State first, State tos);
 
 	void popState();
 

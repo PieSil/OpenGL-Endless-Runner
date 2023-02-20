@@ -41,8 +41,7 @@ CollectibleSpawner::CollectibleSpawner() {
 		//delete[] slotMemory;
 	};
 
-std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::spawnCollectibles()
-{
+std::list<std::shared_ptr<CollectibleObject>> CollectibleSpawner::spawnCollectibles() {
 	auto collectibles = std::list<std::shared_ptr<CollectibleObject>>();
 	elapsedSinceLastSpawn += Timer::getTimer()->getElapsed();
 	if (Context::getContext()->getGameSpeed() * elapsedSinceLastSpawn >= DELTA_Z) {

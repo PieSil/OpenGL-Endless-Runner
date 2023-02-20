@@ -20,7 +20,8 @@ void RegisterScoreState::handleInput(unsigned char key, int x, int y){
 			FileManager::getInstance()->writeScore(Context::getContext()->getPlayerName(), Context::getContext()->getScore(), SCORE_DIR, SCORE_FILENAME);
 			//FileManager::getInstance()->closeFile();
 			AudioPlayer::playSound(CLICK_SOUND);
-			game->setState(State::LEADERBOARD); //replace with game over state
+			game->setAndPushState(State::MENU, State::LEADERBOARD); //first set the state to menu
+			//game->pushState(State::LEADERBOARD); //then also push leaderboard so that it is displayed straight away 
 		}
 		break;
 	case 32: //spacebar
