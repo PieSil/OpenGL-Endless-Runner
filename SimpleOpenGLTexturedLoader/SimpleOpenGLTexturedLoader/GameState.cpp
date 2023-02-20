@@ -5,6 +5,7 @@
 
 GameState::GameState(GameLogic* game, bool persp, std::string backgroundMusicPath) : game(game), persp(persp), backgroundMusicPath(backgroundMusicPath) {
 	//this->game = std::shared_ptr<GameLogic>(game);
+	cameraAngle = BASE_CAMERA_ANGLE;
 	setCamera();
 }
 
@@ -43,15 +44,10 @@ void GameState::setPerspective(bool setModelView) {
 
 void GameState::setCamera() {
 	if (persp) {
-		//glTranslatef(0, 0, -20);
-		//glRotatef(30, 1., 0., 0.);
-
-		//frint parameter decides wether camera should have an angle (front = false) or not (front = true)
 		glLoadIdentity();
-		gluLookAt(0, 15, -20, 0, 0, 0, 0, 1, 0);
-		//gluLookAt(0, 0, 0, 0, 0, 0, 0, 1, 0);
-		//glLoadIdentity();
-		//gluLookAt()
+		float eyey = sin(cameraAngle * M_PI / 180.0f) * 20; //compute camera y position (multiplying by 15 scales sin result in order to set camera height between 20 and -20)
+		gluLookAt(0, eyey, -20, 0, 0, 0, 0, 1, 0);
+			
 	}
 	else {
 		glLoadIdentity();

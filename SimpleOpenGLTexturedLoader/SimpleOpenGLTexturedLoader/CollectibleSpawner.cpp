@@ -20,7 +20,7 @@
 #define MAX_RAND_VALUE 100
 #define DELTA_Z 3
 #define DELTA_X -3
-#define SPAWN_POS_Z 40
+#define SPAWN_POS_Z COL_SPAWN_Z
 #define SPAWN_INIT_X 6
 #define MAX_POINT_STREAK_LENGTH 8
 #define MAX_SPIKE_STREAK_LENGTH 4

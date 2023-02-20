@@ -71,6 +71,10 @@ void mouseMotion(int x, int y) {
 	game.mouseMotion(x, y);
 }
 
+void activeMouseMotion(int x, int y) {
+	game.activeMouseMotion(x, y);
+}
+
 void mouse(int button, int state, int x, int y) {
 	game.mouse(button, state, x, y);
 }
@@ -131,6 +135,7 @@ int main(int argc, char **argv)
 	glutSpecialUpFunc(specialKeyboardUp);
 	glutPassiveMotionFunc(mouseMotion);
 	glutMouseFunc(mouse);
+	glutMotionFunc(activeMouseMotion);
 	glutIdleFunc(idle);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

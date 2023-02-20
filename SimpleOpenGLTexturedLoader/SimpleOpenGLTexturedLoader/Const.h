@@ -45,6 +45,7 @@ static const int EMPTY_GREEN = 35;
 
 //collectible properties
 static const int COL_SPEED = 10;
+static const float COL_SPAWN_Z = 80;
 
 //player properties
 static const float SHOOT_POWER_DURATION = 10; //in seconds
@@ -65,6 +66,7 @@ static const int FONT_HEIGHT = 18;
 static const int INITIAL_GAME_SPEED = 10;
 static const int INITIAL_WIDTH = 900;
 static const int INITIAL_HEIGHT = 600;
+static const float BASE_CAMERA_ANGLE = 60; //0;
 
 //directories
 static const std::string SCORE_DIR = "scores";

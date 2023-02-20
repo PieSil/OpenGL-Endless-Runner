@@ -50,6 +50,8 @@ public:
     void handleSpecialInputUp(int key, int x, int y) override;
     void checkCollisions();
     void spawnNewGround();
+    void mouse(int button, int state, int x, int y) override;
+    void activeMouseMotion(int x, int y) override;
     void deleteGround(GroundStruct ground);
     void spawnProjectile();
     void displayUI();
@@ -68,6 +70,7 @@ private:
     bool dKeyPressed;
     bool leftArrowPressed;
     bool rightArrowPressed;
+    float mouseLastY;
 };
 
 

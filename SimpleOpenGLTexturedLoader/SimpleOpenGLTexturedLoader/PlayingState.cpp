@@ -19,7 +19,7 @@
 #include <math.h>
 
 #define COLL_DESPAWN_Z -12
-#define PROJ_DESPAWN_Z 40
+#define PROJ_DESPAWN_Z COL_SPAWN_Z
 
 PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK) {
 
@@ -29,6 +29,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK)
 	dKeyPressed = false;
 	leftArrowPressed = false;
 	rightArrowPressed = false;
+	mouseLastY = 0;
 
 	//reset game score
 	Context::getContext()->resetScore();
@@ -57,6 +58,8 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK)
 	for (auto coll : collectibles) {
 		coll->incrZSpeed(-1);
 	}
+
+	resetCameraAngle();
 }
 
 void PlayingState::display(){
@@ -169,6 +172,7 @@ void PlayingState::update() {
 
 	//check player status:
 	if (player->getLives() <= 0) {
+		resetCameraAngle();
 		AudioPlayer::stopAllSounds();
 		game->setState(State::SCORE); //register player score
 	}
@@ -523,6 +527,25 @@ void PlayingState::spawnNewGround(){
 		collectibles.push_back(coll);
 	}*/
 	grounds.push_back(GroundStruct(new_ground, lborder, rborder, linv, rinv));
+}
+
+void PlayingState::mouse(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		mouseLastY = y;
+	}
+}
+
+void PlayingState::activeMouseMotion(int x, int y) {
+
+	if (y > mouseLastY) {
+		incrCameraAngle(1);
+	}
+	else if (y < mouseLastY) {
+		incrCameraAngle(-1);
+	}
+		
+		//setCamera();
+		mouseLastY = y;
 }
 
 void PlayingState::deleteGround(GroundStruct ground)

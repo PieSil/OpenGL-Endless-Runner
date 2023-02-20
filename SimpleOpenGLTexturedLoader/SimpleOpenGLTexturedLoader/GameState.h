@@ -3,6 +3,7 @@
 #include "GameLogic.h"
 #include "ModelRepository.h"
 #include "AudioPlayer.h"
+#include "Timer.h";
 
 //abstract class, represents a state of the game, like menu, playing state, pause, etc. 
 //multiple states can be active at once thanks to a stack structure (see GameLogic class)
@@ -20,6 +21,7 @@ public:
     virtual void display();
     virtual void handleInputUp(unsigned char key, int x, int y) {};
     virtual void mouseMotion(int x, int y) {};
+    virtual void activeMouseMotion(int x, int y) {};
     virtual void mouse(int button, int state, int x, int y) {};
     virtual void handleSpecialInput(int key, int x, int y) {};
     virtual void handleSpecialInputUp(int key, int x, int y) {};
@@ -52,11 +54,30 @@ public:
         AudioPlayer::dropBackground();
     }
 
+    void incrCameraAngle(float value) {
+
+        //value *= Timer::getTimer()->getElapsed();
+
+        cameraAngle += value;
+        if (cameraAngle >= BASE_CAMERA_ANGLE + 30.f) {
+            cameraAngle = BASE_CAMERA_ANGLE+30.f;
+        }
+        else if (cameraAngle <= BASE_CAMERA_ANGLE-30.f) {
+            cameraAngle = BASE_CAMERA_ANGLE-30.f;
+        }
+
+    }
+
+    void resetCameraAngle() {
+        cameraAngle = BASE_CAMERA_ANGLE;
+    }
+
 protected:
     //GameLogic* game;
     GameLogic* game; //a pointer to the GameLogic object, this is necessary in order to push/pop/set a state from within another state 
     std::vector<std::shared_ptr<GameObject>> objects; //a list of (pointers to) objects that need to be rendered
     std::string backgroundMusicPath;
+    float cameraAngle;
     bool persp;
  
 };
