@@ -474,7 +474,7 @@ CollectibleObject CollectibleSpawner::getPoint(float posX, float posY, float pos
 CollectibleObject CollectibleSpawner::getDamage(float posX, float posY, float posZ)
 {
 	
-	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(CROSS_ID), CollectibleBehaviour::DAMAGE, COL_SPEED);
+	CollectibleObject collectible = CollectibleObject(posX, posY, posZ, ModelRepository::getModel(SPIKES_ID), CollectibleBehaviour::DAMAGE, COL_SPEED);
 	return collectible;
 }
 

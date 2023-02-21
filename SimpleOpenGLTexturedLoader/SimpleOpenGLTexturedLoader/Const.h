@@ -19,9 +19,7 @@ static const int POINT_SPHERE_ID = 10;
 static const int POWER1_ID = 11;
 static const int POWER2_ID = 12;
 static const int POWER3_ID = 13;
-static const int SHELF_GROUND_ID = 14;
-static const int SHELF_LBORDER_ID = 15;
-static const int SHELF_RBORDER_ID = 16;
+
 static const int RUPEE_GREEN_ID = 17;
 static const int RUPEE_RED_ID = 18;
 static const int RUPEE_BLUE_ID = 19;
@@ -41,6 +39,10 @@ static const int STATS_BUTTON = 32;
 static const int EXIT_BUTTON = 33;
 static const int EMPTY_YELLOW = 34;
 static const int EMPTY_GREEN = 35;
+static const int SHELF_GROUND_ID = 36;
+static const int SHELF_LBORDER_ID = 38;
+static const int SHELF_RBORDER_ID = 37;
+static const int SPIKES_ID = 39;
 
 
 //collectible properties
@@ -81,7 +83,7 @@ static const std::string YOUR_SCORE_STRING = "YOUR SCORE: ";
 static const std::string DEFAULT_STRING = "---: ---";
 
 //audio files paths
-static const std::string SUBWAY_BACK = "audio\\background-subway.mp3";
+static const std::string SUBWAY_BACK = "audio\\lost-woods.mp3";
 static const std::string RUPEE_SOUND = "audio\\coin-sound.wav"; //"audio\\rupee-sound.mp3";
 static const std::string SWORD_SOUND = "audio\\magic-sword.wav";
 static const std::string DAMAGE_SOUND = "audio\\hurt-sound.mp3";

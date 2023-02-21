@@ -152,7 +152,7 @@ void InfoState::display() {
 	glDisable(GL_LIGHTING);
 	output(posX, posY, out);
 
-	object = ShapeObject(posX, posY + FONT_HEIGHT/3.f, 0, ModelRepository::getModel(CROSS_ID), aiVector3D(scaleFactor, scaleFactor, scaleFactor));
+	object = ShapeObject(posX, posY + FONT_HEIGHT/3.f, 0, ModelRepository::getModel(SPIKES_ID), aiVector3D(scaleFactor, scaleFactor, scaleFactor));
 	object.getHitbox(min, max);
 
 	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());

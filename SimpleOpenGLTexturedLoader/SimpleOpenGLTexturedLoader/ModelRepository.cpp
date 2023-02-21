@@ -49,4 +49,5 @@ ModelRepository::ModelRepository() {
     models[EXIT_BUTTON] = std::make_shared<AssimpModel>(AssimpModel(EXIT_BUTTON, false));
     models[EMPTY_YELLOW] = std::make_shared<AssimpModel>(AssimpModel(EMPTY_YELLOW, false));
     models[EMPTY_GREEN] = std::make_shared<AssimpModel>(AssimpModel(EMPTY_GREEN, false));
+    models[SPIKES_ID] = std::make_shared<AssimpModel>(AssimpModel(SPIKES_ID, false));
 }

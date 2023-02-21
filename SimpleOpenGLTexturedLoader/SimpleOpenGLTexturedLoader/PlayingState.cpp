@@ -39,7 +39,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK)
 	collectibleSpawner = CollectibleSpawner();
 
 	//create player object and add it to renderable objects
-	player = std::make_shared<PlayerObject>(PlayerObject(0, 0, -5, ModelRepository::getModel(FAIRY_ID), aiVector3D(1,1,1), 10));
+	player = std::make_shared<PlayerObject>(PlayerObject(0, 0.234, -5, ModelRepository::getModel(FAIRY_ID), aiVector3D(1,1,1), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 
 	UIText.push_back("LIVES: ");
@@ -505,12 +505,12 @@ void PlayingState::spawnNewGround(){
 	lborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(SHELF_LBORDER_ID)));
 	lborder->incrZSpeed(-1);
 	objects.push_back(std::shared_ptr<GameObject>(lborder));
-	collidables.push_back(std::shared_ptr<ShapeObject>(lborder));
+	//collidables.push_back(std::shared_ptr<ShapeObject>(lborder));
 
 	rborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(SHELF_RBORDER_ID)));
 	rborder->incrZSpeed(-1);
 	objects.push_back(std::shared_ptr<GameObject>(rborder));
-	collidables.push_back(std::shared_ptr<ShapeObject>(rborder));
+	//collidables.push_back(std::shared_ptr<ShapeObject>(rborder));
 
 		//invisible walls
 	linv = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(LINVISIBLE_WALL_ID)));
@@ -568,7 +568,7 @@ void PlayingState::deleteGround(GroundStruct ground)
 	while (!collidables.empty() && collIterator != collidables.end()) {
 
 		//check if pointers in ground struct and pointers in current position match, if so delete pointer from collidables
-		if (ground.lborder.get() == (*collIterator).get() || ground.rborder.get() == (*collIterator).get() || ground.linvisible.get() == (*collIterator).get() || ground.rinvisible.get() == (*collIterator).get()) {
+		if (/*ground.lborder.get() == (*collIterator).get() || ground.rborder.get() == (*collIterator).get() ||*/ ground.linvisible.get() == (*collIterator).get() || ground.rinvisible.get() == (*collIterator).get()) {
 			collIterator = collidables.erase(collIterator);
 		}
 		else {
