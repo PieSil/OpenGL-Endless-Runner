@@ -1,11 +1,26 @@
-Info,  T26768: Load models\blender_imports.obj
-Info,  T26768: Found a matching importer for this file format
-Info,  T26768: Import root directory is 'models\'
-Error, T26768: OBJ/MTL: Unexpected illumination model (0-2 recognized)
+Info,  T22384: Load models\blender_imports.obj
+Info,  T22384: Found a matching importer for this file format
+Info,  T22384: Import root directory is 'models\'
+Error, T22384: OBJ/MTL: Unexpected illumination model (0-2 recognized)
 Skipping one or more lines with the same contents
-Info,  T26768: Entering post processing pipeline
-Info,  T26768: TriangulateProcess finished. All polygons have been triangulated.
-Info,  T26768: Points: 0, Lines: 0, Triangles: 41, Polygons: 0 (Meshes, X = removed)
-Info,  T26768: JoinVerticesProcess finished | Verts in: 77710 out: 37708 | ~51.5%
-Info,  T26768: Cache relevant are 41 meshes (38136 faces). Average output ACMR is 1.114957
-Info,  T26768: Leaving post processing pipeline
+Info,  T22384: Entering post processing pipeline
+Warn,  T22384: Found 141 degenerated primitives
+Warn,  T22384: Found 235 degenerated primitives
+Info,  T22384: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T22384: Points: 0, Lines: 2, Triangles: 59, Polygons: 0 (Meshes, X = removed)
+Error, T22384: FindInvalidDataProcess fails on mesh uvcoords: All vectors are identical
+Skipping one or more lines with the same contents
+Info,  T22384: FindInvalidDataProcess finished. Found issues ...
+Info,  T22384: Tangents are undefined for line and point meshes
+Skipping one or more lines with the same contents
+Info,  T22384: JoinVerticesProcess finished | Verts in: 134741 out: 90611 | ~32.8%
+Warn,  T22384: Mesh 43: Not suitable for vcache optimization
+Warn,  T22384: Mesh 45: Not suitable for vcache optimization
+Error, T22384: This algorithm works on triangle meshes only
+Warn,  T22384: Mesh 50: Not suitable for vcache optimization
+Error, T22384: This algorithm works on triangle meshes only
+Warn,  T22384: Mesh 56: Not suitable for vcache optimization
+Warn,  T22384: Mesh 57: Not suitable for vcache optimization
+Warn,  T22384: Mesh 60: Not suitable for vcache optimization
+Info,  T22384: Cache relevant are 53 meshes (43005 faces). Average output ACMR is 1.197093
+Info,  T22384: Leaving post processing pipeline
