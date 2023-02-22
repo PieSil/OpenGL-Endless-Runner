@@ -48,13 +48,17 @@ void FairyModel::animate()
 	double elapsedTime = Timer::getTimer()->getElapsed();
 	if (wingsDown) {
 		wingsAngle += wingSpeed * elapsedTime;
-		if (wingsAngle >= 40)
+		if (wingsAngle > 40) {
+			wingsAngle = 40;
 			wingsDown = false;
+		}
 	}
 	else {
 		wingsAngle -= wingSpeed * elapsedTime;
-		if (wingsAngle <= 0)
+		if (wingsAngle < 0) {
+			wingsAngle = 0;
 			wingsDown = true;
+		}
 	}
 
 }
