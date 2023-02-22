@@ -30,6 +30,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK)
 	leftArrowPressed = false;
 	rightArrowPressed = false;
 	mouseLastY = 0;
+	lastYvalid = false;
 
 	//reset game score
 	Context::getContext()->resetScore();
@@ -39,7 +40,7 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK)
 	collectibleSpawner = CollectibleSpawner();
 
 	//create player object and add it to renderable objects
-	player = std::make_shared<PlayerObject>(PlayerObject(0, 0.234, -5, ModelRepository::getModel(FAIRY_ID), aiVector3D(1,1,1), 10));
+	player = std::make_shared<PlayerObject>(PlayerObject(0, 0, -5, ModelRepository::getModel(FAIRY_ID), aiVector3D(1,1,1), 10));
 	objects.push_back(std::shared_ptr<GameObject>(player));
 
 	UIText.push_back("LIVES: ");
@@ -189,12 +190,16 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 		player->incrZSpeed(-1.);
 		break;*/
 	case 8: // backspace
+
+		//reset a series of parameters before pausing the game
 		player->resetXSpeed();
 		aKeyPressed = false;
 		aKeyPressed = false;
 		leftArrowPressed = false;
 		rightArrowPressed = false;
+		lastYvalid = false;
 		player->setShooting(false);
+
 		game->pushState(State::PAUSE);
 		break;
 	case 'a': case 'A':
@@ -319,6 +324,39 @@ void PlayingState::handleSpecialInputUp(int key, int x, int y) {
 
 	if (!aKeyPressed && !dKeyPressed && !leftArrowPressed && !rightArrowPressed) {
 		player->setInputRecorded(false);
+	}
+}
+
+
+void PlayingState::mouse(int button, int state, int x, int y) {
+	switch (button) {
+	case GLUT_LEFT_BUTTON:
+		if (state == GLUT_DOWN) {
+			mouseLastY = y;
+			lastYvalid = true;
+		}
+
+		else if (state == GLUT_UP) {
+			lastYvalid = false;
+		}
+		break;
+	default:
+		break;
+	}
+
+}
+
+void PlayingState::activeMouseMotion(int x, int y) {
+
+	if (lastYvalid) {
+		if (y > mouseLastY) {
+			incrCameraAngle(1);
+		}
+		else if (y < mouseLastY) {
+			incrCameraAngle(-1);
+		}
+
+		mouseLastY = y;
 	}
 }
 
@@ -473,7 +511,6 @@ void PlayingState::spawnNewGround(){
 	std::shared_ptr<ShapeObject> rborder;
 	std::shared_ptr<ShapeObject> linv;
 	std::shared_ptr<ShapeObject> rinv;
-	std::list<std::shared_ptr<CollectibleObject>> newCollectibles;
 
 	//ground default position
 	float newX = 0;
@@ -505,14 +542,12 @@ void PlayingState::spawnNewGround(){
 	lborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(SHELF_LBORDER_ID)));
 	lborder->incrZSpeed(-1);
 	objects.push_back(std::shared_ptr<GameObject>(lborder));
-	//collidables.push_back(std::shared_ptr<ShapeObject>(lborder));
 
 	rborder = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(SHELF_RBORDER_ID)));
 	rborder->incrZSpeed(-1);
 	objects.push_back(std::shared_ptr<GameObject>(rborder));
-	//collidables.push_back(std::shared_ptr<ShapeObject>(rborder));
 
-		//invisible walls
+	//invisible walls
 	linv = std::make_shared<ShapeObject>(ShapeObject(newX, newY, newZ, ModelRepository::getModel(LINVISIBLE_WALL_ID)));
 	linv->incrZSpeed(-1);
 	collidables.push_back(std::shared_ptr<ShapeObject>(linv));
@@ -521,31 +556,7 @@ void PlayingState::spawnNewGround(){
 	rinv->incrZSpeed(-1);
 	collidables.push_back(std::shared_ptr<ShapeObject>(rinv));
 
-	/*newCollectibles = collectibleSpawner.getCollectibles(aiVector3D(player->getPosx(), player->getPosy(), player->getPosz()), aiVector3D(new_ground->getPosx(), new_ground->getPosy(), new_ground->getPosz()), considerPlayerPos);
-
-	for (std::shared_ptr<CollectibleObject> coll : newCollectibles) {
-		collectibles.push_back(coll);
-	}*/
 	grounds.push_back(GroundStruct(new_ground, lborder, rborder, linv, rinv));
-}
-
-void PlayingState::mouse(int button, int state, int x, int y) {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		mouseLastY = y;
-	}
-}
-
-void PlayingState::activeMouseMotion(int x, int y) {
-
-	if (y > mouseLastY) {
-		incrCameraAngle(1);
-	}
-	else if (y < mouseLastY) {
-		incrCameraAngle(-1);
-	}
-		
-		//setCamera();
-		mouseLastY = y;
 }
 
 void PlayingState::deleteGround(GroundStruct ground)

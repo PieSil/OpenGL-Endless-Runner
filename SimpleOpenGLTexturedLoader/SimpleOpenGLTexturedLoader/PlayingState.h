@@ -24,6 +24,7 @@ struct GroundStruct {
         this->rborder = rborder;
         this->linvisible = linvisible;
         this->rinvisible = rinvisible;
+  
     }
 
     std::shared_ptr<ShapeObject> ground;
@@ -70,6 +71,7 @@ private:
     bool dKeyPressed;
     bool leftArrowPressed;
     bool rightArrowPressed;
+    bool lastYvalid;
     float mouseLastY;
 };
 

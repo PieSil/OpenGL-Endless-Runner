@@ -69,6 +69,7 @@ static const int INITIAL_GAME_SPEED = 10;
 static const int INITIAL_WIDTH = 900;
 static const int INITIAL_HEIGHT = 600;
 static const float BASE_CAMERA_ANGLE = 60; //0;
+static const int MAX_SPEED = (2 * 25) + 10;
 
 //directories
 static const std::string SCORE_DIR = "scores";
