@@ -4,6 +4,8 @@
 std::shared_ptr<AudioPlayer> AudioPlayer::instance(nullptr);
 
 AudioPlayer::AudioPlayer() {
+
+    //load and play all sounds in constructor, this way it won't load files again during program execution
     soundEngine = createIrrKlangDevice();
     soundEngine->addSoundSourceFromFile(SUBWAY_BACK.c_str(), ESM_AUTO_DETECT, true);
     soundEngine->play2D(SUBWAY_BACK.c_str());

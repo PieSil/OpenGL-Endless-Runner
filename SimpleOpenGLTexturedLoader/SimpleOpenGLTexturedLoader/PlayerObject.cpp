@@ -37,6 +37,9 @@ void PlayerObject::update() {
 		if (flightPowerElapsed >= FLIGHT_DURATION) {
 			setFlightActive(false);
 			flightPowerElapsed = 0;
+			if (!onGround) {
+				setInputRecorded(false);
+			}
 		}
 	}
 

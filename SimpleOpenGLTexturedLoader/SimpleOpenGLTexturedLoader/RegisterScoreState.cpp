@@ -15,13 +15,11 @@ void RegisterScoreState::handleInput(unsigned char key, int x, int y){
 		Context::getContext()->deletePlayerNameChar();
 		break;
 	case 13: //enter
-		//FileManager::getInstance()->openFile(SCORE_DIR, SCORE_FILENAME);
 		if (!Context::getContext()->getPlayerName().empty()) {
 			FileManager::getInstance()->writeScore(Context::getContext()->getPlayerName(), Context::getContext()->getScore(), SCORE_DIR, SCORE_FILENAME);
-			//FileManager::getInstance()->closeFile();
 			AudioPlayer::playSound(CLICK_SOUND);
 			game->setAndPushState(State::MENU, State::LEADERBOARD); //first set the state to menu
-			//game->pushState(State::LEADERBOARD); //then also push leaderboard so that it is displayed straight away 
+																    //then also push leaderboard so that it is displayed straight away 
 		}
 		break;
 	case 32: //spacebar
@@ -83,9 +81,6 @@ void RegisterScoreState::display()
 	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth / 2.f);
 	posY = Context::getContext()->getRelativeWindowY(3/5.f, -FONT_HEIGHT / 2.f);
-	//float textBoxTargetWidth = Context::getContext()->getWidth() * .5; //make text box large as 50% of window
-	//xScale = Context::getContext()->getScaleForTarget(textBoxTargetWidth, max->x - min->x);
-	//yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 50, max->y - min->y);
 
 	glEnable(GL_LIGHTING);
 	backgroundModel->display(posX - textWidth * .5, posY + FONT_HEIGHT / 2.f, 0, aiVector3D(xScale, yScale, 1));

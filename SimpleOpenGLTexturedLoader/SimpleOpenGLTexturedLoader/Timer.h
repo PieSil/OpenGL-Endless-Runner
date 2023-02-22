@@ -14,38 +14,22 @@ public:
 	static Timer* getTimer();
 
 	double getElapsed() {
-		//std::cout << "Elapsed time: " << elapsedTime.count() << " millis\n";
 		//RETURNS ELAPSED TIME IN SECONDS
 		return elapsedTime.count()/1000;
-		//double elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(elapsedTime).count();
-		//double intElapsed = double(elapsed / 1000000);
-		//std::cout << "Output elapsed: " << intElapsed << "\n";
-		//return intElapsed;
-		//std::cout << "Elapsed: " << elapsedTime / 1000 << " millis \n";
-
-		
-		//return elapsedTime/1000;
 
 	}
 
 
 	void updateElapsed();
-	void start();
-	void end();
 
 private:
 
 	explicit Timer(); //private constructor, enables Singleton pattern, cannot have more than one instance of Timer at a time
-	//double elapsedTime;
-	//double totalTime;
 	static std::shared_ptr<Timer> timerInstance;
-	//std::chrono::system_clock clock;
-	//std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
+
 	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> currentTime;
 	std::chrono::time_point<std::chrono::steady_clock, std::chrono::duration<double>> totalTime;
 	std::chrono::duration<double, std::milli> elapsedTime;
-	//double elapsedTime;
-	//double totalTime;
 
 };
 

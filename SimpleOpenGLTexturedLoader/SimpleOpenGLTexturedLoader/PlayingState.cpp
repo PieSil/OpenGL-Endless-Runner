@@ -45,17 +45,6 @@ PlayingState::PlayingState(GameLogic* game) : GameState(game, true, SUBWAY_BACK)
 
 	UIText.push_back("LIVES: ");
 
-
-	////test cube
-	//std::shared_ptr<ShapeObject> test_cube = std::make_shared<ShapeObject>(ShapeObject(0, 0, -10, std::make_shared<AssimpModel>(AssimpModel(TEST_SPHERE_ID))));
-	//objects.push_back(std::shared_ptr<GameObject>(test_cube));
-	//collidables.push_back(std::shared_ptr<ShapeObject>(test_cube));
-	
-	//create sample collectibles
-	/*collectibles.push_back(std::make_shared<CollectibleObject>(CollectibleObject(0, 0, 5, std::make_shared<AssimpModel>(AssimpModel(POINT_SPHERE_ID)), COL_SPEED, CollectibleBehaviour::POINT)));
-	collectibles.push_back(std::make_shared<CollectibleObject>(CollectibleObject(2, 0, 12, std::make_shared<AssimpModel>(AssimpModel(SPIKEBALL_ID)), COL_SPEED, CollectibleBehaviour::DAMAGE)));
-	collectibles.push_back(std::make_shared<CollectibleObject>(CollectibleObject(-2, 0, 12, std::make_shared<AssimpModel>(AssimpModel(POWER1_ID)), COL_SPEED, CollectibleBehaviour::POWERUP1)));*/
-
 	for (auto coll : collectibles) {
 		coll->incrZSpeed(-1);
 	}
@@ -224,9 +213,10 @@ void PlayingState::handleInput(unsigned char key, int x, int y) {
 		break;
 	case 32: //spacebar
 		if (player->isOnGround()) {
-			player->setInputRecorded(false);
-			if(!player->isFlightActive())
+			if (!player->isFlightActive()) {
+				player->setInputRecorded(false);
 				player->resetXSpeed();
+			}
 			player->setJumpSpeed(25);
 			player->setOnGround(false);
 		}

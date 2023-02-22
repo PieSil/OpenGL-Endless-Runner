@@ -110,6 +110,8 @@ void ScoreViewerState::display() {
 		output(posX, posY, out);
 	}
 
+
+	//display final message
 	out = "Press [ENTER] to get back to menu";
 	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);

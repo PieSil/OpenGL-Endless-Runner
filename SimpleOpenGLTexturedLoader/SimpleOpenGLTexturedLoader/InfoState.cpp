@@ -7,7 +7,6 @@ InfoState::InfoState(GameLogic* game) : GameState(game, false, FAIRY_BACKGROUND)
 }
 
 void InfoState::display() {
-	//WARNING: ugliest code I've written my whole life
 
 	GameState::drawBackground();
 	glDisable(GL_DEPTH_TEST);
@@ -167,6 +166,8 @@ void InfoState::display() {
 	out = "or shoot them to earn points.";
 	output(posX, posY, out);
 
+
+	//print pause controls
 	out = "Press [BACKSPACE] anytime to pause the game.";
 	posX = leftX;
 	posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
@@ -175,6 +176,8 @@ void InfoState::display() {
 	glDisable(GL_LIGHTING);
 	output(posX, posY, out);
 
+
+	//print final message
 	out = "Press [ENTER] when you are ready to start.";
 	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
 	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
@@ -186,81 +189,6 @@ void InfoState::display() {
 	model->display(modelX, posY - 3 + FONT_HEIGHT / 2.f, 0, aiVector3D(scaleX, scaleY, 1));
 	glDisable(GL_LIGHTING);
 	output(posX, posY, out);
-
-
-
-	////show leaderbord headline
-	//out = TOP5_STRING;
-	//float textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
-
-	//float posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-	//float posY = Context::getContext()->getRelativeWindowY(1 / 10.f);
-
-	////get x and y scale factors based on text size
-	//float xScale = Context::getContext()->getScaleForTarget(textWidth + 30, max->x - min->x);
-	//float yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
-
-	////show leaderboard
-	//glEnable(GL_LIGHTING);
-	//backgroundModel->display(posX - textWidth * .5, posY + FONT_HEIGHT / 2.f, 0, aiVector3D(xScale, yScale, 1));
-	//glDisable(GL_LIGHTING);
-	//output(posX, posY, out);
-	//int i;
-	//for (i = 0; i < 5; i++) {
-	//	try {
-	//		out = scores.at(i).first + ": " + std::to_string(scores.at(i).second);
-	//	}
-	//	catch (const std::out_of_range& e) {
-	//		out = DEFAULT_STRING;
-	//	}
-	//	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
-	//	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-	//	posY = Context::getContext()->getRelativeWindowY((2 + i) / 10.f);
-	//	//get x and y scale factors based on text size
-	//	xScale = Context::getContext()->getScaleForTarget(textWidth + 30, max->x - min->x);
-	//	yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
-
-	//	glEnable(GL_LIGHTING);
-	//	backgroundModel->display(posX - textWidth * .5, posY + FONT_HEIGHT / 2.f, 0, aiVector3D(xScale, yScale, 1));
-	//	glDisable(GL_LIGHTING);
-	//	output(posX, posY, out);
-	//}
-
-
-	//if (Context::getContext()->getPlayerName().size() != 0) {
-	//	backgroundModel = (ModelRepository::getModel(EMPTY_YELLOW));
-	//	backgroundModel->getHitbox(min, max);
-
-	//	//show score headline
-	//	out = YOUR_SCORE_STRING;
-	//	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
-	//	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-	//	posY = Context::getContext()->getRelativeWindowY(8 / 10.f);
-	//	xScale = Context::getContext()->getScaleForTarget(textWidth + 30, max->x - min->x);
-	//	yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
-	//	glColor3f(0, 0, 0);
-
-	//	//show player score
-	//	glEnable(GL_LIGHTING);
-	//	backgroundModel->display(posX - textWidth * .5, posY + FONT_HEIGHT / 2.f, 0, aiVector3D(xScale, yScale, 1));
-	//	glDisable(GL_LIGHTING);
-	//	output(posX, posY, out);
-
-	//	//print player score
-	//	out = Context::getContext()->getPlayerName() + ": ";
-	//	out += std::to_string(Context::getContext()->getScore());
-	//	textWidth = glutBitmapLength(FONT, (unsigned char*)out.c_str());
-	//	posX = Context::getContext()->getRelativeWindowX(.5, -textWidth * .5);
-	//	posY = Context::getContext()->getRelativeWindowY(9 / 10.f);
-	//	xScale = Context::getContext()->getScaleForTarget(textWidth + 30, max->x - min->x);
-	//	yScale = Context::getContext()->getScaleForTarget(FONT_HEIGHT + 20, max->y - min->y);
-	//	output(posX, posY, out.c_str());
-
-	//	glEnable(GL_LIGHTING);
-	//	backgroundModel->display(posX - textWidth * .5, posY + FONT_HEIGHT / 2.f, 0, aiVector3D(xScale, yScale, 1));
-	//	glDisable(GL_LIGHTING);
-	//	output(posX, posY, out);
-	//}
 
 	glEnable(GL_LIGHTING);
 	GameState::display();
