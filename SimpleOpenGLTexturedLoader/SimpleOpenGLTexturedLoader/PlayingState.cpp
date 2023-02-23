@@ -376,10 +376,9 @@ void PlayingState::checkCollisions() {
 		Hitbox collidableHitbox(*currentMin, *currentMax);
 
 		if (bboxIntersection(playerHitbox, collidableHitbox)) {
-			printf("Player colliding with an object\n");
 			//Collision detected, manage collision
 
-			//leave like this for now, elaborate collision resolution only if needed
+			//revert movement along X and Z axis
 			player->revertMovement(true, false, true);
 		}
 
@@ -434,7 +433,6 @@ void PlayingState::checkCollisions() {
 			if (bboxIntersection(playerHitbox, collectibleHitbox))  {
 				//if a collision is detected apply the collectible effect to player, then erase the collectible
 				//collIterator MUST NOT be updated during this iteration
-				printf("Player collided with collectible\n");
 				if ((*collIterator)->applyEffect(player.get())) {
 					collIterator = collectibles.erase(collIterator);
 					collisionDetected = true;
@@ -569,7 +567,7 @@ void PlayingState::deleteGround(GroundStruct ground)
 	while (!collidables.empty() && collIterator != collidables.end()) {
 
 		//check if pointers in ground struct and pointers in current position match, if so delete pointer from collidables
-		if (/*ground.lborder.get() == (*collIterator).get() || ground.rborder.get() == (*collIterator).get() ||*/ ground.linvisible.get() == (*collIterator).get() || ground.rinvisible.get() == (*collIterator).get()) {
+		if (ground.linvisible.get() == (*collIterator).get() || ground.rinvisible.get() == (*collIterator).get()) {
 			collIterator = collidables.erase(collIterator);
 		}
 		else {
@@ -657,7 +655,6 @@ void PlayingState::displayUI() {
 	//draw hearts
 	float scaleFactor = Context::getContext()->getScaleFactor();
 	std::shared_ptr<Model> heart = ModelRepository::getModel(HEART_ID);
-	//glBegin(GL_POLYGON);
 	glPushMatrix();
 	glScalef(1 / scaleFactor, 1 / scaleFactor, 1 / scaleFactor);
 	yPos = (Context::getContext()->getHeight() * scaleFactor / 2.f) - 20 * scaleFactor; //defines an offest along y-axis from the top border of the window
